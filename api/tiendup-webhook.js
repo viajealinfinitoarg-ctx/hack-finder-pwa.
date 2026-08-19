@@ -1,4 +1,4 @@
-// api/tiendup-webhook.js
+/ api/tiendup-webhook.js
 //
 // Este archivo se despliega solo en Vercel como una "función serverless" —
 // no es parte de la app que ve el usuario, es un endpoint que corre en el
@@ -109,7 +109,8 @@ module.exports = async function handler(req, res) {
       body: JSON.stringify({
         id: userId,
         email,
-        has_access: true,
+        role: "premium",
+        origen_acceso: "compra",
         purchased_at: new Date().toISOString(),
       }),
     });
