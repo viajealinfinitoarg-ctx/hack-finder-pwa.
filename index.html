@@ -195,6 +195,11 @@ footer a{color:var(--dorado2)}
 #glossary-sheet{position:fixed;left:0;right:0;bottom:0;z-index:301;background:var(--negro2);border-radius:28px 28px 0 0;padding:14px 22px 32px;transform:translateY(100%);transition:transform .4s var(--spring);max-width:640px;margin:0 auto}
 #glossary-overlay.open #glossary-sheet{transform:translateY(0)}
 
+#cuenta-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:300;display:none;opacity:0;transition:opacity .25s var(--ease)}
+#cuenta-overlay.open{display:block;opacity:1}
+#cuenta-sheet{position:fixed;left:0;right:0;bottom:0;z-index:301;background:var(--negro2);border-radius:28px 28px 0 0;padding:14px 22px 32px;transform:translateY(100%);transition:transform .4s var(--spring);max-width:640px;margin:0 auto}
+#cuenta-overlay.open #cuenta-sheet{transform:translateY(0)}
+
 /* Menu de lista de terminos, con buscador, se abre desde el tab "Glosario" */
 #glossary-list-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:280;display:none;opacity:0;transition:opacity .25s var(--ease)}
 #glossary-list-overlay.open{display:block;opacity:1}
@@ -315,6 +320,7 @@ footer a{color:var(--dorado2)}
     <symbol id="icon-bookmark" viewBox="0 0 24 24"><path d="M6 3.5h12a1 1 0 011 1V21l-7-4.5L5 21V4.5a1 1 0 011-1z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/></symbol>
     <symbol id="icon-bookmark-filled" viewBox="0 0 24 24"><path d="M6 3.5h12a1 1 0 011 1V21l-7-4.5L5 21V4.5a1 1 0 011-1z" fill="currentColor"/></symbol>
     <symbol id="icon-share" viewBox="0 0 24 24"><path d="M12 3v13M7 8l5-5 5 5M5 15v4a2 2 0 002 2h10a2 2 0 002-2v-4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M4.5 20c1.5-4 4.5-6 7.5-6s6 2 7.5 6" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></symbol>
   </defs>
 </svg>
 
@@ -423,6 +429,18 @@ footer a{color:var(--dorado2)}
   </div>
 </div>
 
+<!-- MI CUENTA -->
+<div id="cuenta-overlay">
+  <div id="cuenta-sheet">
+    <div class="gsheet-handle"></div>
+    <span class="gsheet-tag" id="cuenta-plan-tag">Plan</span>
+    <div class="gsheet-titulo" id="cuenta-email">—</div>
+    <div class="gsheet-texto" id="cuenta-detalle">—</div>
+    <button class="gsheet-close" id="cuenta-cerrar-sesion" style="background:transparent;border:1.5px solid var(--gris2);color:var(--gris);margin-bottom:10px">Cerrar sesión</button>
+    <button class="gsheet-close" id="cuenta-close">Cerrar</button>
+  </div>
+</div>
+
 <div id="install-banner">
   <img class="install-icon" src="icons/icon-192.png" alt="">
   <div class="install-texto">
@@ -435,9 +453,9 @@ footer a{color:var(--dorado2)}
 
 <!-- BOTTOM TAB BAR -->
 <nav id="tabbar">
-  <div class="tab active"><svg class="icon" width="21" height="21"><use href="#icon-search"/></svg><span class="tab-label">Buscar</span></div>
+  <div class="tab active" id="tab-buscar"><svg class="icon" width="21" height="21"><use href="#icon-search"/></svg><span class="tab-label">Buscar</span></div>
   <div class="tab" id="tab-glosario"><svg class="icon" width="21" height="21"><use href="#icon-book"/></svg><span class="tab-label">Glosario</span></div>
-  <div class="tab" onclick="window.open('#','_blank')"><svg class="icon" width="21" height="21"><use href="#icon-star"/></svg><span class="tab-label">Manual</span></div>
+  <div class="tab" id="tab-cuenta"><svg class="icon" width="21" height="21"><use href="#icon-user"/></svg><span class="tab-label">Mi cuenta</span></div>
 </nav>
 
 <script>
@@ -534,6 +552,34 @@ document.getElementById("tab-glosario").addEventListener("click", () => {
   glistSearch.value = "";
   renderGlosarioLista("");
   glistOverlay.classList.add("open");
+});
+
+// "Buscar" — sube al inicio y abre el buscador, para arrancar una
+// búsqueda nueva desde cualquier parte del scroll.
+document.getElementById("tab-buscar").addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  setTimeout(() => sheetOverlay.classList.add("open"), 350);
+});
+
+// "Mi cuenta" — muestra mail y plan, y deja cerrar sesión.
+const cuentaOverlay = document.getElementById("cuenta-overlay");
+const ETIQUETAS_PLAN = { free: "Free", premium: "Premium", admin: "Admin" };
+document.getElementById("tab-cuenta").addEventListener("click", () => {
+  if (!usuarioActual) return;
+  const planLabel = ETIQUETAS_PLAN[usuarioActual.role] || usuarioActual.role;
+  document.getElementById("cuenta-plan-tag").textContent = `Plan ${planLabel}`;
+  document.getElementById("cuenta-email").textContent = usuarioActual.email;
+  document.getElementById("cuenta-detalle").textContent =
+    usuarioActual.role === "admin"
+      ? "Tenés acceso total como administrador."
+      : "Tu cuenta tiene acceso completo a Hack Finder.";
+  cuentaOverlay.classList.add("open");
+});
+document.getElementById("cuenta-close").addEventListener("click", () => cuentaOverlay.classList.remove("open"));
+cuentaOverlay.addEventListener("click", (e) => { if (e.target.id === "cuenta-overlay") cuentaOverlay.classList.remove("open"); });
+document.getElementById("cuenta-cerrar-sesion").addEventListener("click", async () => {
+  await sb.auth.signOut();
+  window.location.reload();
 });
 
 glistItems.addEventListener("click", (e) => {
