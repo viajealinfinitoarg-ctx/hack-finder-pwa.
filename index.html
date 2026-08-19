@@ -1085,17 +1085,31 @@ async function confirmarCodigo() {
 }
 
 // Chequea si el usuario logueado tiene acceso activo (tabla profiles)
+// Datos del usuario logueado, una vez confirmado el acceso — útil
+// para lo que viene después (mostrar cosas distintas según el plan).
+let usuarioActual = null;
+
 async function verificarAcceso(user) {
   const { data, error } = await sb
     .from("profiles")
-    .select("has_access")
+    .select("role, premium_expira_en")
     .eq("id", user.id)
     .maybeSingle();
 
-  if (error || !data || !data.has_access) {
+  if (error || !data) {
     mostrarPaso("noaccess");
     return false;
   }
+
+  const premiumVencido = data.premium_expira_en && new Date(data.premium_expira_en) < new Date();
+  const tieneAcceso = data.role === "admin" || (data.role === "premium" && !premiumVencido);
+
+  if (!tieneAcceso) {
+    mostrarPaso("noaccess");
+    return false;
+  }
+
+  usuarioActual = { id: user.id, email: user.email, role: data.role };
   // Acceso confirmado: ocultar el gate y dejar pasar a la app
   authGate.classList.add("hidden");
   return true;
