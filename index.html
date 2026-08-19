@@ -200,6 +200,15 @@ footer a{color:var(--dorado2)}
 #cuenta-sheet{position:fixed;left:0;right:0;bottom:0;z-index:301;background:var(--negro2);border-radius:28px 28px 0 0;padding:14px 22px 32px;transform:translateY(100%);transition:transform .4s var(--spring);max-width:640px;margin:0 auto}
 #cuenta-overlay.open #cuenta-sheet{transform:translateY(0)}
 
+#admin-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:300;display:none;opacity:0;transition:opacity .25s var(--ease)}
+#admin-overlay.open{display:block;opacity:1}
+#admin-sheet{position:fixed;left:0;right:0;bottom:0;z-index:301;background:var(--negro2);border-radius:28px 28px 0 0;padding:14px 22px 32px;transform:translateY(100%);transition:transform .4s var(--spring);max-width:640px;margin:0 auto;max-height:80vh;display:flex;flex-direction:column}
+#admin-overlay.open #admin-sheet{transform:translateY(0)}
+.admin-user-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 4px;border-bottom:1px solid var(--gris2)}
+.admin-user-email{font-size:14px;font-weight:600;color:var(--blanco2);word-break:break-all}
+.admin-user-meta{font-size:11px;color:var(--gris);margin-top:2px}
+.admin-role-select{flex-shrink:0;background:var(--negro3);border:1.5px solid var(--gris2);border-radius:var(--r-pill);color:var(--blanco2);font-size:12.5px;font-weight:700;padding:7px 10px}
+
 /* Menu de lista de terminos, con buscador, se abre desde el tab "Glosario" */
 #glossary-list-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:280;display:none;opacity:0;transition:opacity .25s var(--ease)}
 #glossary-list-overlay.open{display:block;opacity:1}
@@ -321,6 +330,7 @@ footer a{color:var(--dorado2)}
     <symbol id="icon-bookmark-filled" viewBox="0 0 24 24"><path d="M6 3.5h12a1 1 0 011 1V21l-7-4.5L5 21V4.5a1 1 0 011-1z" fill="currentColor"/></symbol>
     <symbol id="icon-share" viewBox="0 0 24 24"><path d="M12 3v13M7 8l5-5 5 5M5 15v4a2 2 0 002 2h10a2 2 0 002-2v-4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="icon-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M4.5 20c1.5-4 4.5-6 7.5-6s6 2 7.5 6" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/><path d="M9 12l2 2 4-4.5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   </defs>
 </svg>
 
@@ -441,6 +451,17 @@ footer a{color:var(--dorado2)}
   </div>
 </div>
 
+<!-- PANEL DE ADMIN -->
+<div id="admin-overlay">
+  <div id="admin-sheet">
+    <div class="gsheet-handle"></div>
+    <div class="glist-titulo">Usuarios</div>
+    <input type="text" id="admin-search-input" class="glist-search" placeholder="Buscar por mail...">
+    <div id="admin-estado" style="font-size:12.5px;color:var(--gris);margin-bottom:10px"></div>
+    <div class="glist-items" id="admin-items"></div>
+  </div>
+</div>
+
 <div id="install-banner">
   <img class="install-icon" src="icons/icon-192.png" alt="">
   <div class="install-texto">
@@ -456,6 +477,7 @@ footer a{color:var(--dorado2)}
   <div class="tab active" id="tab-buscar"><svg class="icon" width="21" height="21"><use href="#icon-search"/></svg><span class="tab-label">Buscar</span></div>
   <div class="tab" id="tab-glosario"><svg class="icon" width="21" height="21"><use href="#icon-book"/></svg><span class="tab-label">Glosario</span></div>
   <div class="tab" id="tab-cuenta"><svg class="icon" width="21" height="21"><use href="#icon-user"/></svg><span class="tab-label">Mi cuenta</span></div>
+  <div class="tab" id="tab-admin" style="display:none"><svg class="icon" width="21" height="21"><use href="#icon-shield"/></svg><span class="tab-label">Admin</span></div>
 </nav>
 
 <script>
@@ -580,6 +602,92 @@ cuentaOverlay.addEventListener("click", (e) => { if (e.target.id === "cuenta-ove
 document.getElementById("cuenta-cerrar-sesion").addEventListener("click", async () => {
   await sb.auth.signOut();
   window.location.reload();
+});
+
+// ============================================================
+// PANEL DE ADMIN — lista de usuarios, buscador, cambio de plan
+// ============================================================
+let todosLosUsuarios = [];
+const adminOverlay = document.getElementById("admin-overlay");
+const adminItems = document.getElementById("admin-items");
+const adminSearch = document.getElementById("admin-search-input");
+const adminEstado = document.getElementById("admin-estado");
+const ETIQUETAS_ORIGEN = { compra: "Compra", manual: "Otorgado a mano" };
+
+async function cargarUsuariosAdmin() {
+  adminEstado.textContent = "Cargando usuarios...";
+  const { data, error } = await sb
+    .from("profiles")
+    .select("id, email, role, origen_acceso, purchased_at, created_at")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    adminEstado.textContent = "No se pudo cargar la lista. Probá de nuevo en un momento.";
+    return;
+  }
+  todosLosUsuarios = data || [];
+  adminEstado.textContent = `${todosLosUsuarios.length} usuario${todosLosUsuarios.length === 1 ? "" : "s"} en total`;
+  renderUsuariosAdmin("");
+}
+
+function renderUsuariosAdmin(query) {
+  const q = query.trim().toLowerCase();
+  const filtrados = todosLosUsuarios.filter((u) => !q || u.email.toLowerCase().includes(q));
+
+  if (filtrados.length === 0) {
+    adminItems.innerHTML = `<div class="glist-empty">No encontramos ningún usuario con ese mail.</div>`;
+    return;
+  }
+
+  adminItems.innerHTML = filtrados
+    .map(
+      (u) => `
+    <div class="admin-user-row">
+      <div>
+        <div class="admin-user-email">${u.email}</div>
+        <div class="admin-user-meta">${ETIQUETAS_ORIGEN[u.origen_acceso] || "—"}</div>
+      </div>
+      <select class="admin-role-select" data-id="${u.id}">
+        <option value="free" ${u.role === "free" ? "selected" : ""}>Free</option>
+        <option value="premium" ${u.role === "premium" ? "selected" : ""}>Premium</option>
+        <option value="admin" ${u.role === "admin" ? "selected" : ""}>Admin</option>
+      </select>
+    </div>`
+    )
+    .join("");
+}
+
+document.getElementById("tab-admin").addEventListener("click", () => {
+  adminSearch.value = "";
+  adminOverlay.classList.add("open");
+  cargarUsuariosAdmin();
+});
+adminOverlay.addEventListener("click", (e) => { if (e.target.id === "admin-overlay") adminOverlay.classList.remove("open"); });
+adminSearch.addEventListener("input", () => renderUsuariosAdmin(adminSearch.value));
+
+adminItems.addEventListener("change", async (e) => {
+  const select = e.target.closest(".admin-role-select");
+  if (!select) return;
+  const id = select.dataset.id;
+  const usuario = todosLosUsuarios.find((u) => u.id === id);
+  const nuevoRole = select.value;
+
+  // Dar admin es sensible — pedimos confirmación extra antes de aplicarlo
+  if (nuevoRole === "admin" && !confirm(`¿Seguro que querés darle permisos de administrador a ${usuario.email}? Va a poder ver y modificar todos los usuarios.`)) {
+    select.value = usuario.role;
+    return;
+  }
+
+  select.disabled = true;
+  const { error } = await sb.from("profiles").update({ role: nuevoRole }).eq("id", id);
+  select.disabled = false;
+
+  if (error) {
+    alert("No se pudo actualizar el plan. Probá de nuevo.");
+    select.value = usuario.role;
+    return;
+  }
+  usuario.role = nuevoRole;
 });
 
 glistItems.addEventListener("click", (e) => {
@@ -1156,6 +1264,11 @@ async function verificarAcceso(user) {
   }
 
   usuarioActual = { id: user.id, email: user.email, role: data.role };
+  // Si es admin, revelamos el ítem de Admin en la barra de abajo
+  // (para cualquier otro plan, ese botón ni existe)
+  if (data.role === "admin") {
+    document.getElementById("tab-admin").style.display = "flex";
+  }
   // Acceso confirmado: ocultar el gate y dejar pasar a la app
   authGate.classList.add("hidden");
   return true;
