@@ -153,6 +153,14 @@ select.ac-input{appearance:none;-webkit-appearance:none;background-image:url("da
 .res-ciudades{display:flex;justify-content:space-between;font-size:14px;color:var(--gris);margin-bottom:14px}
 .res-count{font-size:11.5px;font-weight:700;color:var(--dorado);background:var(--dorado-suave);display:inline-flex;border-radius:var(--r-pill);padding:6px 12px;letter-spacing:.3px}
 
+/* Número protagonista — el dato más importante de la búsqueda,
+   bien grande, igual que hacen las apps de vuelos de referencia.
+   Cambia según haya o no compensación aplicable. */
+.res-hero-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gris);margin-top:14px;margin-bottom:2px}
+.res-hero-value{font-family:'DM Sans',sans-serif;font-weight:900;font-size:56px;line-height:1;letter-spacing:-1.5px;color:var(--blanco);font-variant-numeric:tabular-nums}
+.res-hero-value.dorado{color:var(--dorado)}
+.res-hero-unit{font-size:20px;font-weight:700;color:var(--gris);margin-left:6px}
+
 .card{position:relative;background:var(--negro2);border-radius:var(--r-lg);padding:22px;margin-bottom:16px;opacity:0;transform:translateY(14px);animation:cardIn .5s var(--spring) forwards;box-shadow:0 10px 28px rgba(0,0,0,.28)}
 @keyframes cardIn{to{opacity:1;transform:translateY(0)}}
 
@@ -838,6 +846,15 @@ function renderResultados(origenCod, destinoCod, escalaCod, aerolineaV){
   document.getElementById("search-pill-titulo").textContent = `${origenCod} → ${destinoCod}`;
   document.getElementById("search-pill-sub").textContent = `${origen.city} a ${destino.city}`;
 
+  // Dato protagonista: compensación si aplica, si no los km.
+  // Se evalúa en orden de prioridad -- fácil de sumar un caso nuevo
+  // el día de mañana (ej: una alerta) sin tocar el resto.
+  const reglasHero = [
+    { aplica: aplicaEC261, valor: `€${compensacion}`, unidad: null, etiqueta: "Podrías reclamar por demora", dorado: true },
+    { aplica: true, valor: km.toLocaleString('es-AR'), unidad: "KM", etiqueta: "Distancia de tu ruta", dorado: false },
+  ];
+  const hero = reglasHero.find(r => r.aplica);
+
   let html = `<div class="res-header" id="res-header" style="animation-delay:0ms">
       <div class="res-flightrow">
         <span class="res-code">${origenCod}</span>
@@ -845,7 +862,9 @@ function renderResultados(origenCod, destinoCod, escalaCod, aerolineaV){
         <span class="res-code">${destinoCod}</span>
       </div>
       <div class="res-ciudades"><span>${origen.flag} ${origen.city}</span><span>${destino.flag} ${destino.city}</span></div>
-      <div class="res-count">${km.toLocaleString('es-AR')} KM</div>
+      <div class="res-hero-label">${hero.etiqueta}</div>
+      <div class="res-hero-value${hero.dorado ? ' dorado' : ''}">${hero.valor}${hero.unidad ? `<span class="res-hero-unit">${hero.unidad}</span>` : ''}</div>
+      ${aplicaEC261 ? `<div class="res-count" style="margin-top:14px">${km.toLocaleString('es-AR')} KM</div>` : ''}
       <div class="res-actions">
         <button class="res-action-btn" id="btn-guardar-ruta"><svg class="icon" width="14" height="14"><use href="#icon-bookmark"/></svg><span id="btn-guardar-label">Guardar ruta</span></button>
         <button class="res-action-btn" id="btn-compartir-ruta"><svg class="icon" width="14" height="14"><use href="#icon-share"/></svg>Compartir</button>
