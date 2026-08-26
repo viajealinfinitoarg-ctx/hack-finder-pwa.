@@ -339,6 +339,7 @@ footer a{color:var(--dorado2)}
     <symbol id="icon-share" viewBox="0 0 24 24"><path d="M12 3v13M7 8l5-5 5 5M5 15v4a2 2 0 002 2h10a2 2 0 002-2v-4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="icon-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M4.5 20c1.5-4 4.5-6 7.5-6s6 2 7.5 6" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></symbol>
     <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/><path d="M9 12l2 2 4-4.5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-bed" viewBox="0 0 24 24"><path d="M3 19v-7a2 2 0 012-2h14a2 2 0 012 2v7M3 19v-3M21 19v-3M3 12V7a1 1 0 011-1h5a1 1 0 011 1v3" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   </defs>
 </svg>
 
@@ -538,6 +539,7 @@ sheetOverlay.addEventListener("click", (e) => { if(e.target.id === "search-sheet
 let AIRPORTS = {};
 let LOUNGES = {};
 let GLOSARIO = {};
+let STOPOVERS = [];
 
 function abrirGlosario(termKey){
   const t = GLOSARIO[termKey];
@@ -721,6 +723,7 @@ const AEROLINEAS = [
   {v:"gol",label:"GOL",eu:false},{v:"azul",label:"Azul",eu:false},
   {v:"arajet",label:"Arajet",eu:false},{v:"volaris",label:"Volaris",eu:false},
   {v:"plusultra",label:"Plus Ultra Líneas Aéreas",eu:true},{v:"world2fly",label:"World2Fly",eu:true},
+  {v:"turkish",label:"Turkish Airlines",eu:false},{v:"emirates",label:"Emirates",eu:false},
 ];
 document.getElementById("aerolinea").innerHTML = AEROLINEAS.map(a=>`<option value="${a.v}">${a.label}</option>`).join("");
 
@@ -874,6 +877,23 @@ function renderResultados(origenCod, destinoCod, escalaCod, aerolineaV){
   html += loungeCard(origenCod, "Sala VIP en tu origen", i++, "card-lounge");
   if(escalaCod) html += loungeCard(escalaCod, "Sala VIP en tu escala", i++);
   html += loungeCard(destinoCod, "Sala VIP en tu destino", i++);
+
+  // Programas de stopover -- solo si la aerolínea elegida tiene uno,
+  // y tu ruta pasa por su hub (origen, escala o destino)
+  const codigosRuta = [origenCod, escalaCod, destinoCod].filter(Boolean);
+  const programasAplicables = STOPOVERS.filter(s => s.aerolinea_v === aerolineaV && codigosRuta.includes(s.hub_code));
+  if (programasAplicables.length > 0) {
+    const hubCiudad = AIRPORTS[programasAplicables[0].hub_code]?.city || programasAplicables[0].hub_code;
+    html += `<div class="card" id="card-stopover" style="animation-delay:${i++*70}ms">
+      <div class="card-tag"><span class="card-tag-badge"><svg class="icon" width="15" height="15"><use href="#icon-bed"/></svg></span><span class="card-tag-label">Programa de stopover · ${hubCiudad}</span></div>
+      ${programasAplicables.map(p => `
+        <div class="card-titulo" style="font-size:16px">${p.nombre_programa}</div>
+        <p class="card-texto">${p.descripcion}</p>
+        ${p.condiciones ? `<p class="card-texto" style="color:var(--gris);font-size:13px">${p.condiciones}</p>` : ""}
+        <span class="card-costo" style="color:${p.tipo === "hotel_gratis" ? "var(--verde)" : "var(--dorado2)"};background:${p.tipo === "hotel_gratis" ? "rgba(111,162,111,0.12)" : "var(--dorado-suave)"}">${p.tipo === "hotel_gratis" ? "Hotel incluido" : "Estadía extendida"}</span>
+      `).join('<div style="height:16px"></div>')}
+    </div>`;
+  }
 
   const badgeScale = `<span class="card-tag-badge"><svg class="icon" width="15" height="15"><use href="#icon-scale"/></svg></span>`;
   if(aplicaEC261){
@@ -1129,16 +1149,17 @@ const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 // termina de loguearse, los datos ya están listos.
 // ============================================================
 async function cargarDatosDesdeSupabase() {
-  const [aeropuertosRes, salasRes, glosarioRes] = await Promise.all([
+  const [aeropuertosRes, salasRes, glosarioRes, stopoverRes] = await Promise.all([
     sb.from("airports").select("*"),
     sb.from("lounges").select("*"),
     sb.from("glossary_terms").select("*"),
+    sb.from("stopover_programs").select("*"),
   ]);
 
-  if (aeropuertosRes.error || salasRes.error || glosarioRes.error) {
+  if (aeropuertosRes.error || salasRes.error || glosarioRes.error || stopoverRes.error) {
     console.error(
       "Error cargando datos desde Supabase:",
-      aeropuertosRes.error || salasRes.error || glosarioRes.error
+      aeropuertosRes.error || salasRes.error || glosarioRes.error || stopoverRes.error
     );
     return false;
   }
@@ -1172,6 +1193,8 @@ async function cargarDatosDesdeSupabase() {
     glosarioNuevo[t.term_key] = { tag: t.tag, titulo: t.titulo, texto: t.texto };
   });
   GLOSARIO = glosarioNuevo;
+
+  STOPOVERS = stopoverRes.data || [];
 
   return true;
 }
