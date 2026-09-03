@@ -928,20 +928,30 @@ const SUPABASE_URL = "https://nycgcaqiplijkukwwegy.supabase.co";
 const SUPABASE_KEY = "sb_publishable_IhCjKfxFDqNgTwRzkrI22Q_epc4A71n";
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 async function cargarDatosDesdeSupabase() {
-  const [aeropuertosRes, salasRes, glosarioRes, stopoverRes, promosRes] = await Promise.all([
+  // Promise.allSettled en vez de Promise.all: si una tabla falla, no
+  // tira abajo a las demás -- cada resultado se procesa por separado.
+  const resultados = await Promise.allSettled([
     sb.from("airports").select("*"),
     sb.from("lounges").select("*"),
     sb.from("glossary_terms").select("*"),
     sb.from("stopover_programs").select("*"),
     sb.from("promos").select("*"),
   ]);
-  if (aeropuertosRes.error || salasRes.error || glosarioRes.error || stopoverRes.error || promosRes.error) {
+  const [aeropuertosRes, salasRes, glosarioRes, stopoverRes, promosRes] = resultados.map((r) =>
+    r.status === "fulfilled" ? r.value : { data: null, error: r.reason }
+  );
+
+  // Aeropuertos, salas VIP y glosario son el corazón de la app -- si
+  // alguno de estos tres falla, ahí sí no seguimos (no tendría
+  // sentido mostrar una app sin poder buscar nada).
+  if (aeropuertosRes.error || salasRes.error || glosarioRes.error) {
     console.error(
-      "Error cargando datos desde Supabase:",
-      aeropuertosRes.error || salasRes.error || glosarioRes.error || stopoverRes.error || promosRes.error
+      "Error cargando datos esenciales desde Supabase:",
+      aeropuertosRes.error || salasRes.error || glosarioRes.error
     );
     return false;
   }
+
   const aeropuertosNuevo = {};
   aeropuertosRes.data.forEach((a) => {
     aeropuertosNuevo[a.code] = {
@@ -954,6 +964,7 @@ async function cargarDatosDesdeSupabase() {
     };
   });
   AIRPORTS = aeropuertosNuevo;
+
   const salasNuevo = {};
   salasRes.data.forEach((s) => {
     if (!salasNuevo[s.airport_code]) salasNuevo[s.airport_code] = [];
@@ -964,13 +975,30 @@ async function cargarDatosDesdeSupabase() {
     });
   });
   LOUNGES = salasNuevo;
+
   const glosarioNuevo = {};
   glosarioRes.data.forEach((t) => {
     glosarioNuevo[t.term_key] = { tag: t.tag, titulo: t.titulo, texto: t.texto };
   });
   GLOSARIO = glosarioNuevo;
-  STOPOVERS = stopoverRes.data || [];
-  PROMOS = promosRes.data || [];
+
+  // Stopover y promos son secciones extra -- si alguna falla, la app
+  // sigue funcionando normal, esa sección puntual simplemente no
+  // aparece (en vez de romper todo lo demás).
+  if (stopoverRes.error) {
+    console.error("Error cargando stopover (no crítico):", stopoverRes.error);
+    STOPOVERS = [];
+  } else {
+    STOPOVERS = stopoverRes.data || [];
+  }
+
+  if (promosRes.error) {
+    console.error("Error cargando promos (no crítico):", promosRes.error);
+    PROMOS = [];
+  } else {
+    PROMOS = promosRes.data || [];
+  }
+
   return true;
 }
 const datosListosPromise = cargarDatosDesdeSupabase();
