@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 <title>Hack Finder — @viajealinfinit8</title>
-
-<!-- PWA -->
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#080808">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -14,7 +12,6 @@
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
@@ -26,8 +23,6 @@
   --blanco:#FFFFFF;--blanco2:#EDEAE1;
   --gris:#8C8C8C;--gris2:#2E2E2E;
   --verde:#6FA26F;
-  /* curva "spring" — misma familia que usa iOS/Airbnb para que el
-     movimiento se sienta con rebote suave, no lineal ni robótico */
   --spring:cubic-bezier(.34,1.56,.64,1);
   --ease:cubic-bezier(.22,1,.36,1);
   --r-sm:14px;--r-md:20px;--r-lg:28px;--r-pill:999px;
@@ -37,30 +32,18 @@ body{background:var(--negro);color:var(--blanco2);font-family:'DM Sans',sans-ser
 a{text-decoration:none;color:inherit}
 button{font-family:inherit}
 .icon{display:inline-block;flex-shrink:0}
-.serif{font-family:'DM Sans',sans-serif}
-.mono{font-family:'JetBrains Mono',monospace}
-
-body::before{
-  content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.035;mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-}
+body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
 #header,.wrap,#install-banner,#search-sheet-overlay,#glossary-overlay,#tabbar{position:relative;z-index:2}
-
-/* ---------- HEADER ---------- */
 #header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.92);backdrop-filter:blur(16px);padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
 .header-logo{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.5px;color:var(--dorado)}
 .header-badge{width:30px;height:30px;border-radius:var(--r-pill);background:var(--dorado-suave);border:1px solid rgba(201,168,76,.35);display:flex;align-items:center;justify-content:center}
 .header-badge .icon{color:var(--dorado)}
 .header-tag{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--gris);letter-spacing:.5px;background:var(--negro3);border-radius:var(--r-pill);padding:5px 11px}
-
 .wrap{max-width:640px;margin:0 auto;padding:28px 20px 120px}
-
 .hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dorado);margin-bottom:14px;display:flex;align-items:center;gap:8px}
 h1{font-family:'DM Sans',sans-serif;font-weight:900;font-size:clamp(30px,8vw,42px);line-height:1.1;color:var(--blanco);margin-bottom:14px;letter-spacing:-.8px}
 h1 em{font-style:italic;color:var(--dorado2)}
 .hero-sub{color:var(--gris);font-size:16px;max-width:460px;margin-bottom:26px;font-weight:400;line-height:1.5}
-
-/* ---------- PILL SEARCH BAR (colapsada) ---------- */
 .search-pill{width:100%;background:var(--negro2);border:1px solid var(--gris2);border-radius:var(--r-pill);padding:8px 8px 8px 22px;display:flex;align-items:center;gap:14px;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.35);transition:transform .15s var(--ease), border-color .2s var(--ease)}
 .search-pill:active{transform:scale(.985)}
 .search-pill:hover{border-color:rgba(201,168,76,.4)}
@@ -69,17 +52,11 @@ h1 em{font-style:italic;color:var(--dorado2)}
 .search-pill-sub{font-size:12px;color:var(--gris);margin-top:1px}
 .search-pill-icon{width:42px;height:42px;border-radius:var(--r-pill);background:var(--dorado);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .search-pill-icon .icon{color:var(--negro)}
-
-/* filter chips */
 .chips{display:flex;gap:8px;overflow-x:auto;margin:20px 0 4px;padding-bottom:4px;scrollbar-width:none}
-
-/* rutas guardadas — chips de acceso rápido arriba del buscador */
 #saved-routes{display:none;gap:8px;overflow-x:auto;margin-bottom:14px;padding-bottom:4px;scrollbar-width:none}
 #saved-routes.activo{display:flex}
 .saved-chip{flex-shrink:0;display:flex;align-items:center;gap:6px;background:var(--negro2);border:1px solid var(--gris2);border-radius:var(--r-pill);padding:8px 14px;font-size:12.5px;font-weight:700;color:var(--dorado2);cursor:pointer}
 .saved-chip:active{transform:scale(.96)}
-
-/* botones de accion sobre el resultado (guardar / compartir) */
 .res-actions{display:flex;gap:8px;margin-top:14px}
 .res-action-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--negro3);border:1px solid var(--gris2);border-radius:var(--r-pill);padding:10px;font-size:12px;font-weight:700;color:var(--blanco2);cursor:pointer;transition:all .2s var(--ease)}
 .res-action-btn:active{transform:scale(.97)}
@@ -88,26 +65,21 @@ h1 em{font-style:italic;color:var(--dorado2)}
 .chip{flex-shrink:0;display:flex;align-items:center;gap:6px;background:var(--negro2);border:1px solid var(--gris2);border-radius:var(--r-pill);padding:9px 16px;font-size:13px;font-weight:600;color:var(--blanco2);cursor:pointer;transition:all .2s var(--ease)}
 .chip.active{background:var(--dorado);border-color:var(--dorado);color:var(--negro)}
 .chip:active{transform:scale(.96)}
-
-/* ---------- BOTTOM SHEET (buscador expandido) ---------- */
 #search-sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:300;display:none;opacity:0;transition:opacity .3s var(--ease)}
 #search-sheet-overlay.open{display:block;opacity:1}
 #search-sheet{position:fixed;left:0;right:0;bottom:0;z-index:301;background:var(--negro2);border-radius:28px 28px 0 0;padding:14px 20px 28px;transform:translateY(100%);transition:transform .42s var(--spring);max-width:640px;margin:0 auto;max-height:88vh;overflow-y:auto;box-shadow:0 -20px 60px rgba(0,0,0,.5)}
 #search-sheet-overlay.open #search-sheet{transform:translateY(0)}
 .sheet-handle{width:36px;height:4px;background:var(--gris2);border-radius:2px;margin:0 auto 20px}
 .sheet-titulo{font-family:'DM Sans',sans-serif;font-weight:900;font-size:24px;color:var(--blanco);margin-bottom:20px}
-
 .campo{margin-bottom:14px;position:relative}
 label{display:block;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--dorado);margin-bottom:8px}
 .opcional-tag{color:var(--gris);font-weight:400;text-transform:none;letter-spacing:0;font-size:11px}
-
 .ac-input-wrap{position:relative}
 .ac-input{width:100%;background:var(--negro3);border:1.5px solid var(--gris2);border-radius:var(--r-md);color:var(--blanco2);padding:15px 42px 15px 16px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;transition:border-color .2s var(--ease)}
 .ac-input:focus{outline:none;border-color:var(--dorado)}
 .ac-input::placeholder{color:var(--gris);font-weight:400}
 .ac-clear{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:24px;height:24px;border-radius:var(--r-pill);border:none;background:var(--negro4);color:var(--gris);font-size:14px;cursor:pointer;display:none;align-items:center;justify-content:center}
 .ac-clear.show{display:flex}
-
 .ac-panel{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--negro3);border:1px solid var(--gris2);border-radius:var(--r-md);max-height:240px;overflow-y:auto;display:none;z-index:60;box-shadow:0 16px 40px rgba(0,0,0,.5)}
 .ac-panel.open{display:block;animation:acOpen .22s var(--ease)}
 @keyframes acOpen{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
@@ -118,16 +90,12 @@ label{display:block;font-size:11px;font-weight:700;letter-spacing:1px;text-trans
 .ac-city{flex:1}
 .ac-code{color:var(--gris);font-size:11.5px;font-weight:600;background:var(--negro2);border-radius:6px;padding:2px 6px}
 .ac-empty{padding:20px 14px;text-align:center;color:var(--gris);font-size:13.5px}
-
 select.ac-input{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' stroke='%23C9A84C' stroke-width='1.5' fill='none'/></svg>");background-repeat:no-repeat;background-position:right 16px center}
-
 .btn-pill{width:100%;background:var(--dorado);color:var(--negro);font-weight:800;font-size:14.5px;border:none;border-radius:var(--r-pill);padding:17px;cursor:pointer;transition:transform .15s var(--spring), background .2s var(--ease);margin-top:6px}
 .btn-pill:hover{background:var(--dorado2)}
 .btn-pill:active{transform:scale(.97)}
 .btn-pill:disabled{opacity:.4;cursor:not-allowed}
 .btn-ghost{width:100%;background:none;color:var(--gris);font-weight:600;font-size:13px;border:none;padding:14px;cursor:pointer;text-align:center}
-
-/* ---------- LOADING ---------- */
 #loading{display:none;margin-top:28px}
 #loading.activo{display:block}
 .skeleton{background:var(--negro2);border-radius:var(--r-lg);padding:22px;margin-bottom:14px}
@@ -139,11 +107,8 @@ select.ac-input{appearance:none;-webkit-appearance:none;background-image:url("da
 .loading-label{font-size:12.5px;font-weight:600;color:var(--dorado2);margin-bottom:16px;display:flex;align-items:center;gap:8px}
 .loading-dot{width:6px;height:6px;border-radius:50%;background:var(--dorado);animation:pulse 1s infinite}
 @keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
-
-/* ---------- RESULTS ---------- */
 #resultados{display:none;margin-top:20px}
 #resultados.activo{display:block}
-
 .res-header{margin-bottom:24px;opacity:0;animation:cardIn .5s var(--spring) forwards;background:linear-gradient(135deg,var(--negro3),var(--negro2));border-radius:var(--r-lg);padding:24px 22px;box-shadow:0 14px 36px rgba(0,0,0,.4)}
 .res-flightrow{display:flex;align-items:center;gap:14px;margin-bottom:14px}
 .res-code{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:var(--blanco);letter-spacing:-1px}
@@ -152,18 +117,12 @@ select.ac-input{appearance:none;-webkit-appearance:none;background-image:url("da
 .res-flecha-line::after{content:'';position:absolute;right:-1px;top:-4px;width:0;height:0;border-left:7px solid var(--dorado);border-top:4px solid transparent;border-bottom:4px solid transparent}
 .res-ciudades{display:flex;justify-content:space-between;font-size:14px;color:var(--gris);margin-bottom:14px}
 .res-count{font-size:11.5px;font-weight:700;color:var(--dorado);background:var(--dorado-suave);display:inline-flex;border-radius:var(--r-pill);padding:6px 12px;letter-spacing:.3px}
-
-/* Número protagonista — el dato más importante de la búsqueda,
-   bien grande, igual que hacen las apps de vuelos de referencia.
-   Cambia según haya o no compensación aplicable. */
 .res-hero-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gris);margin-top:14px;margin-bottom:2px}
 .res-hero-value{font-family:'DM Sans',sans-serif;font-weight:900;font-size:56px;line-height:1;letter-spacing:-1.5px;color:var(--blanco);font-variant-numeric:tabular-nums}
 .res-hero-value.dorado{color:var(--dorado)}
 .res-hero-unit{font-size:20px;font-weight:700;color:var(--gris);margin-left:6px}
-
 .card{position:relative;background:var(--negro2);border-radius:var(--r-lg);padding:22px;margin-bottom:16px;opacity:0;transform:translateY(14px);animation:cardIn .5s var(--spring) forwards;box-shadow:0 10px 28px rgba(0,0,0,.28)}
 @keyframes cardIn{to{opacity:1;transform:translateY(0)}}
-
 .card-tag{display:flex;align-items:center;gap:10px;margin-bottom:16px}
 .card-tag-badge{width:32px;height:32px;border-radius:var(--r-pill);background:var(--dorado-suave);border:1px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .card-tag-badge .icon{color:var(--dorado)}
@@ -174,40 +133,31 @@ select.ac-input{appearance:none;-webkit-appearance:none;background-image:url("da
 .card-frase{background:var(--negro3);border-radius:var(--r-md);padding:14px 16px;margin-top:12px;font-size:13.5px;font-style:italic;color:var(--gris)}
 .card-costo{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:13px;font-weight:700;color:var(--verde);background:rgba(111,162,111,0.12);border-radius:var(--r-pill);padding:7px 13px}
 .card.vacio .card-texto{color:var(--gris)}
-
 .gterm{color:var(--dorado2);border-bottom:1.5px dotted var(--dorado2);cursor:pointer;font-weight:700}
 .gterm:active{opacity:.7}
-
 .timeline-item{display:flex;gap:14px;padding:13px 0}
 .timeline-item:not(:last-child){border-bottom:1px solid var(--gris2)}
 .timeline-momento{flex-shrink:0;width:92px;font-size:11px;font-weight:700;color:var(--dorado);letter-spacing:.3px;text-transform:uppercase;line-height:1.4}
 .timeline-accion{font-size:15px;color:var(--blanco2);line-height:1.45}
-
 .card.locked{position:relative;overflow:hidden}
 .card.locked .card-texto{filter:blur(3px);user-select:none}
 .locked-overlay{position:absolute;inset:0;border-radius:var(--r-lg);background:linear-gradient(180deg,rgba(20,20,20,0) 0%,rgba(20,20,20,0.97) 55%);display:flex;align-items:flex-end;justify-content:center;padding:20px}
 .locked-cta{background:var(--dorado);color:var(--negro);font-size:12px;font-weight:800;border-radius:var(--r-pill);padding:11px 20px}
-
 .upsell{margin-top:28px;background:linear-gradient(135deg,var(--negro3),var(--negro2));border-radius:var(--r-lg);padding:30px 24px;text-align:center;box-shadow:0 14px 36px rgba(0,0,0,.35)}
 .upsell-eyebrow{font-size:10.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--dorado);margin-bottom:10px}
 .upsell-titulo{font-family:'DM Sans',sans-serif;font-weight:900;font-size:23px;color:var(--blanco);margin-bottom:10px}
 .upsell-texto{font-size:14px;color:var(--gris);margin-bottom:22px}
 .upsell-btn{display:inline-block;background:var(--dorado);color:var(--negro);font-weight:800;font-size:13px;border-radius:var(--r-pill);padding:15px 30px}
-
 footer{text-align:center;padding:32px 20px;color:var(--gris);font-size:12px;margin-top:36px}
 footer a{color:var(--dorado2)}
-
-/* ---------- GLOSSARY SHEET ---------- */
 #glossary-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:300;display:none;opacity:0;transition:opacity .25s var(--ease)}
 #glossary-overlay.open{display:block;opacity:1}
 #glossary-sheet{position:fixed;left:0;right:0;bottom:0;z-index:301;background:var(--negro2);border-radius:28px 28px 0 0;padding:14px 22px 32px;transform:translateY(100%);transition:transform .4s var(--spring);max-width:640px;margin:0 auto}
 #glossary-overlay.open #glossary-sheet{transform:translateY(0)}
-
 #cuenta-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:300;display:none;opacity:0;transition:opacity .25s var(--ease)}
 #cuenta-overlay.open{display:block;opacity:1}
 #cuenta-sheet{position:fixed;left:0;right:0;bottom:0;z-index:301;background:var(--negro2);border-radius:28px 28px 0 0;padding:14px 22px 32px;transform:translateY(100%);transition:transform .4s var(--spring);max-width:640px;margin:0 auto}
 #cuenta-overlay.open #cuenta-sheet{transform:translateY(0)}
-
 #admin-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:300;display:none;opacity:0;transition:opacity .25s var(--ease)}
 #admin-overlay.open{display:block;opacity:1}
 #admin-sheet{position:fixed;left:0;right:0;bottom:0;z-index:301;background:var(--negro2);border-radius:28px 28px 0 0;padding:14px 22px 32px;transform:translateY(100%);transition:transform .4s var(--spring);max-width:640px;margin:0 auto;max-height:80vh;display:flex;flex-direction:column}
@@ -216,8 +166,6 @@ footer a{color:var(--dorado2)}
 .admin-user-email{font-size:14px;font-weight:600;color:var(--blanco2);word-break:break-all}
 .admin-user-meta{font-size:11px;color:var(--gris);margin-top:2px}
 .admin-role-select{flex-shrink:0;background:var(--negro3);border:1.5px solid var(--gris2);border-radius:var(--r-pill);color:var(--blanco2);font-size:12.5px;font-weight:700;padding:7px 10px}
-
-/* Menu de lista de terminos, con buscador, se abre desde el tab "Glosario" */
 #glossary-list-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:280;display:none;opacity:0;transition:opacity .25s var(--ease)}
 #glossary-list-overlay.open{display:block;opacity:1}
 #glossary-list-sheet{position:fixed;left:0;right:0;bottom:0;z-index:281;background:var(--negro2);border-radius:28px 28px 0 0;padding:14px 22px 32px;transform:translateY(100%);transition:transform .4s var(--spring);max-width:640px;margin:0 auto;max-height:78vh;display:flex;flex-direction:column}
@@ -237,14 +185,10 @@ footer a{color:var(--dorado2)}
 .gsheet-texto{font-size:16px;color:var(--blanco2);line-height:1.6;margin-bottom:18px}
 .gsheet-texto strong{color:var(--dorado2)}
 .gsheet-close{width:100%;background:var(--negro3);border:none;border-radius:var(--r-pill);color:var(--blanco2);padding:15px;font-size:13px;font-weight:700;cursor:pointer}
-
-/* ---------- BOTTOM TAB BAR (estilo Airbnb) ---------- */
 #tabbar{position:fixed;left:0;right:0;bottom:0;z-index:150;background:rgba(10,10,10,0.96);backdrop-filter:blur(16px);border-top:1px solid var(--gris2);display:flex;padding:10px 12px calc(10px + env(safe-area-inset-bottom))}
 .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0;cursor:pointer;color:var(--gris);transition:color .2s var(--ease)}
 .tab.active{color:var(--dorado)}
 .tab-label{font-size:10.5px;font-weight:600}
-
-/* ---------- AUTH GATE ---------- */
 #auth-gate{position:fixed;inset:0;z-index:500;background:var(--negro);display:flex;align-items:center;justify-content:center;padding:24px}
 #auth-gate.hidden{display:none}
 .auth-box{width:100%;max-width:400px;text-align:center}
@@ -262,8 +206,6 @@ footer a{color:var(--dorado2)}
 .auth-icon-big{font-size:40px;margin-bottom:18px}
 .auth-footer-link{display:block;margin-top:22px;font-size:13px;color:var(--gris);cursor:pointer}
 .auth-footer-link span{color:var(--dorado2);border-bottom:1px dotted var(--dorado2)}
-
-/* INSTALL BANNER */
 #install-banner{display:none;position:fixed;left:16px;right:16px;bottom:78px;z-index:200;background:var(--negro2);border-radius:var(--r-lg);padding:14px 16px;align-items:center;gap:12px;box-shadow:0 14px 36px rgba(0,0,0,0.5)}
 #install-banner.activo{display:flex}
 .install-icon{width:40px;height:40px;border-radius:var(--r-md);flex-shrink:0}
@@ -275,12 +217,8 @@ footer a{color:var(--dorado2)}
 </style>
 </head>
 <body>
-
-<!-- AUTH GATE: bloquea toda la app hasta confirmar acceso -->
 <div id="auth-gate">
   <div class="auth-box">
-
-    <!-- Estado 1: pedir el mail -->
     <div id="auth-step-email" style="display:none">
       <div class="auth-badge"><svg class="icon" width="24" height="24"><use href="#icon-plane"/></svg></div>
       <div class="auth-titulo">Accedé a tu cuenta</div>
@@ -289,14 +227,10 @@ footer a{color:var(--dorado2)}
       <p class="auth-error" id="auth-error-email">Escribí un mail válido.</p>
       <button class="btn-pill" id="auth-send-btn">Enviarme el link de acceso</button>
     </div>
-
-    <!-- Estado 2: cargando envío -->
     <div id="auth-step-loading" style="display:none">
       <div class="auth-loader show"></div>
       <p class="auth-sub" style="margin-top:18px">Enviando...</p>
     </div>
-
-    <!-- Estado 3: ingresar el código de 6 dígitos -->
     <div id="auth-step-sent" style="display:none">
       <div class="auth-icon-big">✦</div>
       <div class="auth-titulo">Ingresá tu código</div>
@@ -306,24 +240,17 @@ footer a{color:var(--dorado2)}
       <button class="btn-pill" id="auth-verify-btn">Confirmar código</button>
       <span class="auth-footer-link" id="auth-retry-link"><span>Usar otro mail</span></span>
     </div>
-
-    <!-- Estado 4: logueado pero sin acceso activo -->
     <div id="auth-step-noaccess" style="display:none">
       <div class="auth-icon-big">🔒</div>
       <div class="auth-titulo">Todavía no encontramos tu compra</div>
       <p class="auth-sub">Si ya compraste El Viajero Premium, escribinos a <strong style="color:var(--dorado2)">hola@viajealinfinito.com</strong> con el mail que usaste para comprar y te activamos el acceso.</p>
       <span class="auth-footer-link" id="auth-logout-link"><span>Probar con otro mail</span></span>
     </div>
-
-    <!-- Estado 5: verificando sesión al cargar (default visible) -->
     <div id="auth-step-checking">
       <div class="auth-loader show"></div>
     </div>
-
   </div>
 </div>
-
-<!-- Sprite de íconos propios -->
 <svg width="0" height="0" style="position:absolute">
   <defs>
     <symbol id="icon-lounge" viewBox="0 0 24 24"><path d="M4 18v-5a3 3 0 013-3h10a3 3 0 013 3v5M4 18h16M4 18v2M20 18v2M6 10V7a2 2 0 012-2h8a2 2 0 012 2v3" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -340,23 +267,18 @@ footer a{color:var(--dorado2)}
     <symbol id="icon-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M4.5 20c1.5-4 4.5-6 7.5-6s6 2 7.5 6" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></symbol>
     <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/><path d="M9 12l2 2 4-4.5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="icon-bed" viewBox="0 0 24 24"><path d="M3 19v-7a2 2 0 012-2h14a2 2 0 012 2v7M3 19v-3M21 19v-3M3 12V7a1 1 0 011-1h5a1 1 0 011 1v3" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-tag" viewBox="0 0 24 24"><path d="M20.59 13.41L11 22 2 13l9-9h9.59a2 2 0 012 2v7.41z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/><circle cx="14.5" cy="7.5" r="1.5" fill="currentColor"/></symbol>
   </defs>
 </svg>
-
 <header id="header">
   <div class="header-logo"><span class="header-badge"><svg class="icon" width="14" height="14"><use href="#icon-plane"/></svg></span> Viajealinfinit8</div>
   <div class="header-tag">HACK·FINDER</div>
 </header>
-
 <div class="wrap">
   <div class="hero-eyebrow">✦ El Viajero Premium</div>
   <h1>Ingresa tu vuelo.<br><em>Desbloquea</em> tu experiencia Premium.</h1>
   <p class="hero-sub">Descubre qué salas VIP están disponibles para tu ruta, si corresponde compensación por demora y qué revisar antes de comprar el pasaje.</p>
-
-  <!-- Rutas guardadas — acceso rápido a búsquedas frecuentes -->
   <div id="saved-routes"></div>
-
-  <!-- Pill de búsqueda colapsada -->
   <div class="search-pill" id="search-pill-trigger">
     <div class="search-pill-text">
       <div class="search-pill-titulo" id="search-pill-titulo">¿A dónde vuelas?</div>
@@ -364,8 +286,6 @@ footer a{color:var(--dorado2)}
     </div>
     <span class="search-pill-icon"><svg class="icon" width="18" height="18"><use href="#icon-search"/></svg></span>
   </div>
-
-  <!-- Chips de filtro (aparecen con resultados) -->
   <div class="chips" id="chips" style="display:none">
     <div class="chip active" data-target="res-header">✦ Todo</div>
     <div class="chip" data-target="card-lounge">🛋 Salas VIP</div>
@@ -373,26 +293,20 @@ footer a{color:var(--dorado2)}
     <div class="chip" data-target="card-fare">🎫 Tarifa</div>
     <div class="chip" data-target="card-timeline">🗓 Cronograma</div>
   </div>
-
   <div id="loading">
     <div class="loading-label"><span class="loading-dot"></span> Analizando tu ruta…</div>
     <div class="skeleton"><div class="skeleton-line w40"></div><div class="skeleton-line w90"></div><div class="skeleton-line w60"></div></div>
     <div class="skeleton"><div class="skeleton-line w40"></div><div class="skeleton-line w90"></div></div>
   </div>
-
   <div id="resultados"></div>
-
   <footer>
     Hecho con cuidado por Rodrigo Suarez · <a href="https://instagram.com/viajealinfinit8" target="_blank">@viajealinfinit8</a>
   </footer>
 </div>
-
-<!-- BOTTOM SHEET: buscador expandido -->
 <div id="search-sheet-overlay">
   <div id="search-sheet">
     <div class="sheet-handle"></div>
     <div class="sheet-titulo">Armá tu búsqueda</div>
-
     <div class="campo">
       <label for="origen-input">Origen</label>
       <div class="ac-input-wrap">
@@ -421,13 +335,10 @@ footer a{color:var(--dorado2)}
       <label for="aerolinea">Aerolínea <span class="opcional-tag">(opcional)</span></label>
       <select id="aerolinea" class="ac-input"></select>
     </div>
-
     <button class="btn-pill" id="btn-buscar">Ver mis hacks</button>
     <button class="btn-ghost" id="btn-cerrar-sheet">Cancelar</button>
   </div>
 </div>
-
-<!-- MENU DE GLOSARIO: lista buscable de todos los términos -->
 <div id="glossary-list-overlay">
   <div id="glossary-list-sheet">
     <div class="gsheet-handle"></div>
@@ -436,8 +347,6 @@ footer a{color:var(--dorado2)}
     <div class="glist-items" id="glist-items"></div>
   </div>
 </div>
-
-<!-- GLOSSARY BOTTOM SHEET -->
 <div id="glossary-overlay">
   <div id="glossary-sheet">
     <div class="gsheet-handle"></div>
@@ -447,8 +356,6 @@ footer a{color:var(--dorado2)}
     <button class="gsheet-close" id="gsheet-close">Entendido</button>
   </div>
 </div>
-
-<!-- MI CUENTA -->
 <div id="cuenta-overlay">
   <div id="cuenta-sheet">
     <div class="gsheet-handle"></div>
@@ -459,8 +366,6 @@ footer a{color:var(--dorado2)}
     <button class="gsheet-close" id="cuenta-close">Cerrar</button>
   </div>
 </div>
-
-<!-- PANEL DE ADMIN -->
 <div id="admin-overlay">
   <div id="admin-sheet">
     <div class="gsheet-handle"></div>
@@ -470,7 +375,6 @@ footer a{color:var(--dorado2)}
     <div class="glist-items" id="admin-items"></div>
   </div>
 </div>
-
 <div id="install-banner">
   <img class="install-icon" src="icons/icon-192.png" alt="">
   <div class="install-texto">
@@ -480,19 +384,13 @@ footer a{color:var(--dorado2)}
   <button class="install-btn" id="install-btn">Instalar</button>
   <button class="install-close" id="install-close" aria-label="Cerrar">✕</button>
 </div>
-
-<!-- BOTTOM TAB BAR -->
 <nav id="tabbar">
   <div class="tab active" id="tab-buscar"><svg class="icon" width="21" height="21"><use href="#icon-search"/></svg><span class="tab-label">Buscar</span></div>
   <div class="tab" id="tab-glosario"><svg class="icon" width="21" height="21"><use href="#icon-book"/></svg><span class="tab-label">Glosario</span></div>
   <div class="tab" id="tab-cuenta"><svg class="icon" width="21" height="21"><use href="#icon-user"/></svg><span class="tab-label">Mi cuenta</span></div>
   <div class="tab" id="tab-admin" style="display:none"><svg class="icon" width="21" height="21"><use href="#icon-shield"/></svg><span class="tab-label">Admin</span></div>
 </nav>
-
 <script>
-// ============================================================
-// PWA
-// ============================================================
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 }
@@ -517,30 +415,15 @@ if ("serviceWorker" in navigator) {
   btn.addEventListener("click", async () => { if (!deferredPrompt) return; deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt = null; banner.classList.remove("activo"); });
   closeBtn.addEventListener("click", () => { banner.classList.remove("activo"); localStorage.setItem("hackfinder_install_dismissed", "1"); });
 })();
-
-// ============================================================
-// BOTTOM SHEET: abrir / cerrar buscador
-// ============================================================
 const sheetOverlay = document.getElementById("search-sheet-overlay");
 document.getElementById("search-pill-trigger").addEventListener("click", () => sheetOverlay.classList.add("open"));
 document.getElementById("btn-cerrar-sheet").addEventListener("click", () => sheetOverlay.classList.remove("open"));
 sheetOverlay.addEventListener("click", (e) => { if(e.target.id === "search-sheet-overlay") sheetOverlay.classList.remove("open"); });
-
-// ============================================================
-// DATA — Aeropuertos
-// ============================================================
-// ============================================================
-// DATA — Aeropuertos, salas VIP y glosario
-// Antes vivian hardcodeados aca. Ahora se cargan desde Supabase
-// (ver cargarDatosDesdeSupabase() mas abajo, junto al cliente de
-// Supabase) apenas carga la pagina. Quedan como "let" en vez de
-// "const" porque se reasignan cuando llega la respuesta.
-// ============================================================
 let AIRPORTS = {};
 let LOUNGES = {};
 let GLOSARIO = {};
 let STOPOVERS = [];
-
+let PROMOS = [];
 function abrirGlosario(termKey){
   const t = GLOSARIO[termKey];
   if(!t) return;
@@ -552,14 +435,9 @@ function abrirGlosario(termKey){
 document.getElementById("gsheet-close").addEventListener("click", () => document.getElementById("glossary-overlay").classList.remove("open"));
 document.getElementById("glossary-overlay").addEventListener("click", (e) => { if(e.target.id === "glossary-overlay") e.currentTarget.classList.remove("open"); });
 function gt(termKey, texto){ return `<span class="gterm" onclick="abrirGlosario('${termKey}')">${texto}</span>`; }
-
-// ============================================================
-// MENÚ DE GLOSARIO — lista buscable, se abre desde el tab de abajo
-// ============================================================
 const glistOverlay = document.getElementById("glossary-list-overlay");
 const glistItems = document.getElementById("glist-items");
 const glistSearch = document.getElementById("glist-search-input");
-
 function renderGlosarioLista(query){
   const q = (query || "").trim().toLowerCase();
   const entradas = Object.entries(GLOSARIO).filter(([key, t]) =>
@@ -579,21 +457,15 @@ function renderGlosarioLista(query){
     </div>
   `).join("");
 }
-
 document.getElementById("tab-glosario").addEventListener("click", () => {
   glistSearch.value = "";
   renderGlosarioLista("");
   glistOverlay.classList.add("open");
 });
-
-// "Buscar" — sube al inicio y abre el buscador, para arrancar una
-// búsqueda nueva desde cualquier parte del scroll.
 document.getElementById("tab-buscar").addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
   setTimeout(() => sheetOverlay.classList.add("open"), 350);
 });
-
-// "Mi cuenta" — muestra mail y plan, y deja cerrar sesión.
 const cuentaOverlay = document.getElementById("cuenta-overlay");
 const ETIQUETAS_PLAN = { free: "Free", premium: "Premium", admin: "Admin" };
 document.getElementById("tab-cuenta").addEventListener("click", () => {
@@ -613,24 +485,18 @@ document.getElementById("cuenta-cerrar-sesion").addEventListener("click", async 
   await sb.auth.signOut();
   window.location.reload();
 });
-
-// ============================================================
-// PANEL DE ADMIN — lista de usuarios, buscador, cambio de plan
-// ============================================================
 let todosLosUsuarios = [];
 const adminOverlay = document.getElementById("admin-overlay");
 const adminItems = document.getElementById("admin-items");
 const adminSearch = document.getElementById("admin-search-input");
 const adminEstado = document.getElementById("admin-estado");
 const ETIQUETAS_ORIGEN = { compra: "Compra", manual: "Otorgado a mano" };
-
 async function cargarUsuariosAdmin() {
   adminEstado.textContent = "Cargando usuarios...";
   const { data, error } = await sb
     .from("profiles")
     .select("id, email, role, origen_acceso, purchased_at, created_at")
     .order("created_at", { ascending: false });
-
   if (error) {
     adminEstado.textContent = "No se pudo cargar la lista. Probá de nuevo en un momento.";
     return;
@@ -639,16 +505,13 @@ async function cargarUsuariosAdmin() {
   adminEstado.textContent = `${todosLosUsuarios.length} usuario${todosLosUsuarios.length === 1 ? "" : "s"} en total`;
   renderUsuariosAdmin("");
 }
-
 function renderUsuariosAdmin(query) {
   const q = query.trim().toLowerCase();
   const filtrados = todosLosUsuarios.filter((u) => !q || u.email.toLowerCase().includes(q));
-
   if (filtrados.length === 0) {
     adminItems.innerHTML = `<div class="glist-empty">No encontramos ningún usuario con ese mail.</div>`;
     return;
   }
-
   adminItems.innerHTML = filtrados
     .map(
       (u) => `
@@ -666,7 +529,6 @@ function renderUsuariosAdmin(query) {
     )
     .join("");
 }
-
 document.getElementById("tab-admin").addEventListener("click", () => {
   adminSearch.value = "";
   adminOverlay.classList.add("open");
@@ -674,24 +536,19 @@ document.getElementById("tab-admin").addEventListener("click", () => {
 });
 adminOverlay.addEventListener("click", (e) => { if (e.target.id === "admin-overlay") adminOverlay.classList.remove("open"); });
 adminSearch.addEventListener("input", () => renderUsuariosAdmin(adminSearch.value));
-
 adminItems.addEventListener("change", async (e) => {
   const select = e.target.closest(".admin-role-select");
   if (!select) return;
   const id = select.dataset.id;
   const usuario = todosLosUsuarios.find((u) => u.id === id);
   const nuevoRole = select.value;
-
-  // Dar admin es sensible — pedimos confirmación extra antes de aplicarlo
   if (nuevoRole === "admin" && !confirm(`¿Seguro que querés darle permisos de administrador a ${usuario.email}? Va a poder ver y modificar todos los usuarios.`)) {
     select.value = usuario.role;
     return;
   }
-
   select.disabled = true;
   const { error } = await sb.from("profiles").update({ role: nuevoRole }).eq("id", id);
   select.disabled = false;
-
   if (error) {
     alert("No se pudo actualizar el plan. Probá de nuevo.");
     select.value = usuario.role;
@@ -699,17 +556,14 @@ adminItems.addEventListener("change", async (e) => {
   }
   usuario.role = nuevoRole;
 });
-
 glistItems.addEventListener("click", (e) => {
   const item = e.target.closest(".glist-item");
   if (!item) return;
   glistOverlay.classList.remove("open");
   abrirGlosario(item.dataset.key);
 });
-
 glistSearch.addEventListener("input", () => renderGlosarioLista(glistSearch.value));
 glistOverlay.addEventListener("click", (e) => { if (e.target.id === "glossary-list-overlay") glistOverlay.classList.remove("open"); });
-
 const AEROLINEAS = [
   {v:"",label:"No especificar",eu:false},
   {v:"latam",label:"LATAM",eu:false},{v:"avianca",label:"Avianca",eu:false},
@@ -726,17 +580,11 @@ const AEROLINEAS = [
   {v:"turkish",label:"Turkish Airlines",eu:false},{v:"emirates",label:"Emirates",eu:false},
 ];
 document.getElementById("aerolinea").innerHTML = AEROLINEAS.map(a=>`<option value="${a.v}">${a.label}</option>`).join("");
-
-// ============================================================
-// AUTOCOMPLETE
-// ============================================================
 const seleccion = { origen: null, destino: null, escala: null };
-
 function setupAutocomplete(fieldId){
   const input = document.getElementById(fieldId + "-input");
   const panel = document.getElementById(fieldId + "-panel");
   const clearBtn = document.querySelector(`.ac-clear[data-target="${fieldId}"]`);
-
   function render(query){
     const q = query.trim().toLowerCase();
     let entries = Object.entries(AIRPORTS);
@@ -760,7 +608,6 @@ function setupAutocomplete(fieldId){
     panel.innerHTML = html;
     panel.classList.add("open");
   }
-
   input.addEventListener("focus", () => render(input.value));
   input.addEventListener("input", () => {
     clearBtn.classList.toggle("show", input.value.length > 0);
@@ -780,10 +627,6 @@ function setupAutocomplete(fieldId){
   document.addEventListener("click", (e) => { if(!input.contains(e.target) && !panel.contains(e.target) && !clearBtn.contains(e.target)) panel.classList.remove("open"); });
 }
 ["origen","destino","escala"].forEach(setupAutocomplete);
-
-// ============================================================
-// LOGICA
-// ============================================================
 function distanciaKm(a,b){
   const R=6371;
   const dLat=(b.lat-a.lat)*Math.PI/180, dLng=(b.lng-a.lng)*Math.PI/180;
@@ -791,7 +634,6 @@ function distanciaKm(a,b){
   return Math.round(2*R*Math.asin(Math.sqrt(s)));
 }
 function compensacionEC261(km){ if(km<=1500) return 250; if(km<=3500) return 400; return 600; }
-
 function loungeCard(codigo,rolLabel,delayIndex,anchorId){
   const a = AIRPORTS[codigo];
   const salas = LOUNGES[codigo];
@@ -815,13 +657,11 @@ function loungeCard(codigo,rolLabel,delayIndex,anchorId){
     ${salasHtml}
   </div>`;
 }
-
 function buscar(){
   const origenCod = seleccion.origen, destinoCod = seleccion.destino, escalaCod = seleccion.escala;
   const aerolineaV = document.getElementById("aerolinea").value;
   if(!origenCod || !destinoCod){ alert("Elegí origen y destino de la lista para ver tus hacks."); return; }
   if(origenCod === destinoCod){ alert("Origen y destino no pueden ser el mismo aeropuerto."); return; }
-
   sheetOverlay.classList.remove("open");
   const resultados = document.getElementById("resultados");
   const loading = document.getElementById("loading");
@@ -830,14 +670,12 @@ function buscar(){
   document.getElementById("chips").style.display = "none";
   loading.classList.add("activo");
   setTimeout(() => { loading.scrollIntoView({behavior:"smooth", block:"start"}); }, 300);
-
   setTimeout(async () => {
-    await datosListosPromise; // por si alguien busca muy rápido, antes de que lleguen los datos
+    await datosListosPromise;
     loading.classList.remove("activo");
     renderResultados(origenCod, destinoCod, escalaCod, aerolineaV);
   }, 600);
 }
-
 function renderResultados(origenCod, destinoCod, escalaCod, aerolineaV){
   const origen = AIRPORTS[origenCod], destino = AIRPORTS[destinoCod];
   const km = distanciaKm(origen,destino);
@@ -845,19 +683,13 @@ function renderResultados(origenCod, destinoCod, escalaCod, aerolineaV){
   const aplicaEC261 = origen.eu || (destino.eu && aerolinea && aerolinea.eu);
   const compensacion = compensacionEC261(km);
   let i = 0;
-
   document.getElementById("search-pill-titulo").textContent = `${origenCod} → ${destinoCod}`;
   document.getElementById("search-pill-sub").textContent = `${origen.city} a ${destino.city}`;
-
-  // Dato protagonista: compensación si aplica, si no los km.
-  // Se evalúa en orden de prioridad -- fácil de sumar un caso nuevo
-  // el día de mañana (ej: una alerta) sin tocar el resto.
   const reglasHero = [
     { aplica: aplicaEC261, valor: `€${compensacion}`, unidad: null, etiqueta: "Podrías reclamar por demora", dorado: true },
     { aplica: true, valor: km.toLocaleString('es-AR'), unidad: "KM", etiqueta: "Distancia de tu ruta", dorado: false },
   ];
   const hero = reglasHero.find(r => r.aplica);
-
   let html = `<div class="res-header" id="res-header" style="animation-delay:0ms">
       <div class="res-flightrow">
         <span class="res-code">${origenCod}</span>
@@ -873,13 +705,26 @@ function renderResultados(origenCod, destinoCod, escalaCod, aerolineaV){
         <button class="res-action-btn" id="btn-compartir-ruta"><svg class="icon" width="14" height="14"><use href="#icon-share"/></svg>Compartir</button>
       </div>
     </div>`;
-
+  const codigosRutaPromos = [origenCod, escalaCod, destinoCod].filter(Boolean);
+  const hoy = new Date().toISOString().slice(0, 10);
+  const promosVigentes = PROMOS.filter(p =>
+    p.activo &&
+    codigosRutaPromos.includes(p.airport_code) &&
+    (!p.fecha_inicio || p.fecha_inicio <= hoy) &&
+    (!p.fecha_fin || p.fecha_fin >= hoy)
+  );
+  if (promosVigentes.length > 0) {
+    html += `<div class="card" id="card-promos" style="animation-delay:${i++*70}ms;border:1px solid rgba(201,168,76,.35)">
+      <div class="card-tag"><span class="card-tag-badge"><svg class="icon" width="15" height="15"><use href="#icon-tag"/></svg></span><span class="card-tag-label">Hoy encontramos</span></div>
+      ${promosVigentes.map(p => `
+        <div class="card-titulo" style="font-size:17px">${p.partner_name}</div>
+        <p class="card-texto">${p.descripcion}</p>
+      `).join('<div style="height:14px"></div>')}
+    </div>`;
+  }
   html += loungeCard(origenCod, "Sala VIP en tu origen", i++, "card-lounge");
   if(escalaCod) html += loungeCard(escalaCod, "Sala VIP en tu escala", i++);
   html += loungeCard(destinoCod, "Sala VIP en tu destino", i++);
-
-  // Programas de stopover -- solo si la aerolínea elegida tiene uno,
-  // y tu ruta pasa por su hub (origen, escala o destino)
   const codigosRuta = [origenCod, escalaCod, destinoCod].filter(Boolean);
   const programasAplicables = STOPOVERS.filter(s => s.aerolinea_v === aerolineaV && codigosRuta.includes(s.hub_code));
   if (programasAplicables.length > 0) {
@@ -894,7 +739,6 @@ function renderResultados(origenCod, destinoCod, escalaCod, aerolineaV){
       `).join('<div style="height:16px"></div>')}
     </div>`;
   }
-
   const badgeScale = `<span class="card-tag-badge"><svg class="icon" width="15" height="15"><use href="#icon-scale"/></svg></span>`;
   if(aplicaEC261){
     html += `<div class="card" id="card-ec261" style="animation-delay:${i++*70}ms">
@@ -910,36 +754,27 @@ function renderResultados(origenCod, destinoCod, escalaCod, aerolineaV){
       <p class="card-texto">Igual pedí voucher de comida y sala VIP si la demora supera las 2 horas.</p>
     </div>`;
   }
-
   html += `<div class="card" id="card-fare" style="animation-delay:${i++*70}ms">
     <div class="card-tag"><span class="card-tag-badge"><svg class="icon" width="15" height="15"><use href="#icon-ticket"/></svg></span><span class="card-tag-label">Código de tarifa y upgrade</span></div>
     <div class="card-titulo">Qué letra mirar antes de comprar este pasaje</div>
     <p class="card-texto">Tu ${gt('farecode','código de tarifa')} determina tu prioridad real en la lista de upgrades a Business en esta ruta. Buscá "fare rules" en el sitio de la aerolínea antes de confirmar la compra: Y y B tienen prioridad alta, K, L y Q quedan últimas en la lista.</p>
     <p class="card-texto">Si tu aerolínea ofrece ${gt('plusgrade','Plusgrade / SeatBoost')}, ofertá en el 60-70% del rango disponible — nunca el mínimo ni el máximo — y sumá tu número de fidelidad a la reserva.</p>
   </div>`;
-
   html += `<div class="card" id="card-timeline" style="animation-delay:${i++*70}ms">
     <div class="card-tag"><span class="card-tag-badge"><svg class="icon" width="15" height="15"><use href="#icon-clock"/></svg></span><span class="card-tag-label">Tu cronograma para esta ruta</span></div>
     <div class="timeline-item"><div class="timeline-momento">7 días antes</div><div class="timeline-accion">Verificá tu número de fidelidad y buscá el plano del avión en SeatGuru.</div></div>
     <div class="timeline-item"><div class="timeline-momento">48hs antes</div><div class="timeline-accion">Hacé el check-in apenas se habilita.</div></div>
     <div class="timeline-item"><div class="timeline-momento">Aeropuerto</div><div class="timeline-accion">Gate cerrando en 45-20 min: momento del upgrade espontáneo.</div></div>
   </div>`;
-
   const cont = document.getElementById("resultados");
   cont.innerHTML = html;
   cont.classList.add("activo");
   document.getElementById("chips").style.display = "flex";
   cont.scrollIntoView({behavior:"smooth", block:"start"});
-
   configurarBotonGuardar(origenCod, destinoCod);
   configurarBotonCompartir(origen, destino, origenCod, destinoCod, km);
 }
-
-// ============================================================
-// RUTAS GUARDADAS — se guardan en este dispositivo, acceso rápido
-// ============================================================
 const RUTAS_KEY = "hf_rutas_guardadas";
-
 function obtenerRutasGuardadas() {
   try {
     return JSON.parse(localStorage.getItem(RUTAS_KEY) || "[]");
@@ -947,15 +782,12 @@ function obtenerRutasGuardadas() {
     return [];
   }
 }
-
 function guardarRutasGuardadas(rutas) {
   localStorage.setItem(RUTAS_KEY, JSON.stringify(rutas));
 }
-
 function rutaYaGuardada(origenCod, destinoCod) {
   return obtenerRutasGuardadas().some(r => r.origen === origenCod && r.destino === destinoCod);
 }
-
 function configurarBotonGuardar(origenCod, destinoCod) {
   const btn = document.getElementById("btn-guardar-ruta");
   const label = document.getElementById("btn-guardar-label");
@@ -971,7 +803,6 @@ function configurarBotonGuardar(origenCod, destinoCod) {
     if (rutaYaGuardada(origenCod, destinoCod)) {
       rutas = rutas.filter(r => !(r.origen === origenCod && r.destino === destinoCod));
     } else {
-      // Guardamos como máximo 6 — la más vieja se va cuando entra una nueva
       rutas.unshift({ origen: origenCod, destino: destinoCod });
       rutas = rutas.slice(0, 6);
     }
@@ -980,7 +811,6 @@ function configurarBotonGuardar(origenCod, destinoCod) {
     renderRutasGuardadas();
   });
 }
-
 function renderRutasGuardadas() {
   const cont = document.getElementById("saved-routes");
   const rutas = obtenerRutasGuardadas();
@@ -996,7 +826,6 @@ function renderRutasGuardadas() {
   }).join("");
   cont.classList.add("activo");
 }
-
 document.getElementById("saved-routes").addEventListener("click", (e) => {
   const chip = e.target.closest(".saved-chip");
   if (!chip) return;
@@ -1012,44 +841,26 @@ document.getElementById("saved-routes").addEventListener("click", (e) => {
     renderResultados(origenCod, destinoCod, null, "");
   }, 500);
 });
-
 renderRutasGuardadas();
-
-// ============================================================
-// COMPARTIR — genera un resumen para mandar por WhatsApp/redes
-// ============================================================
-// Genera una tarjeta imagen (formato Instagram Story) con el resultado de la
-// búsqueda — así "Compartir" ofrece la imagen, no solo texto, y ahí sí
-// aparece Instagram Stories en el menú nativo del celular.
 async function generarTarjetaCompartir(origen, destino, origenCod, destinoCod, km) {
   try { await document.fonts.load("900 60px 'DM Sans'"); } catch {}
   try { await document.fonts.load("700 30px 'JetBrains Mono'"); } catch {}
-
   const W = 1080, H = 1920;
   const canvas = document.createElement("canvas");
   canvas.width = W; canvas.height = H;
   const ctx = canvas.getContext("2d");
-
-  // Fondo
   const grad = ctx.createLinearGradient(0, 0, 0, H);
   grad.addColorStop(0, "#141414");
   grad.addColorStop(1, "#0A0A0A");
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, W, H);
-
-  // Marco dorado sutil
   ctx.strokeStyle = "rgba(201,168,76,0.35)";
   ctx.lineWidth = 3;
   ctx.strokeRect(40, 40, W - 80, H - 80);
-
   ctx.textAlign = "center";
-
-  // Wordmark arriba
   ctx.fillStyle = "#C9A84C";
   ctx.font = "700 34px 'DM Sans', sans-serif";
   ctx.fillText("✦  V I A J E A L I N F I N I T 8", W / 2, 220);
-
-  // Código de ruta grande
   ctx.fillStyle = "#FFFFFF";
   ctx.font = "900 150px 'JetBrains Mono', monospace";
   ctx.fillText(`${origenCod}`, W / 2, 640);
@@ -1059,48 +870,33 @@ async function generarTarjetaCompartir(origen, destino, origenCod, destinoCod, k
   ctx.fillStyle = "#FFFFFF";
   ctx.font = "900 150px 'JetBrains Mono', monospace";
   ctx.fillText(`${destinoCod}`, W / 2, 900);
-
-  // Ciudades
   ctx.fillStyle = "#8C8C8C";
   ctx.font = "500 38px 'DM Sans', sans-serif";
   ctx.fillText(`${origen.city} → ${destino.city}`, W / 2, 980);
-
-  // Km
   ctx.fillStyle = "#E8C96A";
   ctx.font = "700 32px 'JetBrains Mono', monospace";
   ctx.fillText(`${km.toLocaleString('es-AR')} KM`, W / 2, 1040);
-
-  // Tagline
   ctx.fillStyle = "#EDEAE1";
   ctx.font = "900 56px 'DM Sans', sans-serif";
   ctx.fillText("Encontré mis hacks", W / 2, 1420);
   ctx.fillText("de viaje ✈️", W / 2, 1490);
-
-  // CTA
   ctx.fillStyle = "#C9A84C";
   ctx.font = "700 40px 'DM Sans', sans-serif";
   ctx.fillText("app.viajealinfinito.com", W / 2, 1650);
-
   return new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
 }
-
 function configurarBotonCompartir(origen, destino, origenCod, destinoCod, km) {
   const btn = document.getElementById("btn-compartir-ruta");
   btn.addEventListener("click", async () => {
     const texto = `Encontré mis hacks de viaje para ${origenCod} → ${destinoCod} con Hack Finder ✈️ Gratis en app.viajealinfinito.com`;
     const blob = await generarTarjetaCompartir(origen, destino, origenCod, destinoCod, km);
     const archivo = blob ? new File([blob], "hack-finder.png", { type: "image/png" }) : null;
-
-    // Compartir con imagen (así aparece Instagram Stories, WhatsApp Estados, etc.)
     if (archivo && navigator.canShare && navigator.canShare({ files: [archivo] })) {
       try {
         await navigator.share({ files: [archivo], title: "Hack Finder — Viajealinfinit8", text: texto });
         return;
-      } catch { return; } // el usuario canceló, no hacemos nada más
+      } catch { return; }
     }
-
-    // Sin soporte para compartir imágenes: se la descargamos para que la
-    // suba a mano a Instagram, y copiamos el texto para pegarlo también.
     if (blob) {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -1116,10 +912,7 @@ function configurarBotonCompartir(origen, destino, origenCod, destinoCod, km) {
     } catch {}
   });
 }
-
 document.getElementById("btn-buscar").addEventListener("click", buscar);
-
-// Chips: scroll suave a la sección correspondiente
 document.getElementById("chips").addEventListener("click", (e) => {
   const chip = e.target.closest(".chip");
   if(!chip) return;
@@ -1129,41 +922,26 @@ document.getElementById("chips").addEventListener("click", (e) => {
   if(target) target.scrollIntoView({behavior:"smooth", block:"center"});
 });
 </script>
-
-<!-- Cliente de Supabase (login por magic link) -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script>
-// ============================================================
-// AUTENTICACIÓN — login por magic link + verificación de acceso
-// ============================================================
 const SUPABASE_URL = "https://nycgcaqiplijkukwwegy.supabase.co";
 const SUPABASE_KEY = "sb_publishable_IhCjKfxFDqNgTwRzkrI22Q_epc4A71n";
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-// ============================================================
-// CARGA DE DATOS DESDE SUPABASE — aeropuertos, salas VIP y
-// glosario. Antes vivían escritos en el código; ahora se traen
-// de la base apenas carga la página (son datos públicos, no
-// hace falta estar logueado para leerlos). Se dispara de una,
-// en paralelo con el chequeo de sesión — para cuando alguien
-// termina de loguearse, los datos ya están listos.
-// ============================================================
 async function cargarDatosDesdeSupabase() {
-  const [aeropuertosRes, salasRes, glosarioRes, stopoverRes] = await Promise.all([
+  const [aeropuertosRes, salasRes, glosarioRes, stopoverRes, promosRes] = await Promise.all([
     sb.from("airports").select("*"),
     sb.from("lounges").select("*"),
     sb.from("glossary_terms").select("*"),
     sb.from("stopover_programs").select("*"),
+    sb.from("promos").select("*"),
   ]);
-
-  if (aeropuertosRes.error || salasRes.error || glosarioRes.error || stopoverRes.error) {
+  if (aeropuertosRes.error || salasRes.error || glosarioRes.error || stopoverRes.error || promosRes.error) {
     console.error(
       "Error cargando datos desde Supabase:",
-      aeropuertosRes.error || salasRes.error || glosarioRes.error || stopoverRes.error
+      aeropuertosRes.error || salasRes.error || glosarioRes.error || stopoverRes.error || promosRes.error
     );
     return false;
   }
-
   const aeropuertosNuevo = {};
   aeropuertosRes.data.forEach((a) => {
     aeropuertosNuevo[a.code] = {
@@ -1176,7 +954,6 @@ async function cargarDatosDesdeSupabase() {
     };
   });
   AIRPORTS = aeropuertosNuevo;
-
   const salasNuevo = {};
   salasRes.data.forEach((s) => {
     if (!salasNuevo[s.airport_code]) salasNuevo[s.airport_code] = [];
@@ -1187,23 +964,16 @@ async function cargarDatosDesdeSupabase() {
     });
   });
   LOUNGES = salasNuevo;
-
   const glosarioNuevo = {};
   glosarioRes.data.forEach((t) => {
     glosarioNuevo[t.term_key] = { tag: t.tag, titulo: t.titulo, texto: t.texto };
   });
   GLOSARIO = glosarioNuevo;
-
   STOPOVERS = stopoverRes.data || [];
-
+  PROMOS = promosRes.data || [];
   return true;
 }
-
-// Se dispara ya mismo; buscar() espera a que termine antes de
-// mostrar resultados, por si alguien busca muy rápido apenas entra.
 const datosListosPromise = cargarDatosDesdeSupabase();
-
-
 const authGate = document.getElementById("auth-gate");
 const steps = {
   checking: document.getElementById("auth-step-checking"),
@@ -1216,18 +986,12 @@ function mostrarPaso(nombre) {
   Object.values(steps).forEach(el => el.style.display = "none");
   steps[nombre].style.display = "block";
 }
-
-// Redirigir siempre a la raíz del dominio de producción (mismo lugar
-// configurado en Supabase → Authentication → URL Configuration)
 const REDIRECT_URL = "https://app.viajealinfinito.com/";
-
-let emailPendiente = ""; // guardamos el mail entre el paso de envío y el de verificación
-
+let emailPendiente = "";
 async function enviarMagicLink() {
   const input = document.getElementById("auth-email-input");
   const email = input.value.trim();
   const errorMsg = document.getElementById("auth-error-email");
-
   const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   if (!emailValido) {
     errorMsg.classList.add("show");
@@ -1235,16 +999,13 @@ async function enviarMagicLink() {
   }
   errorMsg.classList.remove("show");
   mostrarPaso("loading");
-
   const { error } = await sb.auth.signInWithOtp({ email });
-
   if (error) {
     mostrarPaso("email");
     errorMsg.textContent = "Algo falló al enviar el código. Probá de nuevo en un momento.";
     errorMsg.classList.add("show");
     return;
   }
-
   emailPendiente = email;
   document.getElementById("auth-sent-email").textContent = email;
   document.getElementById("auth-otp-input").value = "";
@@ -1252,74 +1013,53 @@ async function enviarMagicLink() {
   mostrarPaso("sent");
   document.getElementById("auth-otp-input").focus();
 }
-
 async function confirmarCodigo() {
   const codeInput = document.getElementById("auth-otp-input");
   const code = codeInput.value.trim();
   const errorMsg = document.getElementById("auth-error-otp");
-
   if (code.length < 4) {
     errorMsg.textContent = "Ingresá el código completo tal como te llegó en el mail.";
     errorMsg.classList.add("show");
     return;
   }
   errorMsg.classList.remove("show");
-
   const { data, error } = await sb.auth.verifyOtp({
     email: emailPendiente,
     token: code,
     type: "email"
   });
-
   if (error || !data.user) {
     errorMsg.textContent = "Código incorrecto o vencido. Fijate que no tenga espacios y probá de nuevo.";
     errorMsg.classList.add("show");
     return;
   }
-
   await verificarAcceso(data.user);
 }
-
-// Chequea si el usuario logueado tiene acceso activo (tabla profiles)
-// Datos del usuario logueado, una vez confirmado el acceso — útil
-// para lo que viene después (mostrar cosas distintas según el plan).
 let usuarioActual = null;
-
 async function verificarAcceso(user) {
   const { data, error } = await sb
     .from("profiles")
     .select("role, premium_expira_en")
     .eq("id", user.id)
     .maybeSingle();
-
   if (error || !data) {
     mostrarPaso("noaccess");
     return false;
   }
-
   const premiumVencido = data.premium_expira_en && new Date(data.premium_expira_en) < new Date();
   const tieneAcceso = data.role === "admin" || (data.role === "premium" && !premiumVencido);
-
   if (!tieneAcceso) {
     mostrarPaso("noaccess");
     return false;
   }
-
   usuarioActual = { id: user.id, email: user.email, role: data.role };
-  // Si es admin, revelamos el ítem de Admin en la barra de abajo
-  // (para cualquier otro plan, ese botón ni existe)
   if (data.role === "admin") {
     document.getElementById("tab-admin").style.display = "flex";
   }
-  // Acceso confirmado: ocultar el gate y dejar pasar a la app
   authGate.classList.add("hidden");
   return true;
 }
-
 async function chequearSesionInicial() {
-  // Si el link falló (link viejo, o abierto en un navegador distinto al que lo pidió),
-  // Supabase agrega un error en la URL en vez de loguear. Lo detectamos para avisar
-  // en vez de dejar a la persona trabada en la pantalla de carga para siempre.
   const params = new URLSearchParams(window.location.search);
   const hashParams = new URLSearchParams(window.location.hash.replace("#", "?"));
   const errorDesc = params.get("error_description") || hashParams.get("error_description");
@@ -1331,9 +1071,6 @@ async function chequearSesionInicial() {
     window.history.replaceState({}, "", window.location.pathname);
     return;
   }
-
-  // Salvavidas: si por cualquier motivo se queda trabado en "verificando"
-  // más de 6 segundos, no lo dejamos colgado — mostramos la pantalla de login.
   const timeoutSalvavidas = setTimeout(() => {
     if (steps.checking.style.display !== "none") {
       mostrarPaso("email");
@@ -1342,17 +1079,14 @@ async function chequearSesionInicial() {
       errorMsg.classList.add("show");
     }
   }, 6000);
-
   const { data: { session } } = await sb.auth.getSession();
   clearTimeout(timeoutSalvavidas);
-
   if (session && session.user) {
     await verificarAcceso(session.user);
   } else {
     mostrarPaso("email");
   }
 }
-
 document.getElementById("auth-send-btn").addEventListener("click", enviarMagicLink);
 document.getElementById("auth-verify-btn").addEventListener("click", confirmarCodigo);
 document.getElementById("auth-otp-input").addEventListener("keydown", (e) => {
@@ -1366,16 +1100,12 @@ document.getElementById("auth-logout-link").addEventListener("click", async () =
   await sb.auth.signOut();
   mostrarPaso("email");
 });
-
-// Reacciona automáticamente cuando alguien vuelve del link del mail
 sb.auth.onAuthStateChange((event, session) => {
   if (event === "SIGNED_IN" && session && session.user) {
     verificarAcceso(session.user);
   }
 });
-
 chequearSesionInicial();
 </script>
-
 </body>
 </html>
