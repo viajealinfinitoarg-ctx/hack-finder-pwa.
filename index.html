@@ -2,1138 +2,712 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<title>Hack Finder — @viajealinfinit8</title>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#080808">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Hack Finder">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
-<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Viajero Premium — Pagás precio de turista. Viajás como VIP.</title>
+<meta name="description" content="El manual que las aerolíneas no quieren que conozcas. Salas VIP, Business Class sin pagarlo, hasta $1.200 USD de compensación. 8 módulos. 20 hacks.">
+<meta property="og:title" content="El Viajero Premium — @viajealinfinit8">
+<meta property="og:description" content="Pagás precio de turista. Viajás como VIP.">
+<meta property="og:image" content="./portada2.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --negro:#0A0A0A;--negro2:#141414;--negro3:#1C1C1C;--negro4:#242424;
-  --dorado:#C9A84C;--dorado2:#E8C96A;--dorado-suave:rgba(201,168,76,0.12);
-  --blanco:#FFFFFF;--blanco2:#EDEAE1;
-  --gris:#8C8C8C;--gris2:#2E2E2E;
-  --verde:#6FA26F;
-  --spring:cubic-bezier(.34,1.56,.64,1);
-  --ease:cubic-bezier(.22,1,.36,1);
-  --r-sm:14px;--r-md:20px;--r-lg:28px;--r-pill:999px;
+  --negro:#080808;--negro2:#111111;--negro3:#1A1A1A;--negro4:#222222;
+  --dorado:#C9A84C;--dorado2:#E8C96A;
+  --blanco:#FFFFFF;--blanco2:#E8E3D8;
+  --gris:#888888;--gris2:#333333;
 }
 html{scroll-behavior:smooth}
-body{background:var(--negro);color:var(--blanco2);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.55;overflow-x:hidden;min-height:100vh;position:relative}
+body{background:var(--negro);color:var(--blanco2);font-family:'Inter',sans-serif;font-size:16px;line-height:1.7;overflow-x:hidden}
+img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
-button{font-family:inherit}
-.icon{display:inline-block;flex-shrink:0}
-body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
-#header,.wrap,#install-banner,#search-sheet-overlay,#glossary-overlay,#tabbar{position:relative;z-index:2}
-#header{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.92);backdrop-filter:blur(16px);padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
-.header-logo{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.5px;color:var(--dorado)}
-.header-badge{width:30px;height:30px;border-radius:var(--r-pill);background:var(--dorado-suave);border:1px solid rgba(201,168,76,.35);display:flex;align-items:center;justify-content:center}
-.header-badge .icon{color:var(--dorado)}
-.header-tag{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--gris);letter-spacing:.5px;background:var(--negro3);border-radius:var(--r-pill);padding:5px 11px}
-.wrap{max-width:640px;margin:0 auto;padding:28px 20px 120px}
-.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dorado);margin-bottom:14px;display:flex;align-items:center;gap:8px}
-h1{font-family:'DM Sans',sans-serif;font-weight:900;font-size:clamp(30px,8vw,42px);line-height:1.1;color:var(--blanco);margin-bottom:14px;letter-spacing:-.8px}
-h1 em{font-style:italic;color:var(--dorado2)}
-.hero-sub{color:var(--gris);font-size:16px;max-width:460px;margin-bottom:26px;font-weight:400;line-height:1.5}
-.search-pill{width:100%;background:var(--negro2);border:1px solid var(--gris2);border-radius:var(--r-pill);padding:8px 8px 8px 22px;display:flex;align-items:center;gap:14px;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.35);transition:transform .15s var(--ease), border-color .2s var(--ease)}
-.search-pill:active{transform:scale(.985)}
-.search-pill:hover{border-color:rgba(201,168,76,.4)}
-.search-pill-text{flex:1;min-width:0}
-.search-pill-titulo{font-size:14.5px;font-weight:700;color:var(--blanco);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.search-pill-sub{font-size:12px;color:var(--gris);margin-top:1px}
-.search-pill-icon{width:42px;height:42px;border-radius:var(--r-pill);background:var(--dorado);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.search-pill-icon .icon{color:var(--negro)}
-.chips{display:flex;gap:8px;overflow-x:auto;margin:20px 0 4px;padding-bottom:4px;scrollbar-width:none}
-#saved-routes{display:none;gap:8px;overflow-x:auto;margin-bottom:14px;padding-bottom:4px;scrollbar-width:none}
-#saved-routes.activo{display:flex}
-.saved-chip{flex-shrink:0;display:flex;align-items:center;gap:6px;background:var(--negro2);border:1px solid var(--gris2);border-radius:var(--r-pill);padding:8px 14px;font-size:12.5px;font-weight:700;color:var(--dorado2);cursor:pointer}
-.saved-chip:active{transform:scale(.96)}
-.res-actions{display:flex;gap:8px;margin-top:14px}
-.res-action-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--negro3);border:1px solid var(--gris2);border-radius:var(--r-pill);padding:10px;font-size:12px;font-weight:700;color:var(--blanco2);cursor:pointer;transition:all .2s var(--ease)}
-.res-action-btn:active{transform:scale(.97)}
-.res-action-btn.guardada{background:var(--dorado-suave);border-color:var(--dorado);color:var(--dorado2)}
-.chips::-webkit-scrollbar{display:none}
-.chip{flex-shrink:0;display:flex;align-items:center;gap:6px;background:var(--negro2);border:1px solid var(--gris2);border-radius:var(--r-pill);padding:9px 16px;font-size:13px;font-weight:600;color:var(--blanco2);cursor:pointer;transition:all .2s var(--ease)}
-.chip.active{background:var(--dorado);border-color:var(--dorado);color:var(--negro)}
-.chip:active{transform:scale(.96)}
-#search-sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:300;display:none;opacity:0;transition:opacity .3s var(--ease)}
-#search-sheet-overlay.open{display:block;opacity:1}
-#search-sheet{position:fixed;left:0;right:0;bottom:0;z-index:301;background:var(--negro2);border-radius:28px 28px 0 0;padding:14px 20px 28px;transform:translateY(100%);transition:transform .42s var(--spring);max-width:640px;margin:0 auto;max-height:88vh;overflow-y:auto;box-shadow:0 -20px 60px rgba(0,0,0,.5)}
-#search-sheet-overlay.open #search-sheet{transform:translateY(0)}
-.sheet-handle{width:36px;height:4px;background:var(--gris2);border-radius:2px;margin:0 auto 20px}
-.sheet-titulo{font-family:'DM Sans',sans-serif;font-weight:900;font-size:24px;color:var(--blanco);margin-bottom:20px}
-.campo{margin-bottom:14px;position:relative}
-label{display:block;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--dorado);margin-bottom:8px}
-.opcional-tag{color:var(--gris);font-weight:400;text-transform:none;letter-spacing:0;font-size:11px}
-.ac-input-wrap{position:relative}
-.ac-input{width:100%;background:var(--negro3);border:1.5px solid var(--gris2);border-radius:var(--r-md);color:var(--blanco2);padding:15px 42px 15px 16px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;transition:border-color .2s var(--ease)}
-.ac-input:focus{outline:none;border-color:var(--dorado)}
-.ac-input::placeholder{color:var(--gris);font-weight:400}
-.ac-clear{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:24px;height:24px;border-radius:var(--r-pill);border:none;background:var(--negro4);color:var(--gris);font-size:14px;cursor:pointer;display:none;align-items:center;justify-content:center}
-.ac-clear.show{display:flex}
-.ac-panel{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--negro3);border:1px solid var(--gris2);border-radius:var(--r-md);max-height:240px;overflow-y:auto;display:none;z-index:60;box-shadow:0 16px 40px rgba(0,0,0,.5)}
-.ac-panel.open{display:block;animation:acOpen .22s var(--ease)}
-@keyframes acOpen{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
-.ac-group-label{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--gris);padding:12px 14px 6px}
-.ac-option{padding:12px 14px;font-size:14.5px;color:var(--blanco2);cursor:pointer;display:flex;align-items:center;gap:10px;transition:background .12s;border-radius:var(--r-sm);margin:0 6px}
-.ac-option:hover,.ac-option.active{background:var(--negro4)}
-.ac-flag{font-size:16px;flex-shrink:0}
-.ac-city{flex:1}
-.ac-code{color:var(--gris);font-size:11.5px;font-weight:600;background:var(--negro2);border-radius:6px;padding:2px 6px}
-.ac-empty{padding:20px 14px;text-align:center;color:var(--gris);font-size:13.5px}
-select.ac-input{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' stroke='%23C9A84C' stroke-width='1.5' fill='none'/></svg>");background-repeat:no-repeat;background-position:right 16px center}
-.btn-pill{width:100%;background:var(--dorado);color:var(--negro);font-weight:800;font-size:14.5px;border:none;border-radius:var(--r-pill);padding:17px;cursor:pointer;transition:transform .15s var(--spring), background .2s var(--ease);margin-top:6px}
-.btn-pill:hover{background:var(--dorado2)}
-.btn-pill:active{transform:scale(.97)}
-.btn-pill:disabled{opacity:.4;cursor:not-allowed}
-.btn-ghost{width:100%;background:none;color:var(--gris);font-weight:600;font-size:13px;border:none;padding:14px;cursor:pointer;text-align:center}
-#loading{display:none;margin-top:28px}
-#loading.activo{display:block}
-.skeleton{background:var(--negro2);border-radius:var(--r-lg);padding:22px;margin-bottom:14px}
-.skeleton-line{height:12px;border-radius:8px;background:linear-gradient(90deg,var(--negro3) 25%,var(--negro4) 50%,var(--negro3) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;margin-bottom:10px}
-.skeleton-line.w60{width:60%}
-.skeleton-line.w90{width:90%}
-.skeleton-line.w40{width:40%}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.loading-label{font-size:12.5px;font-weight:600;color:var(--dorado2);margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.loading-dot{width:6px;height:6px;border-radius:50%;background:var(--dorado);animation:pulse 1s infinite}
-@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
-#resultados{display:none;margin-top:20px}
-#resultados.activo{display:block}
-.res-header{margin-bottom:24px;opacity:0;animation:cardIn .5s var(--spring) forwards;background:linear-gradient(135deg,var(--negro3),var(--negro2));border-radius:var(--r-lg);padding:24px 22px;box-shadow:0 14px 36px rgba(0,0,0,.4)}
-.res-flightrow{display:flex;align-items:center;gap:14px;margin-bottom:14px}
-.res-code{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:var(--blanco);letter-spacing:-1px}
-.res-flecha-wrap{flex:1;display:flex;align-items:center;padding:0 4px}
-.res-flecha-line{flex:1;height:2px;border-radius:2px;background:var(--gris2);position:relative}
-.res-flecha-line::after{content:'';position:absolute;right:-1px;top:-4px;width:0;height:0;border-left:7px solid var(--dorado);border-top:4px solid transparent;border-bottom:4px solid transparent}
-.res-ciudades{display:flex;justify-content:space-between;font-size:14px;color:var(--gris);margin-bottom:14px}
-.res-count{font-size:11.5px;font-weight:700;color:var(--dorado);background:var(--dorado-suave);display:inline-flex;border-radius:var(--r-pill);padding:6px 12px;letter-spacing:.3px}
-.res-hero-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gris);margin-top:14px;margin-bottom:2px}
-.res-hero-value{font-family:'DM Sans',sans-serif;font-weight:900;font-size:56px;line-height:1;letter-spacing:-1.5px;color:var(--blanco);font-variant-numeric:tabular-nums}
-.res-hero-value.dorado{color:var(--dorado)}
-.res-hero-unit{font-size:20px;font-weight:700;color:var(--gris);margin-left:6px}
-.card{position:relative;background:var(--negro2);border-radius:var(--r-lg);padding:22px;margin-bottom:16px;opacity:0;transform:translateY(14px);animation:cardIn .5s var(--spring) forwards;box-shadow:0 10px 28px rgba(0,0,0,.28)}
-@keyframes cardIn{to{opacity:1;transform:translateY(0)}}
-.card-tag{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-.card-tag-badge{width:32px;height:32px;border-radius:var(--r-pill);background:var(--dorado-suave);border:1px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.card-tag-badge .icon{color:var(--dorado)}
-.card-tag-label{font-size:11.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--dorado2)}
-.card-titulo{font-family:'DM Sans',sans-serif;font-size:19px;font-weight:900;color:var(--blanco);margin-bottom:10px;line-height:1.25;letter-spacing:-.2px}
-.card-texto{font-size:15.5px;color:var(--blanco2);margin-bottom:6px;font-weight:400;line-height:1.5}
-.card-texto strong{color:var(--dorado2);font-weight:700}
-.card-frase{background:var(--negro3);border-radius:var(--r-md);padding:14px 16px;margin-top:12px;font-size:13.5px;font-style:italic;color:var(--gris)}
-.card-costo{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:13px;font-weight:700;color:var(--verde);background:rgba(111,162,111,0.12);border-radius:var(--r-pill);padding:7px 13px}
-.card.vacio .card-texto{color:var(--gris)}
-.gterm{color:var(--dorado2);border-bottom:1.5px dotted var(--dorado2);cursor:pointer;font-weight:700}
-.gterm:active{opacity:.7}
-.timeline-item{display:flex;gap:14px;padding:13px 0}
-.timeline-item:not(:last-child){border-bottom:1px solid var(--gris2)}
-.timeline-momento{flex-shrink:0;width:92px;font-size:11px;font-weight:700;color:var(--dorado);letter-spacing:.3px;text-transform:uppercase;line-height:1.4}
-.timeline-accion{font-size:15px;color:var(--blanco2);line-height:1.45}
-.card.locked{position:relative;overflow:hidden}
-.card.locked .card-texto{filter:blur(3px);user-select:none}
-.locked-overlay{position:absolute;inset:0;border-radius:var(--r-lg);background:linear-gradient(180deg,rgba(20,20,20,0) 0%,rgba(20,20,20,0.97) 55%);display:flex;align-items:flex-end;justify-content:center;padding:20px}
-.locked-cta{background:var(--dorado);color:var(--negro);font-size:12px;font-weight:800;border-radius:var(--r-pill);padding:11px 20px}
-.upsell{margin-top:28px;background:linear-gradient(135deg,var(--negro3),var(--negro2));border-radius:var(--r-lg);padding:30px 24px;text-align:center;box-shadow:0 14px 36px rgba(0,0,0,.35)}
-.upsell-eyebrow{font-size:10.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--dorado);margin-bottom:10px}
-.upsell-titulo{font-family:'DM Sans',sans-serif;font-weight:900;font-size:23px;color:var(--blanco);margin-bottom:10px}
-.upsell-texto{font-size:14px;color:var(--gris);margin-bottom:22px}
-.upsell-btn{display:inline-block;background:var(--dorado);color:var(--negro);font-weight:800;font-size:13px;border-radius:var(--r-pill);padding:15px 30px}
-footer{text-align:center;padding:32px 20px;color:var(--gris);font-size:12px;margin-top:36px}
-footer a{color:var(--dorado2)}
-#glossary-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:300;display:none;opacity:0;transition:opacity .25s var(--ease)}
-#glossary-overlay.open{display:block;opacity:1}
-#glossary-sheet{position:fixed;left:0;right:0;bottom:0;z-index:301;background:var(--negro2);border-radius:28px 28px 0 0;padding:14px 22px 32px;transform:translateY(100%);transition:transform .4s var(--spring);max-width:640px;margin:0 auto}
-#glossary-overlay.open #glossary-sheet{transform:translateY(0)}
-#cuenta-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:300;display:none;opacity:0;transition:opacity .25s var(--ease)}
-#cuenta-overlay.open{display:block;opacity:1}
-#cuenta-sheet{position:fixed;left:0;right:0;bottom:0;z-index:301;background:var(--negro2);border-radius:28px 28px 0 0;padding:14px 22px 32px;transform:translateY(100%);transition:transform .4s var(--spring);max-width:640px;margin:0 auto}
-#cuenta-overlay.open #cuenta-sheet{transform:translateY(0)}
-#admin-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:300;display:none;opacity:0;transition:opacity .25s var(--ease)}
-#admin-overlay.open{display:block;opacity:1}
-#admin-sheet{position:fixed;left:0;right:0;bottom:0;z-index:301;background:var(--negro2);border-radius:28px 28px 0 0;padding:14px 22px 32px;transform:translateY(100%);transition:transform .4s var(--spring);max-width:640px;margin:0 auto;max-height:80vh;display:flex;flex-direction:column}
-#admin-overlay.open #admin-sheet{transform:translateY(0)}
-.admin-user-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 4px;border-bottom:1px solid var(--gris2)}
-.admin-user-email{font-size:14px;font-weight:600;color:var(--blanco2);word-break:break-all}
-.admin-user-meta{font-size:11px;color:var(--gris);margin-top:2px}
-.admin-role-select{flex-shrink:0;background:var(--negro3);border:1.5px solid var(--gris2);border-radius:var(--r-pill);color:var(--blanco2);font-size:12.5px;font-weight:700;padding:7px 10px}
-#glossary-list-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:280;display:none;opacity:0;transition:opacity .25s var(--ease)}
-#glossary-list-overlay.open{display:block;opacity:1}
-#glossary-list-sheet{position:fixed;left:0;right:0;bottom:0;z-index:281;background:var(--negro2);border-radius:28px 28px 0 0;padding:14px 22px 32px;transform:translateY(100%);transition:transform .4s var(--spring);max-width:640px;margin:0 auto;max-height:78vh;display:flex;flex-direction:column}
-#glossary-list-overlay.open #glossary-list-sheet{transform:translateY(0)}
-.glist-titulo{font-weight:900;font-size:22px;color:var(--blanco);margin-bottom:16px}
-.glist-search{width:100%;background:var(--negro3);border:1.5px solid var(--gris2);border-radius:var(--r-md);color:var(--blanco2);padding:14px 16px;font-family:'DM Sans',sans-serif;font-size:15px;margin-bottom:14px;flex-shrink:0}
-.glist-search:focus{outline:none;border-color:var(--dorado)}
-.glist-items{overflow-y:auto;flex:1}
-.glist-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 4px;border-bottom:1px solid var(--gris2);cursor:pointer}
-.glist-item:active{opacity:.7}
-.glist-item-titulo{font-size:15px;font-weight:700;color:var(--blanco2)}
-.glist-item-tag{font-size:11px;color:var(--gris)}
-.glist-empty{padding:24px 4px;text-align:center;color:var(--gris);font-size:13.5px}
-.gsheet-handle{width:36px;height:4px;background:var(--gris2);margin:0 auto 20px;border-radius:2px}
-.gsheet-tag{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--negro);background:var(--dorado);border-radius:var(--r-pill);padding:5px 12px;margin-bottom:14px}
-.gsheet-titulo{font-family:'DM Sans',sans-serif;font-weight:900;font-size:21px;color:var(--dorado2);margin-bottom:10px}
-.gsheet-texto{font-size:16px;color:var(--blanco2);line-height:1.6;margin-bottom:18px}
-.gsheet-texto strong{color:var(--dorado2)}
-.gsheet-close{width:100%;background:var(--negro3);border:none;border-radius:var(--r-pill);color:var(--blanco2);padding:15px;font-size:13px;font-weight:700;cursor:pointer}
-#tabbar{position:fixed;left:0;right:0;bottom:0;z-index:150;background:rgba(10,10,10,0.96);backdrop-filter:blur(16px);border-top:1px solid var(--gris2);display:flex;padding:10px 12px calc(10px + env(safe-area-inset-bottom))}
-.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0;cursor:pointer;color:var(--gris);transition:color .2s var(--ease)}
-.tab.active{color:var(--dorado)}
-.tab-label{font-size:10.5px;font-weight:600}
-#auth-gate{position:fixed;inset:0;z-index:500;background:var(--negro);display:flex;align-items:center;justify-content:center;padding:24px}
-#auth-gate.hidden{display:none}
-.auth-box{width:100%;max-width:400px;text-align:center}
-.auth-badge{width:56px;height:56px;border-radius:var(--r-pill);background:var(--dorado-suave);border:1px solid rgba(201,168,76,.35);display:flex;align-items:center;justify-content:center;margin:0 auto 24px}
-.auth-badge .icon{color:var(--dorado)}
-.auth-titulo{font-family:'DM Sans',sans-serif;font-weight:900;font-size:26px;color:var(--blanco);margin-bottom:10px}
-.auth-sub{font-size:15.5px;color:var(--gris);margin-bottom:28px;line-height:1.5}
-.auth-input{width:100%;background:var(--negro2);border:1.5px solid var(--gris2);border-radius:var(--r-md);color:var(--blanco2);padding:16px;font-family:'DM Sans',sans-serif;font-size:15px;text-align:center;margin-bottom:14px}
-.auth-input:focus{outline:none;border-color:var(--dorado)}
-.auth-error{color:#e07a7a;font-size:14px;margin-bottom:14px;display:none;line-height:1.4}
-.auth-error.show{display:block}
-.auth-loader{display:none;margin:0 auto;width:22px;height:22px;border:2.5px solid var(--gris2);border-top-color:var(--dorado);border-radius:50%;animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.auth-loader.show{display:block}
-.auth-icon-big{font-size:40px;margin-bottom:18px}
-.auth-footer-link{display:block;margin-top:22px;font-size:13px;color:var(--gris);cursor:pointer}
-.auth-footer-link span{color:var(--dorado2);border-bottom:1px dotted var(--dorado2)}
-#install-banner{display:none;position:fixed;left:16px;right:16px;bottom:78px;z-index:200;background:var(--negro2);border-radius:var(--r-lg);padding:14px 16px;align-items:center;gap:12px;box-shadow:0 14px 36px rgba(0,0,0,0.5)}
-#install-banner.activo{display:flex}
-.install-icon{width:40px;height:40px;border-radius:var(--r-md);flex-shrink:0}
-.install-texto{flex:1}
-.install-titulo{font-size:13px;font-weight:700;color:var(--blanco)}
-.install-sub{font-size:11.5px;color:var(--gris)}
-.install-btn{background:var(--dorado);color:var(--negro);font-size:11.5px;font-weight:800;border-radius:var(--r-pill);padding:10px 16px;border:none;cursor:pointer;white-space:nowrap}
-.install-close{background:var(--negro3);border:none;border-radius:var(--r-pill);width:26px;height:26px;color:var(--gris);font-size:14px;cursor:pointer}
+
+/* BANNER COUNTDOWN DE TEMPORADA */
+#promo-banner{position:fixed;top:0;left:0;right:0;z-index:101;background:linear-gradient(90deg,#8a2c1f,#a83a24);color:#fff;padding:8px 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center;font-size:12.5px;border-bottom:1px solid rgba(255,255,255,0.15)}
+.promo-row1{font-weight:600;letter-spacing:.2px}
+.promo-row1 strong{color:#FFE8B0;font-weight:700}
+.promo-row2{font-weight:500;opacity:.9;font-size:12px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+.promo-row2 strong{color:#FFE8B0;font-weight:800}
+.promo-fecha{background:rgba(0,0,0,0.25);border-radius:4px;padding:2px 7px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:#fff;white-space:nowrap;display:inline-block}
+.precio-urgencia{font-size:12px;color:#D9714F;letter-spacing:.3px;margin-top:8px;font-weight:600}
+.precio-urgencia .promo-fecha{background:rgba(217,113,79,.15);color:#D9714F;padding:1px 6px}
+#promo-timer{display:inline-flex;gap:6px;font-family:'Inter',sans-serif;font-weight:700;letter-spacing:.5px}
+#promo-timer span{background:rgba(0,0,0,0.25);border-radius:4px;padding:2px 6px;min-width:24px;text-align:center}
+#promo-timer .promo-sep{background:none;padding:0;min-width:auto}
+#promo-banner.is-ended{background:linear-gradient(90deg,#4a4a4a,#5c5c5c)}
+@keyframes promoPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.08);opacity:.85}}
+#promo-timer.is-urgent span{animation:promoPulse 1s ease-in-out infinite}
+@media(max-width:520px){#promo-banner{font-size:11.5px;padding:8px 10px}#promo-timer span{padding:2px 5px;min-width:20px}}
+
+/* HEADER */
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,8,8,0.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.15);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:top .2s}
+.header-logo{font-size:12px;font-weight:700;letter-spacing:3px;color:var(--dorado);text-transform:uppercase;white-space:nowrap}
+.header-btn{background:var(--dorado);color:var(--negro);font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:10px 20px;white-space:nowrap;transition:background .2s}
+.header-btn:hover{background:var(--dorado2)}
+
+/* HERO */
+#hero{padding-top:80px;min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 30%,rgba(201,168,76,0.07) 0%,#080808 65%)}
+.hero-bg-img{display:none}
+.hero-bg-img img{width:100%;height:100%;object-fit:cover;object-position:center;opacity:0.22}
+.hero-bg-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,var(--negro) 0%,rgba(8,8,8,0.3) 40%,rgba(8,8,8,0.3) 60%,var(--negro) 100%)}
+.hero-inner{position:relative;z-index:1;padding:60px 24px 80px;max-width:820px;margin:0 auto;text-align:center}
+.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--dorado);margin-bottom:28px;display:flex;align-items:center;justify-content:center;gap:12px}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:40px;height:.5px;background:var(--dorado);opacity:.5}
+.hero-h1{font-family:'Playfair Display',serif;font-size:clamp(40px,8vw,78px);font-weight:900;line-height:1.05;color:var(--blanco);letter-spacing:-1px;margin-bottom:6px}
+.hero-h1 span{color:var(--dorado);display:block}
+.hero-sub{font-size:clamp(15px,2.5vw,18px);color:var(--blanco2);opacity:.8;max-width:540px;margin:20px auto 36px;line-height:1.65}
+.hero-cta-wrap{max-width:400px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:12px}
+.prueba-social{font-size:12px;color:var(--dorado);letter-spacing:.3px;font-weight:600;margin:0}
+.roi-txt{font-size:13px;color:var(--gris);text-align:center;margin-bottom:14px;font-style:italic}
+.hero-btn{display:block;background:var(--dorado);color:var(--negro);font-weight:800;font-size:14px;letter-spacing:1.5px;text-transform:uppercase;padding:20px 32px;width:100%;text-align:center;transition:background .2s,transform .15s}
+.hero-btn:hover{background:var(--dorado2);transform:translateY(-2px)}
+.hero-price{font-size:13px;color:var(--gris)}
+.hero-price s{color:var(--gris)}
+.hero-price strong{color:var(--dorado);font-size:15px}
+.hero-badges{display:flex;justify-content:center;gap:24px;margin-top:52px;flex-wrap:wrap}
+.hero-badge{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gris);display:flex;align-items:center;gap:8px}
+.hero-badge::before{content:'';display:block;width:4px;height:4px;background:var(--dorado);opacity:.6}
+
+/* IMAGEN FULL — portada 3 */
+#img-full{padding:0;overflow:hidden;background:#080808}
+#img-full img{width:100%;height:auto;object-fit:contain;opacity:1}
+
+/* HISTORIA */
+#historia{background:var(--negro2);border-top:1px solid rgba(201,168,76,.1);border-bottom:1px solid rgba(201,168,76,.1);padding:80px 24px}
+.historia-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:900px;margin:0 auto}
+.historia-img{border:1px solid rgba(201,168,76,.2);overflow:hidden;position:relative}
+.historia-img img{width:100%;height:auto;object-fit:contain;display:block}
+.historia-img-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(8,8,8,.95),transparent);padding:24px 20px 14px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dorado)}
+.historia-content .badge{display:inline-block;border:1px solid rgba(201,168,76,.4);color:var(--dorado);font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:5px 14px;margin-bottom:20px}
+.historia-content h2{font-family:'Playfair Display',serif;font-size:clamp(24px,4vw,36px);font-weight:700;color:var(--blanco);line-height:1.2;margin-bottom:18px}
+.historia-content p{font-size:15px;color:var(--blanco2);line-height:1.8;margin-bottom:14px;opacity:.85}
+.cita{border-left:3px solid var(--dorado);padding:16px 20px;background:rgba(201,168,76,.05);margin:22px 0;font-family:'Playfair Display',serif;font-style:italic;font-size:17px;color:var(--blanco);line-height:1.6}
+
+/* HR */
+hr.gold{border:none;height:.5px;background:rgba(201,168,76,.2);margin:0}
+
+/* DOLORES */
+#dolores{padding:80px 24px;background:var(--negro)}
+.section-header{text-align:center;margin-bottom:48px}
+.section-header .badge{display:inline-block;border:1px solid rgba(201,168,76,.4);color:var(--dorado);font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:5px 14px;margin-bottom:16px}
+.section-header h2{font-family:'Playfair Display',serif;font-size:clamp(26px,5vw,40px);font-weight:700;color:var(--blanco);line-height:1.2;margin-bottom:10px}
+.section-header p{font-size:15px;color:var(--gris);max-width:500px;margin:0 auto}
+.dolores-list{max-width:700px;margin:0 auto}
+.dolor-item{display:flex;align-items:flex-start;gap:18px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.05);opacity:0;transform:translateX(-20px);transition:opacity .5s,transform .5s}
+.dolor-item.visible{opacity:1;transform:translateX(0)}
+.dolor-x{width:30px;height:30px;border:1px solid rgba(180,60,60,.4);background:rgba(180,60,60,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#cc6666;font-size:13px;margin-top:3px}
+.dolor-txt{font-size:15px;color:var(--blanco2);line-height:1.65}
+.dolor-txt strong{color:var(--blanco)}
+.dolores-cierre{text-align:center;margin-top:36px;font-family:'Playfair Display',serif;font-style:italic;font-size:18px;color:var(--dorado)}
+
+/* BENEFICIOS */
+#beneficios{padding:80px 24px;background:var(--negro2);border-top:1px solid rgba(201,168,76,.1)}
+.beneficios-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:800px;margin:0 auto}
+.ben-card{background:var(--negro3);border:1px solid rgba(201,168,76,.1);padding:22px;display:flex;gap:14px;align-items:flex-start;opacity:0;transform:translateY(16px);transition:opacity .5s,transform .5s,border-color .2s}
+.ben-card.visible{opacity:1;transform:translateY(0)}
+.ben-card:hover{border-color:rgba(201,168,76,.3)}
+.ben-check{width:26px;height:26px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--dorado);font-size:12px;margin-top:3px}
+.ben-txt{font-size:14px;color:var(--blanco2);line-height:1.6}
+.ben-txt strong{color:var(--dorado);font-size:15px}
+
+/* PRODUCTO */
+#producto{padding:80px 24px;background:var(--negro)}
+.producto-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:60px;align-items:start;max-width:960px;margin:0 auto}
+.producto-img-wrap{position:sticky;top:100px}
+.producto-mockup{border:1px solid rgba(201,168,76,.2);overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 40px rgba(201,168,76,.08)}
+.producto-mockup img{width:100%;display:block}
+.precio-box{margin-top:16px;padding:20px;background:var(--negro3);border:1px solid rgba(201,168,76,.2);text-align:center}
+.precio-tachado{font-size:13px;color:var(--gris);text-decoration:line-through;margin-bottom:4px}
+.precio-actual{font-family:'Playfair Display',serif;font-size:44px;font-weight:900;color:var(--dorado);line-height:1;font-variant-numeric:lining-nums}
+.precio-nota{font-size:11px;color:var(--gris);letter-spacing:1px;text-transform:uppercase;margin-top:4px}
+.bonus-box{margin-top:14px;padding:18px 20px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.35);border-radius:2px}
+.bonus-tag{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--dorado);margin-bottom:8px}
+.bonus-titulo{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--blanco);margin-bottom:6px;line-height:1.25}
+.bonus-desc{font-size:13px;color:var(--gris);line-height:1.5;margin-bottom:10px}
+.bonus-lista{list-style:none;padding:0;margin:0 0 10px}
+.bonus-lista li{font-size:13px;color:var(--blanco);padding-left:20px;position:relative;margin-bottom:5px;line-height:1.4}
+.bonus-lista li::before{content:'✓';position:absolute;left:0;color:var(--dorado);font-weight:700}
+.bonus-lista strong{color:var(--dorado)}
+.bonus-nota{font-size:11.5px;color:var(--gris);font-style:italic;line-height:1.4;margin:0}
+.btn-gold{display:block;background:var(--dorado);color:var(--negro);font-weight:700;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;padding:17px 28px;text-align:center;transition:background .2s,transform .15s;margin-top:12px;width:100%}
+.btn-gold:hover{background:var(--dorado2);transform:translateY(-1px)}
+.producto-content .badge{display:inline-block;border:1px solid rgba(201,168,76,.4);color:var(--dorado);font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:5px 14px;margin-bottom:16px}
+.producto-content h2{font-family:'Playfair Display',serif;font-size:clamp(26px,4vw,36px);font-weight:700;color:var(--blanco);line-height:1.2;margin-bottom:6px}
+.producto-content .sub{font-size:14px;color:var(--gris);margin-bottom:24px}
+.modulos{display:flex;flex-direction:column}
+.mod-item{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.mod-num{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--dorado);opacity:.35;min-width:26px;line-height:1.3}
+.mod-titulo{font-size:13px;font-weight:600;color:var(--blanco);margin-bottom:2px}
+.mod-desc{font-size:12px;color:var(--gris);line-height:1.5}
+
+/* BONUS */
+#bonus{padding:80px 24px;background:var(--negro2);border-top:1px solid rgba(201,168,76,.1);border-bottom:1px solid rgba(201,168,76,.1)}
+.bonus-card{max-width:700px;margin:0 auto;border:1px solid rgba(201,168,76,.3);background:linear-gradient(135deg,rgba(201,168,76,.05) 0%,transparent 60%);padding:40px;display:flex;gap:28px;align-items:center}
+.bonus-icon{font-size:44px;flex-shrink:0}
+.bonus-badge{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--dorado);margin-bottom:8px}
+.bonus-titulo{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--blanco);margin-bottom:10px;line-height:1.3}
+.bonus-desc{font-size:14px;color:var(--blanco2);line-height:1.65;opacity:.85;margin-bottom:10px}
+.bonus-valor{font-size:13px;color:var(--gris)}
+.bonus-valor strong{color:var(--dorado)}
+
+/* TESTIMONIOS */
+#testimonios{padding:80px 24px;background:var(--negro)}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:900px;margin:0 auto}
+.test-card{background:var(--negro3);border:1px solid rgba(201,168,76,.1);padding:26px 22px;opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s}
+.test-card.visible{opacity:1;transform:translateY(0)}
+.estrellas{color:var(--dorado);font-size:13px;letter-spacing:2px;margin-bottom:14px}
+.test-txt{font-family:'Playfair Display',serif;font-style:italic;font-size:14px;color:var(--blanco2);line-height:1.7;margin-bottom:18px}
+.test-autor{display:flex;align-items:center;gap:10px}
+.autor-av{width:38px;height:38px;border-radius:50%;background:var(--negro4);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--dorado);font-weight:700;flex-shrink:0}
+.autor-nombre{font-size:13px;font-weight:600;color:var(--blanco)}
+.autor-ciudad{font-size:11px;color:var(--gris)}
+
+/* FAQ */
+#faq{padding:80px 24px;background:var(--negro2);border-top:1px solid rgba(201,168,76,.1)}
+.faq-list{max-width:680px;margin:0 auto}
+.faq-item{border-bottom:1px solid rgba(255,255,255,.06)}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:20px 0;cursor:pointer;gap:14px;user-select:none}
+.faq-q-txt{font-size:15px;font-weight:500;color:var(--blanco);line-height:1.4}
+.faq-icon{width:26px;height:26px;border:1px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;color:var(--dorado);font-size:18px;flex-shrink:0;transition:transform .3s;line-height:1}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-a-inner{padding:0 0 20px;font-size:14px;color:var(--blanco2);line-height:1.75;opacity:.85}
+
+/* CTA FINAL */
+#cta-final{padding:100px 24px;background:var(--negro);text-align:center;position:relative;overflow:hidden}
+#cta-final::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(201,168,76,.07) 0%,transparent 70%);pointer-events:none}
+.cta-inner{position:relative;z-index:1;max-width:580px;margin:0 auto}
+.cta-inner h2{font-family:'Playfair Display',serif;font-size:clamp(36px,7vw,62px);font-weight:900;color:var(--blanco);line-height:1.05;letter-spacing:-1px;margin-bottom:6px}
+.cta-inner h2 span{color:var(--dorado);display:block}
+.cta-hr{width:60px;height:.5px;background:var(--dorado);margin:22px auto;opacity:.6}
+.cta-sub{font-size:16px;color:var(--blanco2);opacity:.75;max-width:440px;margin:0 auto 28px;line-height:1.65}
+.cta-precio{font-family:'Playfair Display',serif;font-size:56px;font-weight:900;color:var(--dorado);line-height:1;margin-bottom:6px;font-variant-numeric:lining-nums}
+.cta-precio-nota{font-size:12px;color:var(--gris);letter-spacing:1px;text-transform:uppercase;margin-bottom:24px}
+.cta-bonus-linea{font-size:12.5px;color:var(--dorado);font-weight:600;margin:-14px 0 20px;letter-spacing:.2px}
+.cta-btn{display:block;background:var(--dorado);color:var(--negro);font-weight:800;font-size:14px;letter-spacing:2px;text-transform:uppercase;padding:22px 32px;max-width:420px;margin:0 auto;text-align:center;transition:background .2s,transform .15s}
+.cta-btn:hover{background:var(--dorado2);transform:translateY(-2px)}
+.cta-garantia{margin-top:18px;font-size:13px;color:var(--gris);display:flex;align-items:center;justify-content:center;gap:8px}
+
+/* FOOTER */
+footer{background:var(--negro2);border-top:1px solid rgba(201,168,76,.1);padding:30px 24px;text-align:center}
+.footer-logo{font-size:11px;font-weight:700;letter-spacing:3px;color:var(--dorado);text-transform:uppercase;margin-bottom:8px}
+.footer-copy{font-size:12px;color:var(--gris);line-height:1.6}
+
+/* STICKY MOBILE */
+#sticky{display:none;position:fixed;bottom:0;left:0;right:0;z-index:99;background:rgba(8,8,8,.96);backdrop-filter:blur(12px);border-top:1px solid rgba(201,168,76,.2);padding:12px 20px}
+.sticky-inner{display:flex;align-items:center;justify-content:space-between;gap:14px;max-width:500px;margin:0 auto}
+.sticky-precio{display:flex;flex-direction:column}
+.sticky-tachado{font-size:11px;color:var(--gris);text-decoration:line-through}
+.sticky-actual{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--dorado);line-height:1;font-variant-numeric:lining-nums}
+.sticky-btn{flex:1;background:var(--dorado);color:var(--negro);font-weight:800;font-size:12px;letter-spacing:1px;text-transform:uppercase;padding:14px 16px;text-align:center;transition:background .2s}
+.sticky-btn:hover{background:var(--dorado2)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  section{padding:60px 20px}
+  #historia{padding:60px 20px}
+  .historia-grid{grid-template-columns:1fr;gap:32px}
+  .historia-img{display:none}
+  .beneficios-grid{grid-template-columns:1fr}
+  .producto-grid{grid-template-columns:1fr}
+  .producto-img-wrap{position:static}
+  .test-grid{grid-template-columns:1fr}
+  .bonus-card{flex-direction:column;gap:18px;padding:28px 22px}
+  #sticky{display:block}
+  body{padding-bottom:76px}
+  .header-btn{display:none}
+  #img-full img{height:auto}
+}
+@media(prefers-reduced-motion:reduce){
+  .dolor-item,.ben-card,.test-card{opacity:1!important;transform:none!important}
+}
 </style>
 </head>
 <body>
-<div id="auth-gate">
-  <div class="auth-box">
-    <div id="auth-step-email" style="display:none">
-      <div class="auth-badge"><svg class="icon" width="24" height="24"><use href="#icon-plane"/></svg></div>
-      <div class="auth-titulo">Accedé a tu cuenta</div>
-      <p class="auth-sub">Ingresá el mail con el que compraste El Viajero Premium. Te mandamos un link para entrar, sin contraseña.</p>
-      <input type="email" id="auth-email-input" class="auth-input" placeholder="tu@mail.com" autocomplete="email">
-      <p class="auth-error" id="auth-error-email">Escribí un mail válido.</p>
-      <button class="btn-pill" id="auth-send-btn">Enviarme el link de acceso</button>
-    </div>
-    <div id="auth-step-loading" style="display:none">
-      <div class="auth-loader show"></div>
-      <p class="auth-sub" style="margin-top:18px">Enviando...</p>
-    </div>
-    <div id="auth-step-sent" style="display:none">
-      <div class="auth-icon-big">✦</div>
-      <div class="auth-titulo">Ingresá tu código</div>
-      <p class="auth-sub">Te mandamos un código de 6 dígitos a <strong id="auth-sent-email" style="color:var(--dorado2)"></strong>. Vence en 1 hora.</p>
-      <input type="text" id="auth-otp-input" class="auth-input" placeholder="00000000" inputmode="numeric" maxlength="12" style="letter-spacing:8px;text-align:center;font-size:22px;font-weight:700">
-      <p class="auth-error" id="auth-error-otp">Código incorrecto o vencido. Probá de nuevo.</p>
-      <button class="btn-pill" id="auth-verify-btn">Confirmar código</button>
-      <span class="auth-footer-link" id="auth-retry-link"><span>Usar otro mail</span></span>
-    </div>
-    <div id="auth-step-noaccess" style="display:none">
-      <div class="auth-icon-big">🔒</div>
-      <div class="auth-titulo">Todavía no encontramos tu compra</div>
-      <p class="auth-sub">Si ya compraste El Viajero Premium, escribinos a <strong style="color:var(--dorado2)">hola@viajealinfinito.com</strong> con el mail que usaste para comprar y te activamos el acceso.</p>
-      <span class="auth-footer-link" id="auth-logout-link"><span>Probar con otro mail</span></span>
-    </div>
-    <div id="auth-step-checking">
-      <div class="auth-loader show"></div>
-    </div>
+
+<!-- BANNER (motor de campañas: normal por defecto, cambia solo si hay una campaña activa) -->
+<div id="promo-banner">
+  <div class="promo-row1" id="promo-row1">Precio actual: <strong>$47 USD</strong></div>
+  <div class="promo-row2" id="promo-row2">
+    <span id="promo-timer">
+      <span id="promo-d">00</span><span class="promo-sep">d</span>
+      <span id="promo-h">00</span><span class="promo-sep">h</span>
+      <span id="promo-m">00</span><span class="promo-sep">m</span>
+      <span id="promo-s">00</span><span class="promo-sep">s</span>
+    </span>
+    <span>· sube a $67 el 21/9</span>
   </div>
 </div>
-<svg width="0" height="0" style="position:absolute">
-  <defs>
-    <symbol id="icon-lounge" viewBox="0 0 24 24"><path d="M4 18v-5a3 3 0 013-3h10a3 3 0 013 3v5M4 18h16M4 18v2M20 18v2M6 10V7a2 2 0 012-2h8a2 2 0 012 2v3" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="icon-scale" viewBox="0 0 24 24"><path d="M12 3v18M7 7l-4 7a4 4 0 008 0l-4-7zM17 7l-4 7a4 4 0 008 0l-4-7zM5 21h14M8 5h8" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="icon-ticket" viewBox="0 0 24 24"><path d="M3 8a2 2 0 012-2h14a2 2 0 012 2v2a2 2 0 000 4v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2a2 2 0 000-4V8z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/><path d="M14 6v12" stroke="currentColor" stroke-width="1.6" stroke-dasharray="2.2 2.2"/></symbol>
-    <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></symbol>
-    <symbol id="icon-plane" viewBox="0 0 24 24"><path d="M10.5 20l1.5-5.5M13.5 20L12 14.5M3 11l18-6-5 8-13-2z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round" stroke-linecap="round"/></symbol>
-    <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" fill="none"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
-    <symbol id="icon-book" viewBox="0 0 24 24"><path d="M4 4.5A2.5 2.5 0 016.5 2H20v17H6.5A2.5 2.5 0 004 16.5v-12z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/><path d="M4 16.5A2.5 2.5 0 016.5 19H20" stroke="currentColor" stroke-width="1.6" fill="none"/></symbol>
-    <symbol id="icon-star" viewBox="0 0 24 24"><path d="M12 3l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 16.8 6.4 20l1.4-6.2-4.8-4.3 6.4-.6z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/></symbol>
-    <symbol id="icon-bookmark" viewBox="0 0 24 24"><path d="M6 3.5h12a1 1 0 011 1V21l-7-4.5L5 21V4.5a1 1 0 011-1z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/></symbol>
-    <symbol id="icon-bookmark-filled" viewBox="0 0 24 24"><path d="M6 3.5h12a1 1 0 011 1V21l-7-4.5L5 21V4.5a1 1 0 011-1z" fill="currentColor"/></symbol>
-    <symbol id="icon-share" viewBox="0 0 24 24"><path d="M12 3v13M7 8l5-5 5 5M5 15v4a2 2 0 002 2h10a2 2 0 002-2v-4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="icon-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M4.5 20c1.5-4 4.5-6 7.5-6s6 2 7.5 6" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></symbol>
-    <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/><path d="M9 12l2 2 4-4.5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="icon-bed" viewBox="0 0 24 24"><path d="M3 19v-7a2 2 0 012-2h14a2 2 0 012 2v7M3 19v-3M21 19v-3M3 12V7a1 1 0 011-1h5a1 1 0 011 1v3" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="icon-tag" viewBox="0 0 24 24"><path d="M20.59 13.41L11 22 2 13l9-9h9.59a2 2 0 012 2v7.41z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/><circle cx="14.5" cy="7.5" r="1.5" fill="currentColor"/></symbol>
-  </defs>
-</svg>
+
+<!-- HEADER -->
 <header id="header">
-  <div class="header-logo"><span class="header-badge"><svg class="icon" width="14" height="14"><use href="#icon-plane"/></svg></span> Viajealinfinit8</div>
-  <div class="header-tag">HACK·FINDER</div>
+  <div class="header-logo">✈ viajealinfinit8</div>
+  <a href="https://viajealinfinit8.tiendup.com/p/el-viajero-premium" class="header-btn">
+    Conseguir el Manual — <span id="precio-header-actual">$47 USD</span>
+  </a>
 </header>
-<div class="wrap">
-  <div class="hero-eyebrow">✦ El Viajero Premium</div>
-  <h1>Ingresa tu vuelo.<br><em>Desbloquea</em> tu experiencia Premium.</h1>
-  <p class="hero-sub">Descubre qué salas VIP están disponibles para tu ruta, si corresponde compensación por demora y qué revisar antes de comprar el pasaje.</p>
-  <div id="saved-routes"></div>
-  <div class="search-pill" id="search-pill-trigger">
-    <div class="search-pill-text">
-      <div class="search-pill-titulo" id="search-pill-titulo">¿A dónde vuelas?</div>
-      <div class="search-pill-sub" id="search-pill-sub">Elige origen, destino y escala</div>
+
+<!-- HERO — usa portada5 de fondo -->
+<section id="hero">
+  <div class="hero-bg-img">
+    <img src="./portada5.png" alt="El Viajero Premium">
+  </div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Manual Confidencial ✈</div>
+    <h1 class="hero-h1">
+      Pagás precio de turista.
+      <span>Viajás como VIP.</span>
+    </h1>
+    <p class="hero-sub">
+      Lo que las aerolíneas, los lounges y los aeropuertos nunca te van a contar — en un sistema de 8 módulos que cambia tu forma de viajar para siempre.
+    </p>
+    <div class="hero-cta-wrap">
+      <p class="prueba-social">⭐ +200 viajeros ya usaron estos hacks para volar distinto</p>
+      <a href="https://viajealinfinit8.tiendup.com/p/el-viajero-premium" class="hero-btn">
+        Quiero El Viajero Premium
+      </a>
+      <p class="hero-price"><s id="precio-hero-tachado">$67 USD</s> &nbsp;→&nbsp; <strong id="precio-hero-actual">$47 USD</strong> &nbsp;·&nbsp; Precio actual</p>
     </div>
-    <span class="search-pill-icon"><svg class="icon" width="18" height="18"><use href="#icon-search"/></svg></span>
+    <div class="hero-badges">
+      <div class="hero-badge">8 Módulos</div>
+      <div class="hero-badge">20 Hacks</div>
+      <div class="hero-badge">Investigación Real 2026</div>
+    </div>
   </div>
-  <div class="chips" id="chips" style="display:none">
-    <div class="chip active" data-target="res-header">✦ Todo</div>
-    <div class="chip" data-target="card-lounge">🛋 Salas VIP</div>
-    <div class="chip" data-target="card-ec261">⚖ Derechos</div>
-    <div class="chip" data-target="card-fare">🎫 Tarifa</div>
-    <div class="chip" data-target="card-timeline">🗓 Cronograma</div>
-  </div>
-  <div id="loading">
-    <div class="loading-label"><span class="loading-dot"></span> Analizando tu ruta…</div>
-    <div class="skeleton"><div class="skeleton-line w40"></div><div class="skeleton-line w90"></div><div class="skeleton-line w60"></div></div>
-    <div class="skeleton"><div class="skeleton-line w40"></div><div class="skeleton-line w90"></div></div>
-  </div>
-  <div id="resultados"></div>
-  <footer>
-    Hecho con cuidado por Rodrigo Suarez · <a href="https://instagram.com/viajealinfinit8" target="_blank">@viajealinfinit8</a>
-  </footer>
+</section>
+
+<!-- IMAGEN FULL — portada3 -->
+<div id="img-full">
+  <img src="./portada3.png" alt="El sistema existe. La mayoría no lo usa.">
 </div>
-<div id="search-sheet-overlay">
-  <div id="search-sheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-titulo">Armá tu búsqueda</div>
-    <div class="campo">
-      <label for="origen-input">Origen</label>
-      <div class="ac-input-wrap">
-        <input class="ac-input" id="origen-input" type="text" placeholder="Ciudad o aeropuerto de salida" autocomplete="off">
-        <button class="ac-clear" data-target="origen"><svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M1 1L13 13M1 13L13 1" stroke="currentColor" stroke-width="1.5"/></svg></button>
-        <div class="ac-panel" id="origen-panel"></div>
+
+<!-- HISTORIA -->
+<section id="historia">
+  <div class="historia-grid">
+    <div class="historia-img">
+      <img src="./portada5.png" alt="El Viajero Premium">
+      <div class="historia-img-label">✈ La experiencia que lo cambió todo</div>
+    </div>
+    <div class="historia-content">
+      <div class="badge">La historia detrás del manual</div>
+      <h2>¿Cómo es posible volar en Business pagando Economy?</h2>
+      <p>Volví de Barcelona a Buenos Aires con escala en Brasil. Busqué el vuelo de vuelta durante varios días, siempre en modo incógnito, a distintos horarios. Un día apareció una tarifa que no había visto antes.</p>
+      <p><strong style="color:var(--blanco)">€150 en Premium Economy</strong> — cuando el precio normal era $300. Incluía despacho prioritario en mostrador exclusivo, sala VIP y priority boarding.</p>
+      <div class="cita">"No fue suerte. Fue método. Saber cuándo buscar, cómo buscar y qué mirar cuando aparece una tarifa así."</div>
+      <p>Junté todo ese sistema en un manual. Ocho módulos, veinte hacks, información real que las aerolíneas prefieren que no conozcas.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="gold">
+
+<!-- DOLORES -->
+<section id="dolores">
+  <div class="section-header">
+    <div class="badge">¿Te identificás?</div>
+    <h2>Estas situaciones le pasan a la mayoría.<br>Y tienen solución.</h2>
+    <p>Si viviste alguna de estas, estás perdiendo comodidad y dinero en cada viaje.</p>
+  </div>
+  <div class="dolores-list">
+    <div class="dolor-item"><div class="dolor-x">✕</div><div class="dolor-txt">Llegás al aeropuerto y ves la puerta de la <strong>sala VIP</strong> — y seguís de largo porque creés que no podés entrar</div></div>
+    <div class="dolor-item"><div class="dolor-x">✕</div><div class="dolor-txt">Te sentás en Economy en un vuelo de 12 horas mientras otros pasan a <strong>Business Class</strong> y no entendés cómo llegaron ahí</div></div>
+    <div class="dolor-item"><div class="dolor-x">✕</div><div class="dolor-txt">Tu vuelo se retrasó 4 horas — y nunca supiste que tenías derecho a hasta <strong>$1.200 USD de compensación</strong></div></div>
+    <div class="dolor-item"><div class="dolor-x">✕</div><div class="dolor-txt">Acumulás puntos y millas hace años pero nunca los canjeás porque no sabés <strong>cómo ni cuándo</strong></div></div>
+    <div class="dolor-item"><div class="dolor-x">✕</div><div class="dolor-txt">Esperás 40 minutos en la cinta de equipaje mientras otros <strong>ya salieron del aeropuerto</strong></div></div>
+    <div class="dolor-item"><div class="dolor-x">✕</div><div class="dolor-txt">Pagás tu tarjeta todos los meses sin saber que <strong>ya incluye acceso a salas VIP</strong></div></div>
+  </div>
+  <p class="dolores-cierre">Si dijiste sí a alguna, este manual es para vos.</p>
+</section>
+
+<hr class="gold">
+
+<!-- BENEFICIOS -->
+<section id="beneficios">
+  <div class="section-header">
+    <div class="badge">Después de leer El Viajero Premium</div>
+    <h2>Vas a poder hacer todo esto</h2>
+  </div>
+  <div class="beneficios-grid">
+    <div class="ben-card"><div class="ben-check">✓</div><div class="ben-txt">Entrar a salas VIP en más de 1.600 aeropuertos desde <strong>$23 USD</strong> sin tarjeta black</div></div>
+    <div class="ben-card"><div class="ben-check">✓</div><div class="ben-txt">Volar en Business Class usando los <strong>4 métodos reales</strong> que casi nadie en Latam conoce</div></div>
+    <div class="ben-card"><div class="ben-check">✓</div><div class="ben-txt">Reclamar hasta <strong>€600 por pasajero</strong> cuando tu vuelo europeo se retrasa</div></div>
+    <div class="ben-card"><div class="ben-check">✓</div><div class="ben-txt">Saber qué decir y cuándo para conseguir un <strong>upgrade en el aeropuerto</strong></div></div>
+    <div class="ben-card"><div class="ben-check">✓</div><div class="ben-txt">Acumular millas <strong>sin volar</strong> con compras del día a día que ya hacés</div></div>
+    <div class="ben-card"><div class="ben-check">✓</div><div class="ben-txt">Salir primero del aeropuerto y moverte como los que <strong>viajan 50 veces al año</strong></div></div>
+  </div>
+</section>
+
+<hr class="gold">
+
+<!-- PRODUCTO -->
+<section id="producto">
+  <div class="producto-grid">
+    <div class="producto-img-wrap">
+      <!-- ✏️ EDITAR: reemplazar con mockup real del ebook si tenés uno -->
+      <div class="producto-mockup">
+        <img src="./portada2.png" alt="El Viajero Premium — Manual">
+      </div>
+      <div class="roi-txt">Con el primer hack que aplicás, ya recuperás la inversión.</div>
+      <div class="precio-box">
+        <div class="precio-tachado" id="precio-prod-tachado">Precio regular: $67 USD</div>
+        <div class="precio-actual" id="precio-prod-actual">$47 USD</div>
+        <div class="precio-nota">Precio actual</div>
+        <div class="precio-urgencia" id="precio-urgencia-txt">Sube a $67 · <span class="promo-fecha">21 de septiembre</span></div>
+      </div>
+      <div class="bonus-box">
+        <div class="bonus-tag">🎁 Bonus por tiempo limitado</div>
+        <div class="bonus-titulo">Acceso anticipado a la app Hack Finder</div>
+        <p class="bonus-desc">La app que te dice en segundos qué lounge, qué salida y qué hack usar en +58 aeropuertos.</p>
+        <ul class="bonus-lista">
+          <li>Diseño simple, todo en el celular</li>
+          <li>Guardá tus rutas favoritas</li>
+          <li>Valor futuro: <strong>$97 USD</strong> — hoy va incluida gratis</li>
+        </ul>
+        <p class="bonus-nota">Cuando termine la beta, la app se vende por separado. Los que compran ahora se la quedan gratis para siempre.</p>
+      </div>
+      <a href="https://viajealinfinit8.tiendup.com/p/el-viajero-premium" class="btn-gold">Conseguir el Manual</a>
+      <p style="font-size:12px;color:var(--gris);margin-top:10px;text-align:center">Acceso inmediato · PDF descargable · Pago seguro</p>
+    </div>
+    <div class="producto-content">
+      <div class="badge">El Manual Completo</div>
+      <h2>El Viajero Premium</h2>
+      <p class="sub">8 módulos · 20 hacks · 18 páginas de información real</p>
+      <div class="modulos">
+        <div class="mod-item"><div class="mod-num">01</div><div><div class="mod-titulo">Salas VIP Sin Tarjeta Black</div><div class="mod-desc">Regus + DragonPass (~$23), LoungeBuddy y acceso gratis en retrasos</div></div></div>
+        <div class="mod-item"><div class="mod-num">02</div><div><div class="mod-titulo">Business Class Sin Pagarlo</div><div class="mod-desc">Subasta Plusgrade, código de tarifa Y/B, overbooking y gate a 45 minutos</div></div></div>
+        <div class="mod-item"><div class="mod-num">03</div><div><div class="mod-titulo">El Sistema de Millas</div><div class="mod-desc">LATAM Pass 2025 sin vuelos mínimos, Avianca LifeMiles con 100% bonificación</div></div></div>
+        <div class="mod-item"><div class="mod-num">04</div><div><div class="mod-titulo">El Check-in Estratégico</div><div class="mod-desc">SeatGuru, comida especial gratis, upgrade durante check-in online</div></div></div>
+        <div class="mod-item"><div class="mod-num">05</div><div><div class="mod-titulo">Upgrades en el Aeropuerto</div><div class="mod-desc">La lista de prioridades real y las palabras exactas que funcionan</div></div></div>
+        <div class="mod-item"><div class="mod-num">06</div><div><div class="mod-titulo">Derechos del Pasajero</div><div class="mod-desc">EC 261/2004 — hasta €600 por pasajero. AirHelp sin costo inicial</div></div></div>
+        <div class="mod-item"><div class="mod-num">07</div><div><div class="mod-titulo">El Equipaje VIP</div><div class="mod-desc">Etiqueta FRÁGIL, Fast Track, FlightAware, TripIt y Expert Flyer</div></div></div>
+        <div class="mod-item"><div class="mod-num">08</div><div><div class="mod-titulo">La Mentalidad del Viajero Premium</div><div class="mod-desc">Sistema de preparación en 3 momentos: 7 días antes, 48hs antes y en el aeropuerto</div></div></div>
       </div>
     </div>
-    <div class="campo">
-      <label for="destino-input">Destino</label>
-      <div class="ac-input-wrap">
-        <input class="ac-input" id="destino-input" type="text" placeholder="Ciudad o aeropuerto de llegada" autocomplete="off">
-        <button class="ac-clear" data-target="destino"><svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M1 1L13 13M1 13L13 1" stroke="currentColor" stroke-width="1.5"/></svg></button>
-        <div class="ac-panel" id="destino-panel"></div>
+  </div>
+</section>
+
+<hr class="gold">
+
+<!-- BONUS -->
+<section id="bonus">
+  <div class="section-header">
+    <div class="badge">Incluido sin costo extra</div>
+    <h2>Bonus Exclusivo</h2>
+  </div>
+  <div class="bonus-card">
+    <div class="bonus-icon">🗺️</div>
+    <div>
+      <div class="bonus-badge">Bonus exclusivo · PDF adicional</div>
+      <div class="bonus-titulo">Las 20 Salas VIP Más Accesibles desde Latinoamérica</div>
+      <div class="bonus-desc">Aeropuerto por aeropuerto: nombre de la sala, cómo acceder y costo aproximado. Abrís el PDF, buscás tu aeropuerto y tenés la información lista para el próximo viaje.</div>
+      <div class="bonus-valor">Valorado en <strong>$17 USD</strong> — tuyo gratis con el manual</div>
+    </div>
+  </div>
+</section>
+
+<hr class="gold">
+
+<!-- TESTIMONIOS -->
+<section id="testimonios">
+  <div class="section-header">
+    <div class="badge">Resultados reales</div>
+    <h2>Lo que dicen los que ya lo tienen</h2>
+  </div>
+  <div class="test-grid">
+    <!-- ✏️ EDITAR: reemplazar con testimonio real 1 -->
+    <div class="test-card">
+      <div class="estrellas">★★★★★</div>
+      <div class="test-txt">"Apliqué el truco de Regus + DragonPass antes de mi vuelo a Madrid y entré a la sala VIP por $23. Recuperé la inversión del manual en el primer viaje."</div>
+      <div class="test-autor">
+        <div class="autor-av">M</div>
+        <div><div class="autor-nombre">Martín G.</div><div class="autor-ciudad">Buenos Aires, Argentina</div></div>
       </div>
     </div>
-    <div class="campo">
-      <label for="escala-input">Escala <span class="opcional-tag">(opcional)</span></label>
-      <div class="ac-input-wrap">
-        <input class="ac-input" id="escala-input" type="text" placeholder="¿Tienes escala en algún aeropuerto?" autocomplete="off">
-        <button class="ac-clear" data-target="escala"><svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M1 1L13 13M1 13L13 1" stroke="currentColor" stroke-width="1.5"/></svg></button>
-        <div class="ac-panel" id="escala-panel"></div>
+    <!-- ✏️ EDITAR: reemplazar con testimonio real 2 -->
+    <div class="test-card">
+      <div class="estrellas">★★★★★</div>
+      <div class="test-txt">"Reclamé €400 por mi vuelo cancelado con AirHelp. Nunca supe que tenía ese derecho. El manual me devolvió 15 veces lo que pagué."</div>
+      <div class="test-autor">
+        <div class="autor-av">C</div>
+        <div><div class="autor-nombre">Carolina V.</div><div class="autor-ciudad">Bogotá, Colombia</div></div>
       </div>
     </div>
-    <div class="campo">
-      <label for="aerolinea">Aerolínea <span class="opcional-tag">(opcional)</span></label>
-      <select id="aerolinea" class="ac-input"></select>
+    <!-- ✏️ EDITAR: reemplazar con testimonio real 3 -->
+    <div class="test-card">
+      <div class="estrellas">★★★★★</div>
+      <div class="test-txt">"Conseguí upgrade a Business en un vuelo a Miami usando exactamente las palabras del Módulo 5. Llegué descansado a la reunión más importante del año."</div>
+      <div class="test-autor">
+        <div class="autor-av">D</div>
+        <div><div class="autor-nombre">Diego M.</div><div class="autor-ciudad">Santiago, Chile</div></div>
+      </div>
     </div>
-    <button class="btn-pill" id="btn-buscar">Ver mis hacks</button>
-    <button class="btn-ghost" id="btn-cerrar-sheet">Cancelar</button>
+  </div>
+</section>
+
+<hr class="gold">
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-header">
+    <div class="badge">Preguntas frecuentes</div>
+    <h2>Todo lo que necesitás saber</h2>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q"><div class="faq-q-txt">¿Esta información no la puedo encontrar gratis en Google?</div><div class="faq-icon">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">Podés encontrar fragmentos sueltos. Lo que no encontrás es el sistema completo, verificado, con los nombres exactos de las apps, los montos reales de compensación y las palabras exactas para cada situación — todo en un solo lugar listo para aplicar desde el próximo vuelo.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><div class="faq-q-txt">¿Vale <span id="precio-faq-actual">$47</span> si solo viajo una o dos veces al año?</div><div class="faq-icon">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">El Módulo 6 solo puede devolverte hasta €600 si tu próximo vuelo europeo se retrasa. Eso es 22 veces lo que invertiste con una sola aplicación. El resto del manual es ganancia adicional en comodidad y experiencia.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><div class="faq-q-txt">¿Aplica para viajeros desde Latinoamérica?</div><div class="faq-icon">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">Sí. Todo fue verificado desde Argentina, Colombia, Chile y México. Las aerolíneas, regulaciones y herramientas son específicamente relevantes para viajeros latinoamericanos.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><div class="faq-q-txt">¿Necesito tarjeta black o membresías caras?</div><div class="faq-icon">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">No. El Módulo 1 muestra cómo acceder a salas VIP desde $23 con una cuenta gratuita. El Módulo 2 muestra cómo conseguir Business sin pagarlo. Nada requiere membresías premium.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><div class="faq-q-txt">¿En cuánto tiempo veo resultados?</div><div class="faq-icon">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">En el próximo vuelo que tomes. El Módulo 5 se aplica el mismo día en el aeropuerto. El Módulo 1 se configura en 10 minutos. El Módulo 6 aplica incluso a vuelos de los últimos 3 años.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="cta-final">
+  <div class="cta-inner">
+    <h2>Empezá a viajar <span>diferente.</span></h2>
+    <div class="cta-hr"></div>
+    <p class="cta-sub">Una sola aplicación de lo que aprendés en este manual y ya recuperaste la inversión.</p>
+    <div class="cta-precio" id="precio-cta-actual">$47 USD</div>
+    <div class="cta-precio-nota">8 módulos · 20 hacks · Precio actual</div>
+    <p class="cta-bonus-linea">🎁 Incluye acceso anticipado a la app Hack Finder — gratis solo por ahora</p>
+    <a href="https://viajealinfinit8.tiendup.com/p/el-viajero-premium" class="cta-btn">Quiero El Viajero Premium</a>
+    <p class="cta-garantia">🔒 Acceso inmediato · PDF descargable · Pago seguro</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">✈ viajealinfinit8</div>
+  <p class="footer-copy">© 2026 Rodrigo Suarez — @viajealinfinit8 — Yacanto, Córdoba, Argentina<br>Todos los derechos reservados.</p>
+</footer>
+
+<!-- STICKY MOBILE -->
+<div id="sticky">
+  <div class="sticky-inner">
+    <div class="sticky-precio">
+      <div class="sticky-tachado" id="precio-sticky-tachado">$67 USD</div>
+      <div class="sticky-actual" id="precio-sticky-actual">$47 USD</div>
+    </div>
+    <a href="https://viajealinfinit8.tiendup.com/p/el-viajero-premium" class="sticky-btn">Conseguir el Manual</a>
   </div>
 </div>
-<div id="glossary-list-overlay">
-  <div id="glossary-list-sheet">
-    <div class="gsheet-handle"></div>
-    <div class="glist-titulo">Glosario</div>
-    <input type="text" id="glist-search-input" class="glist-search" placeholder="Buscar un término (ej: DragonPass, EC261...)">
-    <div class="glist-items" id="glist-items"></div>
-  </div>
-</div>
-<div id="glossary-overlay">
-  <div id="glossary-sheet">
-    <div class="gsheet-handle"></div>
-    <span class="gsheet-tag" id="gsheet-tag">Glosario</span>
-    <div class="gsheet-titulo" id="gsheet-titulo">Término</div>
-    <div class="gsheet-texto" id="gsheet-texto">Definición.</div>
-    <button class="gsheet-close" id="gsheet-close">Entendido</button>
-  </div>
-</div>
-<div id="cuenta-overlay">
-  <div id="cuenta-sheet">
-    <div class="gsheet-handle"></div>
-    <span class="gsheet-tag" id="cuenta-plan-tag">Plan</span>
-    <div class="gsheet-titulo" id="cuenta-email">—</div>
-    <div class="gsheet-texto" id="cuenta-detalle">—</div>
-    <button class="gsheet-close" id="cuenta-cerrar-sesion" style="background:transparent;border:1.5px solid var(--gris2);color:var(--gris);margin-bottom:10px">Cerrar sesión</button>
-    <button class="gsheet-close" id="cuenta-close">Cerrar</button>
-  </div>
-</div>
-<div id="admin-overlay">
-  <div id="admin-sheet">
-    <div class="gsheet-handle"></div>
-    <div class="glist-titulo">Usuarios</div>
-    <input type="text" id="admin-search-input" class="glist-search" placeholder="Buscar por mail...">
-    <div id="admin-estado" style="font-size:12.5px;color:var(--gris);margin-bottom:10px"></div>
-    <div class="glist-items" id="admin-items"></div>
-  </div>
-</div>
-<div id="install-banner">
-  <img class="install-icon" src="icons/icon-192.png" alt="">
-  <div class="install-texto">
-    <div class="install-titulo">Instalá Hack Finder</div>
-    <div class="install-sub" id="install-sub">Accedé desde tu pantalla de inicio.</div>
-  </div>
-  <button class="install-btn" id="install-btn">Instalar</button>
-  <button class="install-close" id="install-close" aria-label="Cerrar">✕</button>
-</div>
-<nav id="tabbar">
-  <div class="tab active" id="tab-buscar"><svg class="icon" width="21" height="21"><use href="#icon-search"/></svg><span class="tab-label">Buscar</span></div>
-  <div class="tab" id="tab-glosario"><svg class="icon" width="21" height="21"><use href="#icon-book"/></svg><span class="tab-label">Glosario</span></div>
-  <div class="tab" id="tab-cuenta"><svg class="icon" width="21" height="21"><use href="#icon-user"/></svg><span class="tab-label">Mi cuenta</span></div>
-  <div class="tab" id="tab-admin" style="display:none"><svg class="icon" width="21" height="21"><use href="#icon-shield"/></svg><span class="tab-label">Admin</span></div>
-</nav>
+
 <script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
-}
-(function(){
-  const banner = document.getElementById("install-banner");
-  const btn = document.getElementById("install-btn");
-  const closeBtn = document.getElementById("install-close");
-  const sub = document.getElementById("install-sub");
-  let deferredPrompt = null;
-  const yaInstalada = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
-  const yaDescartado = localStorage.getItem("hackfinder_install_dismissed");
-  const esIOS = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
-  if (!yaInstalada && !yaDescartado) {
-    if (esIOS) {
-      sub.textContent = "Tocá compartir ↑ y elegí 'Agregar a pantalla de inicio'.";
-      btn.style.display = "none";
-      setTimeout(()=> banner.classList.add("activo"), 1500);
-    } else {
-      window.addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); deferredPrompt = e; banner.classList.add("activo"); });
+// FAQ
+document.querySelectorAll('.faq-q').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const item=btn.parentElement;
+    const a=item.querySelector('.faq-a');
+    const isOpen=item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=>{
+      i.classList.remove('open');
+      i.querySelector('.faq-a').style.maxHeight='0';
+    });
+    if(!isOpen){
+      item.classList.add('open');
+      a.style.maxHeight=a.scrollHeight+'px';
     }
-  }
-  btn.addEventListener("click", async () => { if (!deferredPrompt) return; deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt = null; banner.classList.remove("activo"); });
-  closeBtn.addEventListener("click", () => { banner.classList.remove("activo"); localStorage.setItem("hackfinder_install_dismissed", "1"); });
-})();
-const sheetOverlay = document.getElementById("search-sheet-overlay");
-document.getElementById("search-pill-trigger").addEventListener("click", () => sheetOverlay.classList.add("open"));
-document.getElementById("btn-cerrar-sheet").addEventListener("click", () => sheetOverlay.classList.remove("open"));
-sheetOverlay.addEventListener("click", (e) => { if(e.target.id === "search-sheet-overlay") sheetOverlay.classList.remove("open"); });
-let AIRPORTS = {};
-let LOUNGES = {};
-let GLOSARIO = {};
-let STOPOVERS = [];
-let PROMOS = [];
-function abrirGlosario(termKey){
-  const t = GLOSARIO[termKey];
-  if(!t) return;
-  document.getElementById("gsheet-tag").textContent = t.tag;
-  document.getElementById("gsheet-titulo").textContent = t.titulo;
-  document.getElementById("gsheet-texto").innerHTML = t.texto;
-  document.getElementById("glossary-overlay").classList.add("open");
-}
-document.getElementById("gsheet-close").addEventListener("click", () => document.getElementById("glossary-overlay").classList.remove("open"));
-document.getElementById("glossary-overlay").addEventListener("click", (e) => { if(e.target.id === "glossary-overlay") e.currentTarget.classList.remove("open"); });
-function gt(termKey, texto){ return `<span class="gterm" onclick="abrirGlosario('${termKey}')">${texto}</span>`; }
-const glistOverlay = document.getElementById("glossary-list-overlay");
-const glistItems = document.getElementById("glist-items");
-const glistSearch = document.getElementById("glist-search-input");
-function renderGlosarioLista(query){
-  const q = (query || "").trim().toLowerCase();
-  const entradas = Object.entries(GLOSARIO).filter(([key, t]) =>
-    !q || t.titulo.toLowerCase().includes(q) || t.tag.toLowerCase().includes(q) || key.toLowerCase().includes(q)
-  );
-  if (entradas.length === 0){
-    glistItems.innerHTML = `<div class="glist-empty">No encontramos ningún término con eso. Probá con otra palabra.</div>`;
-    return;
-  }
-  glistItems.innerHTML = entradas.map(([key, t]) => `
-    <div class="glist-item" data-key="${key}">
-      <div>
-        <div class="glist-item-titulo">${t.titulo}</div>
-        <div class="glist-item-tag">${t.tag}</div>
-      </div>
-      <svg class="icon" width="16" height="16" style="color:var(--gris);flex-shrink:0"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </div>
-  `).join("");
-}
-document.getElementById("tab-glosario").addEventListener("click", () => {
-  glistSearch.value = "";
-  renderGlosarioLista("");
-  glistOverlay.classList.add("open");
+  });
 });
-document.getElementById("tab-buscar").addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-  setTimeout(() => sheetOverlay.classList.add("open"), 350);
-});
-const cuentaOverlay = document.getElementById("cuenta-overlay");
-const ETIQUETAS_PLAN = { free: "Free", premium: "Premium", admin: "Admin" };
-document.getElementById("tab-cuenta").addEventListener("click", () => {
-  if (!usuarioActual) return;
-  const planLabel = ETIQUETAS_PLAN[usuarioActual.role] || usuarioActual.role;
-  document.getElementById("cuenta-plan-tag").textContent = `Plan ${planLabel}`;
-  document.getElementById("cuenta-email").textContent = usuarioActual.email;
-  document.getElementById("cuenta-detalle").textContent =
-    usuarioActual.role === "admin"
-      ? "Tenés acceso total como administrador."
-      : "Tu cuenta tiene acceso completo a Hack Finder.";
-  cuentaOverlay.classList.add("open");
-});
-document.getElementById("cuenta-close").addEventListener("click", () => cuentaOverlay.classList.remove("open"));
-cuentaOverlay.addEventListener("click", (e) => { if (e.target.id === "cuenta-overlay") cuentaOverlay.classList.remove("open"); });
-document.getElementById("cuenta-cerrar-sesion").addEventListener("click", async () => {
-  await sb.auth.signOut();
-  window.location.reload();
-});
-let todosLosUsuarios = [];
-const adminOverlay = document.getElementById("admin-overlay");
-const adminItems = document.getElementById("admin-items");
-const adminSearch = document.getElementById("admin-search-input");
-const adminEstado = document.getElementById("admin-estado");
-const ETIQUETAS_ORIGEN = { compra: "Compra", manual: "Otorgado a mano" };
-async function cargarUsuariosAdmin() {
-  adminEstado.textContent = "Cargando usuarios...";
-  const { data, error } = await sb
-    .from("profiles")
-    .select("id, email, role, origen_acceso, purchased_at, created_at")
-    .order("created_at", { ascending: false });
-  if (error) {
-    adminEstado.textContent = "No se pudo cargar la lista. Probá de nuevo en un momento.";
-    return;
-  }
-  todosLosUsuarios = data || [];
-  adminEstado.textContent = `${todosLosUsuarios.length} usuario${todosLosUsuarios.length === 1 ? "" : "s"} en total`;
-  renderUsuariosAdmin("");
-}
-function renderUsuariosAdmin(query) {
-  const q = query.trim().toLowerCase();
-  const filtrados = todosLosUsuarios.filter((u) => !q || u.email.toLowerCase().includes(q));
-  if (filtrados.length === 0) {
-    adminItems.innerHTML = `<div class="glist-empty">No encontramos ningún usuario con ese mail.</div>`;
-    return;
-  }
-  adminItems.innerHTML = filtrados
-    .map(
-      (u) => `
-    <div class="admin-user-row">
-      <div>
-        <div class="admin-user-email">${u.email}</div>
-        <div class="admin-user-meta">${ETIQUETAS_ORIGEN[u.origen_acceso] || "—"}</div>
-      </div>
-      <select class="admin-role-select" data-id="${u.id}">
-        <option value="free" ${u.role === "free" ? "selected" : ""}>Free</option>
-        <option value="premium" ${u.role === "premium" ? "selected" : ""}>Premium</option>
-        <option value="admin" ${u.role === "admin" ? "selected" : ""}>Admin</option>
-      </select>
-    </div>`
-    )
-    .join("");
-}
-document.getElementById("tab-admin").addEventListener("click", () => {
-  adminSearch.value = "";
-  adminOverlay.classList.add("open");
-  cargarUsuariosAdmin();
-});
-adminOverlay.addEventListener("click", (e) => { if (e.target.id === "admin-overlay") adminOverlay.classList.remove("open"); });
-adminSearch.addEventListener("input", () => renderUsuariosAdmin(adminSearch.value));
-adminItems.addEventListener("change", async (e) => {
-  const select = e.target.closest(".admin-role-select");
-  if (!select) return;
-  const id = select.dataset.id;
-  const usuario = todosLosUsuarios.find((u) => u.id === id);
-  const nuevoRole = select.value;
-  if (nuevoRole === "admin" && !confirm(`¿Seguro que querés darle permisos de administrador a ${usuario.email}? Va a poder ver y modificar todos los usuarios.`)) {
-    select.value = usuario.role;
-    return;
-  }
-  select.disabled = true;
-  const { error } = await sb.from("profiles").update({ role: nuevoRole }).eq("id", id);
-  select.disabled = false;
-  if (error) {
-    alert("No se pudo actualizar el plan. Probá de nuevo.");
-    select.value = usuario.role;
-    return;
-  }
-  usuario.role = nuevoRole;
-});
-glistItems.addEventListener("click", (e) => {
-  const item = e.target.closest(".glist-item");
-  if (!item) return;
-  glistOverlay.classList.remove("open");
-  abrirGlosario(item.dataset.key);
-});
-glistSearch.addEventListener("input", () => renderGlosarioLista(glistSearch.value));
-glistOverlay.addEventListener("click", (e) => { if (e.target.id === "glossary-list-overlay") glistOverlay.classList.remove("open"); });
-const AEROLINEAS = [
-  {v:"",label:"No especificar",eu:false},
-  {v:"latam",label:"LATAM",eu:false},{v:"avianca",label:"Avianca",eu:false},
-  {v:"aerolineas",label:"Aerolíneas Argentinas",eu:false},{v:"aeromexico",label:"Aeroméxico",eu:false},
-  {v:"copa",label:"Copa Airlines",eu:false},{v:"american",label:"American Airlines",eu:false},
-  {v:"delta",label:"Delta",eu:false},{v:"united",label:"United",eu:false},
-  {v:"iberia",label:"Iberia",eu:true},{v:"airEuropa",label:"Air Europa",eu:true},
-  {v:"lufthansa",label:"Lufthansa",eu:true},{v:"airfrance",label:"Air France",eu:true},
-  {v:"klm",label:"KLM",eu:true},{v:"britishairways",label:"British Airways",eu:true},
-  {v:"jetsmart",label:"JetSMART",eu:false},{v:"flybondi",label:"FlyBondi",eu:false},
-  {v:"gol",label:"GOL",eu:false},{v:"azul",label:"Azul",eu:false},
-  {v:"arajet",label:"Arajet",eu:false},{v:"volaris",label:"Volaris",eu:false},
-  {v:"plusultra",label:"Plus Ultra Líneas Aéreas",eu:true},{v:"world2fly",label:"World2Fly",eu:true},
-  {v:"turkish",label:"Turkish Airlines",eu:false},{v:"emirates",label:"Emirates",eu:false},
+// Animaciones scroll
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('visible'),i*80);
+      obs.unobserve(e.target);
+    }
+  });
+},{threshold:0.1});
+document.querySelectorAll('.dolor-item,.ben-card,.test-card').forEach(el=>obs.observe(el));
+
+// ============================================================
+// MOTOR DE CAMPAÑAS DE PRECIO
+// ------------------------------------------------------------
+// Estado NORMAL (sin campaña activa): precio $47, banner con
+// countdown a la suba real del 21/9 → $67.
+//
+// Para activar una campaña puntual (Travel Sale, Black Friday,
+// Cyber Monday, etc.), agregá un objeto al array CAMPAIGNS de
+// abajo. Mientras la fecha de hoy caiga dentro de [inicio, fin),
+// el banner y TODOS los precios de la landing cambian solos al
+// precio de esa campaña. Al terminar, vuelven solos al precio
+// normal ($47) — no hace falta tocar nada a mano.
+//
+// Ejemplo para sumar una campaña (descomentar y completar):
+//
+// {
+//   nombre: 'Black Friday',
+//   inicio: '2026-11-27T00:00:00-03:00',
+//   fin:    '2026-11-30T23:59:59-03:00',
+//   precio: '$27 USD',
+//   hook:   'Aprovechá tu experiencia VIP sin pagar precios de lujo'
+// }
+//
+// Si hay dos campañas con fechas superpuestas, gana la primera
+// del array. El precio normal ($47) y la fecha de la próxima
+// suba real ($67 el 21/9) están fijos más abajo, no dependen
+// de este array.
+// ============================================================
+
+var CAMPAIGNS = [
+  // Agregar acá las campañas futuras (Travel Sale, Black Friday, Cyber Monday, etc.)
 ];
-document.getElementById("aerolinea").innerHTML = AEROLINEAS.map(a=>`<option value="${a.v}">${a.label}</option>`).join("");
-const seleccion = { origen: null, destino: null, escala: null };
-function setupAutocomplete(fieldId){
-  const input = document.getElementById(fieldId + "-input");
-  const panel = document.getElementById(fieldId + "-panel");
-  const clearBtn = document.querySelector(`.ac-clear[data-target="${fieldId}"]`);
-  function render(query){
-    const q = query.trim().toLowerCase();
-    let entries = Object.entries(AIRPORTS);
-    if(q){
-      entries = entries.filter(([code,a]) => a.city.toLowerCase().includes(q) || a.country.toLowerCase().includes(q) || code.toLowerCase().includes(q));
+
+var PRECIO_NORMAL = '$47 USD';
+var PRECIO_ANCLA_NORMAL = '$67 USD';
+var FECHA_SUBA_NORMAL = new Date('2026-09-21T00:00:00-03:00').getTime();
+
+(function(){
+  var banner = document.getElementById('promo-banner');
+  var header = document.getElementById('header');
+  var hero = document.getElementById('hero');
+  var row1 = document.getElementById('promo-row1');
+  var row2 = document.getElementById('promo-row2');
+  var timer = document.getElementById('promo-timer');
+
+  function idsDePrecio(){
+    return ['precio-hero-actual','precio-prod-actual','precio-cta-actual','precio-sticky-actual','precio-header-actual'];
+  }
+
+  function setPrecioEnLaPagina(valorConUSD, valorSinUSD){
+    idsDePrecio().forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.textContent = valorConUSD;
+    });
+    var faq = document.getElementById('precio-faq-actual');
+    if(faq) faq.textContent = valorSinUSD;
+  }
+
+  function setAnclaEnLaPagina(valorConUSD){
+    ['precio-hero-tachado','precio-sticky-tachado'].forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.textContent = valorConUSD;
+    });
+    var prod = document.getElementById('precio-prod-tachado');
+    if(prod) prod.textContent = 'Precio regular: ' + valorConUSD;
+  }
+
+  function campañaActiva(){
+    var ahora = new Date().getTime();
+    for(var i = 0; i < CAMPAIGNS.length; i++){
+      var c = CAMPAIGNS[i];
+      var inicio = new Date(c.inicio).getTime();
+      var fin = new Date(c.fin).getTime();
+      if(ahora >= inicio && ahora < fin){
+        return c;
+      }
     }
-    if(entries.length === 0){
-      panel.innerHTML = `<div class="ac-empty">No encontramos ese aeropuerto — probá con el nombre de la ciudad.</div>`;
-      panel.classList.add("open");
+    return null;
+  }
+
+  function ajustarOffsets(){
+    if(!banner) return;
+    var h = banner.style.display === 'none' ? 0 : banner.offsetHeight;
+    header.style.top = h + 'px';
+    hero.style.paddingTop = (h + 80) + 'px';
+  }
+
+  function pintarTimer(restante){
+    if(restante <= 86400000){
+      timer.classList.add('is-urgent');
+    } else {
+      timer.classList.remove('is-urgent');
+    }
+    var d = Math.floor(restante / 86400000);
+    var h = Math.floor((restante % 86400000) / 3600000);
+    var m = Math.floor((restante % 3600000) / 60000);
+    var s = Math.floor((restante % 60000) / 1000);
+    document.getElementById('promo-d').textContent = String(d).padStart(2,'0');
+    document.getElementById('promo-h').textContent = String(h).padStart(2,'0');
+    document.getElementById('promo-m').textContent = String(m).padStart(2,'0');
+    document.getElementById('promo-s').textContent = String(s).padStart(2,'0');
+  }
+
+  function tick(){
+    var ahora = new Date().getTime();
+    var campaña = campañaActiva();
+    banner.style.display = '';
+    banner.classList.remove('is-ended');
+
+    if(campaña){
+      // Estado CAMPAÑA: precio especial + banner con nombre + countdown al cierre de la campaña
+      var fin = new Date(campaña.fin).getTime();
+      var restante = fin - ahora;
+
+      setPrecioEnLaPagina(campaña.precio, campaña.precio.replace(' USD',''));
+      setAnclaEnLaPagina(PRECIO_NORMAL);
+
+      var urgenciaCamp = document.getElementById('precio-urgencia-txt');
+      if(urgenciaCamp) urgenciaCamp.innerHTML = 'Vuelve a ' + PRECIO_NORMAL + ' · <span class="promo-fecha">' + campaña.nombre + '</span>';
+
+      row1.innerHTML = '<span class="promo-fecha">' + campaña.nombre + '</span> 🔥 ' + campaña.hook + ' 🔥';
+      row2.innerHTML = '<strong>' + campaña.precio + '</strong> · <span id="promo-timer">' +
+        '<span id="promo-d">00</span><span class="promo-sep">d</span>' +
+        '<span id="promo-h">00</span><span class="promo-sep">h</span>' +
+        '<span id="promo-m">00</span><span class="promo-sep">m</span>' +
+        '<span id="promo-s">00</span><span class="promo-sep">s</span></span>';
+
+      timer = document.getElementById('promo-timer');
+      pintarTimer(restante);
+      ajustarOffsets();
       return;
     }
-    const porPais = {};
-    entries.forEach(([code,a]) => { (porPais[a.country] ||= []).push([code,a]); });
-    let html = "";
-    Object.keys(porPais).sort().forEach(pais => {
-      html += `<div class="ac-group-label">${porPais[pais][0][1].flag} ${pais}</div>`;
-      porPais[pais].forEach(([code,a]) => {
-        html += `<div class="ac-option" data-code="${code}"><span class="ac-city">${a.city}</span><span class="ac-code">${code}</span></div>`;
-      });
-    });
-    panel.innerHTML = html;
-    panel.classList.add("open");
-  }
-  input.addEventListener("focus", () => render(input.value));
-  input.addEventListener("input", () => {
-    clearBtn.classList.toggle("show", input.value.length > 0);
-    if(seleccion[fieldId] && input.value !== `${AIRPORTS[seleccion[fieldId]].city} (${seleccion[fieldId]})`) seleccion[fieldId] = null;
-    render(input.value);
-  });
-  panel.addEventListener("click", (e) => {
-    const opt = e.target.closest(".ac-option");
-    if(!opt) return;
-    const code = opt.dataset.code;
-    seleccion[fieldId] = code;
-    input.value = `${AIRPORTS[code].city} (${code})`;
-    clearBtn.classList.add("show");
-    panel.classList.remove("open");
-  });
-  clearBtn.addEventListener("click", () => { input.value = ""; seleccion[fieldId] = null; clearBtn.classList.remove("show"); input.focus(); });
-  document.addEventListener("click", (e) => { if(!input.contains(e.target) && !panel.contains(e.target) && !clearBtn.contains(e.target)) panel.classList.remove("open"); });
-}
-["origen","destino","escala"].forEach(setupAutocomplete);
-function distanciaKm(a,b){
-  const R=6371;
-  const dLat=(b.lat-a.lat)*Math.PI/180, dLng=(b.lng-a.lng)*Math.PI/180;
-  const s=Math.sin(dLat/2)**2+Math.cos(a.lat*Math.PI/180)*Math.cos(b.lat*Math.PI/180)*Math.sin(dLng/2)**2;
-  return Math.round(2*R*Math.asin(Math.sqrt(s)));
-}
-function compensacionEC261(km){ if(km<=1500) return 250; if(km<=3500) return 400; return 600; }
-function loungeCard(codigo,rolLabel,delayIndex,anchorId){
-  const a = AIRPORTS[codigo];
-  const salas = LOUNGES[codigo];
-  const style = `id="${anchorId}" style="animation-delay:${delayIndex*70}ms"`;
-  const badge = `<span class="card-tag-badge"><svg class="icon" width="15" height="15"><use href="#icon-lounge"/></svg></span>`;
-  if(!salas){
-    return `<div class="card vacio" ${style}>
-      <div class="card-tag">${badge}<span class="card-tag-label">${rolLabel} · ${a.city}</span></div>
-      <div class="card-titulo">Todavía no tenemos salas verificadas acá</div>
-      <p class="card-texto">No inventamos datos que no confirmamos — pero con ${gt('dragonpass','DragonPass')} o ${gt('prioritypass','Priority Pass')} activo, revisá la app antes de viajar.</p>
-    </div>`;
-  }
-  let salasHtml = salas.map(s=>`
-      <div class="card-titulo" style="font-size:16px;margin-bottom:4px">${s.nombre}</div>
-      <p class="card-texto"><strong>Acceso:</strong> ${s.acceso.replace(/DragonPass/g, gt('dragonpass','DragonPass')).replace(/Priority Pass/g, gt('prioritypass','Priority Pass')).replace(/LoungeKey/g, gt('loungekey','LoungeKey')).replace(/Visa Airport Companion/g, gt('visacompanion','Visa Airport Companion'))}</p>
-      <span class="card-costo">${s.costo}</span>
-      <div style="height:14px"></div>
-  `).join("");
-  return `<div class="card" ${style}>
-    <div class="card-tag">${badge}<span class="card-tag-label">${rolLabel} · ${a.city}</span></div>
-    ${salasHtml}
-  </div>`;
-}
-function buscar(){
-  const origenCod = seleccion.origen, destinoCod = seleccion.destino, escalaCod = seleccion.escala;
-  const aerolineaV = document.getElementById("aerolinea").value;
-  if(!origenCod || !destinoCod){ alert("Elegí origen y destino de la lista para ver tus hacks."); return; }
-  if(origenCod === destinoCod){ alert("Origen y destino no pueden ser el mismo aeropuerto."); return; }
-  sheetOverlay.classList.remove("open");
-  const resultados = document.getElementById("resultados");
-  const loading = document.getElementById("loading");
-  resultados.classList.remove("activo");
-  resultados.innerHTML = "";
-  document.getElementById("chips").style.display = "none";
-  loading.classList.add("activo");
-  setTimeout(() => { loading.scrollIntoView({behavior:"smooth", block:"start"}); }, 300);
-  setTimeout(async () => {
-    await datosListosPromise;
-    loading.classList.remove("activo");
-    renderResultados(origenCod, destinoCod, escalaCod, aerolineaV);
-  }, 600);
-}
-function renderResultados(origenCod, destinoCod, escalaCod, aerolineaV){
-  const origen = AIRPORTS[origenCod], destino = AIRPORTS[destinoCod];
-  const km = distanciaKm(origen,destino);
-  const aerolinea = AEROLINEAS.find(a=>a.v===aerolineaV);
-  const aplicaEC261 = origen.eu || (destino.eu && aerolinea && aerolinea.eu);
-  const compensacion = compensacionEC261(km);
-  let i = 0;
-  document.getElementById("search-pill-titulo").textContent = `${origenCod} → ${destinoCod}`;
-  document.getElementById("search-pill-sub").textContent = `${origen.city} a ${destino.city}`;
-  const reglasHero = [
-    { aplica: aplicaEC261, valor: `€${compensacion}`, unidad: null, etiqueta: "Podrías reclamar por demora", dorado: true },
-    { aplica: true, valor: km.toLocaleString('es-AR'), unidad: "KM", etiqueta: "Distancia de tu ruta", dorado: false },
-  ];
-  const hero = reglasHero.find(r => r.aplica);
-  let html = `<div class="res-header" id="res-header" style="animation-delay:0ms">
-      <div class="res-flightrow">
-        <span class="res-code">${origenCod}</span>
-        <span class="res-flecha-wrap"><span class="res-flecha-line"></span></span>
-        <span class="res-code">${destinoCod}</span>
-      </div>
-      <div class="res-ciudades"><span>${origen.flag} ${origen.city}</span><span>${destino.flag} ${destino.city}</span></div>
-      <div class="res-hero-label">${hero.etiqueta}</div>
-      <div class="res-hero-value${hero.dorado ? ' dorado' : ''}">${hero.valor}${hero.unidad ? `<span class="res-hero-unit">${hero.unidad}</span>` : ''}</div>
-      ${aplicaEC261 ? `<div class="res-count" style="margin-top:14px">${km.toLocaleString('es-AR')} KM</div>` : ''}
-      <div class="res-actions">
-        <button class="res-action-btn" id="btn-guardar-ruta"><svg class="icon" width="14" height="14"><use href="#icon-bookmark"/></svg><span id="btn-guardar-label">Guardar ruta</span></button>
-        <button class="res-action-btn" id="btn-compartir-ruta"><svg class="icon" width="14" height="14"><use href="#icon-share"/></svg>Compartir</button>
-      </div>
-    </div>`;
-  const codigosRutaPromos = [origenCod, escalaCod, destinoCod].filter(Boolean);
-  const hoy = new Date().toISOString().slice(0, 10);
-  const promosVigentes = PROMOS.filter(p =>
-    p.activo &&
-    codigosRutaPromos.includes(p.airport_code) &&
-    (!p.fecha_inicio || p.fecha_inicio <= hoy) &&
-    (!p.fecha_fin || p.fecha_fin >= hoy)
-  );
-  if (promosVigentes.length > 0) {
-    html += `<div class="card" id="card-promos" style="animation-delay:${i++*70}ms;border:1px solid rgba(201,168,76,.35)">
-      <div class="card-tag"><span class="card-tag-badge"><svg class="icon" width="15" height="15"><use href="#icon-tag"/></svg></span><span class="card-tag-label">Hoy encontramos</span></div>
-      ${promosVigentes.map(p => `
-        <div class="card-titulo" style="font-size:17px">${p.partner_name}</div>
-        <p class="card-texto">${p.descripcion}</p>
-      `).join('<div style="height:14px"></div>')}
-    </div>`;
-  }
-  html += loungeCard(origenCod, "Sala VIP en tu origen", i++, "card-lounge");
-  if(escalaCod) html += loungeCard(escalaCod, "Sala VIP en tu escala", i++);
-  html += loungeCard(destinoCod, "Sala VIP en tu destino", i++);
-  const codigosRuta = [origenCod, escalaCod, destinoCod].filter(Boolean);
-  const programasAplicables = STOPOVERS.filter(s => s.aerolinea_v === aerolineaV && codigosRuta.includes(s.hub_code));
-  if (programasAplicables.length > 0) {
-    const hubCiudad = AIRPORTS[programasAplicables[0].hub_code]?.city || programasAplicables[0].hub_code;
-    html += `<div class="card" id="card-stopover" style="animation-delay:${i++*70}ms">
-      <div class="card-tag"><span class="card-tag-badge"><svg class="icon" width="15" height="15"><use href="#icon-bed"/></svg></span><span class="card-tag-label">Programa de stopover · ${hubCiudad}</span></div>
-      ${programasAplicables.map(p => `
-        <div class="card-titulo" style="font-size:16px">${p.nombre_programa}</div>
-        <p class="card-texto">${p.descripcion}</p>
-        ${p.condiciones ? `<p class="card-texto" style="color:var(--gris);font-size:13px">${p.condiciones}</p>` : ""}
-        <span class="card-costo" style="color:${p.tipo === "hotel_gratis" ? "var(--verde)" : "var(--dorado2)"};background:${p.tipo === "hotel_gratis" ? "rgba(111,162,111,0.12)" : "var(--dorado-suave)"}">${p.tipo === "hotel_gratis" ? "Hotel incluido" : "Estadía extendida"}</span>
-      `).join('<div style="height:16px"></div>')}
-    </div>`;
-  }
-  const badgeScale = `<span class="card-tag-badge"><svg class="icon" width="15" height="15"><use href="#icon-scale"/></svg></span>`;
-  if(aplicaEC261){
-    html += `<div class="card" id="card-ec261" style="animation-delay:${i++*70}ms">
-      <div class="card-tag">${badgeScale}<span class="card-tag-label">Derechos del pasajero</span></div>
-      <div class="card-titulo">Puedes tener hasta €${compensacion} si tu vuelo se demora</div>
-      <p class="card-texto">Tu ruta ${origen.eu ? "sale de" : "llega a"} un aeropuerto de la UE${!origen.eu ? " con una aerolínea europea" : ""}, así que el reglamento ${gt('ec261','EC 261/2004')} aplica.</p>
-      <div class="card-frase">"Mi vuelo se retrasó más de tres horas. ¿Qué compensación tienen disponible?"</div>
-    </div>`;
-  } else {
-    html += `<div class="card vacio" id="card-ec261" style="animation-delay:${i++*70}ms">
-      <div class="card-tag">${badgeScale}<span class="card-tag-label">Derechos del pasajero</span></div>
-      <div class="card-titulo">${gt('ec261','EC261')} no aplica en esta ruta</div>
-      <p class="card-texto">Igual pedí voucher de comida y sala VIP si la demora supera las 2 horas.</p>
-    </div>`;
-  }
-  html += `<div class="card" id="card-fare" style="animation-delay:${i++*70}ms">
-    <div class="card-tag"><span class="card-tag-badge"><svg class="icon" width="15" height="15"><use href="#icon-ticket"/></svg></span><span class="card-tag-label">Código de tarifa y upgrade</span></div>
-    <div class="card-titulo">Qué letra mirar antes de comprar este pasaje</div>
-    <p class="card-texto">Tu ${gt('farecode','código de tarifa')} determina tu prioridad real en la lista de upgrades a Business en esta ruta. Buscá "fare rules" en el sitio de la aerolínea antes de confirmar la compra: Y y B tienen prioridad alta, K, L y Q quedan últimas en la lista.</p>
-    <p class="card-texto">Si tu aerolínea ofrece ${gt('plusgrade','Plusgrade / SeatBoost')}, ofertá en el 60-70% del rango disponible — nunca el mínimo ni el máximo — y sumá tu número de fidelidad a la reserva.</p>
-  </div>`;
-  html += `<div class="card" id="card-timeline" style="animation-delay:${i++*70}ms">
-    <div class="card-tag"><span class="card-tag-badge"><svg class="icon" width="15" height="15"><use href="#icon-clock"/></svg></span><span class="card-tag-label">Tu cronograma para esta ruta</span></div>
-    <div class="timeline-item"><div class="timeline-momento">7 días antes</div><div class="timeline-accion">Verificá tu número de fidelidad y buscá el plano del avión en SeatGuru.</div></div>
-    <div class="timeline-item"><div class="timeline-momento">48hs antes</div><div class="timeline-accion">Hacé el check-in apenas se habilita.</div></div>
-    <div class="timeline-item"><div class="timeline-momento">Aeropuerto</div><div class="timeline-accion">Gate cerrando en 45-20 min: momento del upgrade espontáneo.</div></div>
-  </div>`;
-  const cont = document.getElementById("resultados");
-  cont.innerHTML = html;
-  cont.classList.add("activo");
-  document.getElementById("chips").style.display = "flex";
-  cont.scrollIntoView({behavior:"smooth", block:"start"});
-  configurarBotonGuardar(origenCod, destinoCod);
-  configurarBotonCompartir(origen, destino, origenCod, destinoCod, km);
-}
-const RUTAS_KEY = "hf_rutas_guardadas";
-function obtenerRutasGuardadas() {
-  try {
-    return JSON.parse(localStorage.getItem(RUTAS_KEY) || "[]");
-  } catch {
-    return [];
-  }
-}
-function guardarRutasGuardadas(rutas) {
-  localStorage.setItem(RUTAS_KEY, JSON.stringify(rutas));
-}
-function rutaYaGuardada(origenCod, destinoCod) {
-  return obtenerRutasGuardadas().some(r => r.origen === origenCod && r.destino === destinoCod);
-}
-function configurarBotonGuardar(origenCod, destinoCod) {
-  const btn = document.getElementById("btn-guardar-ruta");
-  const label = document.getElementById("btn-guardar-label");
-  function actualizarEstado() {
-    const guardada = rutaYaGuardada(origenCod, destinoCod);
-    btn.classList.toggle("guardada", guardada);
-    label.textContent = guardada ? "Guardada" : "Guardar ruta";
-    btn.querySelector(".icon use").setAttribute("href", guardada ? "#icon-bookmark-filled" : "#icon-bookmark");
-  }
-  actualizarEstado();
-  btn.addEventListener("click", () => {
-    let rutas = obtenerRutasGuardadas();
-    if (rutaYaGuardada(origenCod, destinoCod)) {
-      rutas = rutas.filter(r => !(r.origen === origenCod && r.destino === destinoCod));
-    } else {
-      rutas.unshift({ origen: origenCod, destino: destinoCod });
-      rutas = rutas.slice(0, 6);
+
+    // Estado NORMAL: precio $47, countdown a la suba real del 21/9
+    setPrecioEnLaPagina(PRECIO_NORMAL, PRECIO_NORMAL.replace(' USD',''));
+    setAnclaEnLaPagina(PRECIO_ANCLA_NORMAL);
+
+    var restanteSuba = FECHA_SUBA_NORMAL - ahora;
+    var urgenciaNormal = document.getElementById('precio-urgencia-txt');
+
+    if(restanteSuba <= 0){
+      // Ya pasó el 21/9: el precio normal ahora es $67 (sin ancla, sin countdown)
+      row1.innerHTML = 'Precio actual: <strong>$67 USD</strong>';
+      row2.style.display = 'none';
+      if(urgenciaNormal) urgenciaNormal.style.display = 'none';
+      ajustarOffsets();
+      return;
     }
-    guardarRutasGuardadas(rutas);
-    actualizarEstado();
-    renderRutasGuardadas();
-  });
-}
-function renderRutasGuardadas() {
-  const cont = document.getElementById("saved-routes");
-  const rutas = obtenerRutasGuardadas();
-  if (rutas.length === 0) {
-    cont.classList.remove("activo");
-    cont.innerHTML = "";
-    return;
-  }
-  cont.innerHTML = rutas.map(r => {
-    const o = AIRPORTS[r.origen], d = AIRPORTS[r.destino];
-    if (!o || !d) return "";
-    return `<div class="saved-chip" data-origen="${r.origen}" data-destino="${r.destino}">${o.flag} ${r.origen} → ${d.flag} ${r.destino}</div>`;
-  }).join("");
-  cont.classList.add("activo");
-}
-document.getElementById("saved-routes").addEventListener("click", (e) => {
-  const chip = e.target.closest(".saved-chip");
-  if (!chip) return;
-  const origenCod = chip.dataset.origen, destinoCod = chip.dataset.destino;
-  seleccion.origen = origenCod;
-  seleccion.destino = destinoCod;
-  seleccion.escala = null;
-  document.getElementById("resultados").classList.remove("activo");
-  document.getElementById("loading").classList.add("activo");
-  document.getElementById("loading").scrollIntoView({behavior:"smooth", block:"start"});
-  setTimeout(() => {
-    document.getElementById("loading").classList.remove("activo");
-    renderResultados(origenCod, destinoCod, null, "");
-  }, 500);
-});
-renderRutasGuardadas();
-async function generarTarjetaCompartir(origen, destino, origenCod, destinoCod, km) {
-  try { await document.fonts.load("900 60px 'DM Sans'"); } catch {}
-  try { await document.fonts.load("700 30px 'JetBrains Mono'"); } catch {}
-  const W = 1080, H = 1920;
-  const canvas = document.createElement("canvas");
-  canvas.width = W; canvas.height = H;
-  const ctx = canvas.getContext("2d");
-  const grad = ctx.createLinearGradient(0, 0, 0, H);
-  grad.addColorStop(0, "#141414");
-  grad.addColorStop(1, "#0A0A0A");
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, W, H);
-  ctx.strokeStyle = "rgba(201,168,76,0.35)";
-  ctx.lineWidth = 3;
-  ctx.strokeRect(40, 40, W - 80, H - 80);
-  ctx.textAlign = "center";
-  ctx.fillStyle = "#C9A84C";
-  ctx.font = "700 34px 'DM Sans', sans-serif";
-  ctx.fillText("✦  V I A J E A L I N F I N I T 8", W / 2, 220);
-  ctx.fillStyle = "#FFFFFF";
-  ctx.font = "900 150px 'JetBrains Mono', monospace";
-  ctx.fillText(`${origenCod}`, W / 2, 640);
-  ctx.fillStyle = "#C9A84C";
-  ctx.font = "900 90px 'JetBrains Mono', monospace";
-  ctx.fillText("→", W / 2, 760);
-  ctx.fillStyle = "#FFFFFF";
-  ctx.font = "900 150px 'JetBrains Mono', monospace";
-  ctx.fillText(`${destinoCod}`, W / 2, 900);
-  ctx.fillStyle = "#8C8C8C";
-  ctx.font = "500 38px 'DM Sans', sans-serif";
-  ctx.fillText(`${origen.city} → ${destino.city}`, W / 2, 980);
-  ctx.fillStyle = "#E8C96A";
-  ctx.font = "700 32px 'JetBrains Mono', monospace";
-  ctx.fillText(`${km.toLocaleString('es-AR')} KM`, W / 2, 1040);
-  ctx.fillStyle = "#EDEAE1";
-  ctx.font = "900 56px 'DM Sans', sans-serif";
-  ctx.fillText("Encontré mis hacks", W / 2, 1420);
-  ctx.fillText("de viaje ✈️", W / 2, 1490);
-  ctx.fillStyle = "#C9A84C";
-  ctx.font = "700 40px 'DM Sans', sans-serif";
-  ctx.fillText("app.viajealinfinito.com", W / 2, 1650);
-  return new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
-}
-function configurarBotonCompartir(origen, destino, origenCod, destinoCod, km) {
-  const btn = document.getElementById("btn-compartir-ruta");
-  btn.addEventListener("click", async () => {
-    const texto = `Encontré mis hacks de viaje para ${origenCod} → ${destinoCod} con Hack Finder ✈️ Gratis en app.viajealinfinito.com`;
-    const blob = await generarTarjetaCompartir(origen, destino, origenCod, destinoCod, km);
-    const archivo = blob ? new File([blob], "hack-finder.png", { type: "image/png" }) : null;
-    if (archivo && navigator.canShare && navigator.canShare({ files: [archivo] })) {
-      try {
-        await navigator.share({ files: [archivo], title: "Hack Finder — Viajealinfinit8", text: texto });
-        return;
-      } catch { return; }
+
+    if(urgenciaNormal){
+      urgenciaNormal.style.display = '';
+      urgenciaNormal.innerHTML = 'Sube a $67 · <span class="promo-fecha">21 de septiembre</span>';
     }
-    if (blob) {
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url; a.download = "hack-finder.png";
-      document.body.appendChild(a); a.click(); document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
-    try {
-      await navigator.clipboard.writeText(texto);
-      const original = btn.innerHTML;
-      btn.innerHTML = "Imagen descargada ✓";
-      setTimeout(() => { btn.innerHTML = original; }, 2200);
-    } catch {}
-  });
-}
-document.getElementById("btn-buscar").addEventListener("click", buscar);
-document.getElementById("chips").addEventListener("click", (e) => {
-  const chip = e.target.closest(".chip");
-  if(!chip) return;
-  document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
-  chip.classList.add("active");
-  const target = document.getElementById(chip.dataset.target);
-  if(target) target.scrollIntoView({behavior:"smooth", block:"center"});
-});
-</script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script>
-const SUPABASE_URL = "https://nycgcaqiplijkukwwegy.supabase.co";
-const SUPABASE_KEY = "sb_publishable_IhCjKfxFDqNgTwRzkrI22Q_epc4A71n";
-const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-async function cargarDatosDesdeSupabase() {
-  // Promise.allSettled en vez de Promise.all: si una tabla falla, no
-  // tira abajo a las demás -- cada resultado se procesa por separado.
-  const resultados = await Promise.allSettled([
-    sb.from("airports").select("*"),
-    sb.from("lounges").select("*"),
-    sb.from("glossary_terms").select("*"),
-    sb.from("stopover_programs").select("*"),
-    sb.from("promos").select("*"),
-  ]);
-  const [aeropuertosRes, salasRes, glosarioRes, stopoverRes, promosRes] = resultados.map((r) =>
-    r.status === "fulfilled" ? r.value : { data: null, error: r.reason }
-  );
-
-  // Aeropuertos, salas VIP y glosario son el corazón de la app -- si
-  // alguno de estos tres falla, ahí sí no seguimos (no tendría
-  // sentido mostrar una app sin poder buscar nada).
-  if (aeropuertosRes.error || salasRes.error || glosarioRes.error) {
-    console.error(
-      "Error cargando datos esenciales desde Supabase:",
-      aeropuertosRes.error || salasRes.error || glosarioRes.error
-    );
-    return false;
+    row1.innerHTML = 'Precio actual: <strong>$47 USD</strong>';
+    row2.style.display = 'flex';
+    row2.innerHTML = '<span id="promo-timer">' +
+      '<span id="promo-d">00</span><span class="promo-sep">d</span>' +
+      '<span id="promo-h">00</span><span class="promo-sep">h</span>' +
+      '<span id="promo-m">00</span><span class="promo-sep">m</span>' +
+      '<span id="promo-s">00</span><span class="promo-sep">s</span></span>' +
+      '<span>· sube a $67 el 21/9</span>';
+    timer = document.getElementById('promo-timer');
+    pintarTimer(restanteSuba);
+    ajustarOffsets();
   }
 
-  const aeropuertosNuevo = {};
-  aeropuertosRes.data.forEach((a) => {
-    aeropuertosNuevo[a.code] = {
-      city: a.city,
-      country: a.country,
-      flag: a.flag,
-      lat: a.lat,
-      lng: a.lng,
-      eu: a.is_eu,
-    };
-  });
-  AIRPORTS = aeropuertosNuevo;
-
-  const salasNuevo = {};
-  salasRes.data.forEach((s) => {
-    if (!salasNuevo[s.airport_code]) salasNuevo[s.airport_code] = [];
-    salasNuevo[s.airport_code].push({
-      nombre: s.nombre,
-      acceso: s.acceso,
-      costo: s.costo,
-    });
-  });
-  LOUNGES = salasNuevo;
-
-  const glosarioNuevo = {};
-  glosarioRes.data.forEach((t) => {
-    glosarioNuevo[t.term_key] = { tag: t.tag, titulo: t.titulo, texto: t.texto };
-  });
-  GLOSARIO = glosarioNuevo;
-
-  // Stopover y promos son secciones extra -- si alguna falla, la app
-  // sigue funcionando normal, esa sección puntual simplemente no
-  // aparece (en vez de romper todo lo demás).
-  if (stopoverRes.error) {
-    console.error("Error cargando stopover (no crítico):", stopoverRes.error);
-    STOPOVERS = [];
-  } else {
-    STOPOVERS = stopoverRes.data || [];
-  }
-
-  if (promosRes.error) {
-    console.error("Error cargando promos (no crítico):", promosRes.error);
-    PROMOS = [];
-  } else {
-    PROMOS = promosRes.data || [];
-  }
-
-  return true;
-}
-const datosListosPromise = cargarDatosDesdeSupabase();
-const authGate = document.getElementById("auth-gate");
-const steps = {
-  checking: document.getElementById("auth-step-checking"),
-  email: document.getElementById("auth-step-email"),
-  loading: document.getElementById("auth-step-loading"),
-  sent: document.getElementById("auth-step-sent"),
-  noaccess: document.getElementById("auth-step-noaccess"),
-};
-function mostrarPaso(nombre) {
-  Object.values(steps).forEach(el => el.style.display = "none");
-  steps[nombre].style.display = "block";
-}
-const REDIRECT_URL = "https://app.viajealinfinito.com/";
-let emailPendiente = "";
-async function enviarMagicLink() {
-  const input = document.getElementById("auth-email-input");
-  const email = input.value.trim();
-  const errorMsg = document.getElementById("auth-error-email");
-  const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  if (!emailValido) {
-    errorMsg.classList.add("show");
-    return;
-  }
-  errorMsg.classList.remove("show");
-  mostrarPaso("loading");
-  const { error } = await sb.auth.signInWithOtp({ email });
-  if (error) {
-    mostrarPaso("email");
-    errorMsg.textContent = "Algo falló al enviar el código. Probá de nuevo en un momento.";
-    errorMsg.classList.add("show");
-    return;
-  }
-  emailPendiente = email;
-  document.getElementById("auth-sent-email").textContent = email;
-  document.getElementById("auth-otp-input").value = "";
-  document.getElementById("auth-error-otp").classList.remove("show");
-  mostrarPaso("sent");
-  document.getElementById("auth-otp-input").focus();
-}
-async function confirmarCodigo() {
-  const codeInput = document.getElementById("auth-otp-input");
-  const code = codeInput.value.trim();
-  const errorMsg = document.getElementById("auth-error-otp");
-  if (code.length < 4) {
-    errorMsg.textContent = "Ingresá el código completo tal como te llegó en el mail.";
-    errorMsg.classList.add("show");
-    return;
-  }
-  errorMsg.classList.remove("show");
-  const { data, error } = await sb.auth.verifyOtp({
-    email: emailPendiente,
-    token: code,
-    type: "email"
-  });
-  if (error || !data.user) {
-    errorMsg.textContent = "Código incorrecto o vencido. Fijate que no tenga espacios y probá de nuevo.";
-    errorMsg.classList.add("show");
-    return;
-  }
-  await verificarAcceso(data.user);
-}
-let usuarioActual = null;
-async function verificarAcceso(user) {
-  const { data, error } = await sb
-    .from("profiles")
-    .select("role, premium_expira_en")
-    .eq("id", user.id)
-    .maybeSingle();
-  if (error || !data) {
-    mostrarPaso("noaccess");
-    return false;
-  }
-  const premiumVencido = data.premium_expira_en && new Date(data.premium_expira_en) < new Date();
-  const tieneAcceso = data.role === "admin" || (data.role === "premium" && !premiumVencido);
-  if (!tieneAcceso) {
-    mostrarPaso("noaccess");
-    return false;
-  }
-  usuarioActual = { id: user.id, email: user.email, role: data.role };
-  if (data.role === "admin") {
-    document.getElementById("tab-admin").style.display = "flex";
-  }
-  authGate.classList.add("hidden");
-  return true;
-}
-async function chequearSesionInicial() {
-  const params = new URLSearchParams(window.location.search);
-  const hashParams = new URLSearchParams(window.location.hash.replace("#", "?"));
-  const errorDesc = params.get("error_description") || hashParams.get("error_description");
-  if (errorDesc) {
-    mostrarPaso("email");
-    const errorMsg = document.getElementById("auth-error-email");
-    errorMsg.textContent = "Ese link ya no es válido — probablemente se abrió en un navegador distinto al que usaste para pedirlo, o ya venció. Pedí uno nuevo desde este mismo navegador.";
-    errorMsg.classList.add("show");
-    window.history.replaceState({}, "", window.location.pathname);
-    return;
-  }
-  const timeoutSalvavidas = setTimeout(() => {
-    if (steps.checking.style.display !== "none") {
-      mostrarPaso("email");
-      const errorMsg = document.getElementById("auth-error-email");
-      errorMsg.textContent = "No pudimos confirmar el acceso automáticamente. Probá pedir el link de nuevo.";
-      errorMsg.classList.add("show");
-    }
-  }, 6000);
-  const { data: { session } } = await sb.auth.getSession();
-  clearTimeout(timeoutSalvavidas);
-  if (session && session.user) {
-    await verificarAcceso(session.user);
-  } else {
-    mostrarPaso("email");
-  }
-}
-document.getElementById("auth-send-btn").addEventListener("click", enviarMagicLink);
-document.getElementById("auth-verify-btn").addEventListener("click", confirmarCodigo);
-document.getElementById("auth-otp-input").addEventListener("keydown", (e) => {
-  if (e.key === "Enter") confirmarCodigo();
-});
-document.getElementById("auth-email-input").addEventListener("keydown", (e) => {
-  if (e.key === "Enter") enviarMagicLink();
-});
-document.getElementById("auth-retry-link").addEventListener("click", () => mostrarPaso("email"));
-document.getElementById("auth-logout-link").addEventListener("click", async () => {
-  await sb.auth.signOut();
-  mostrarPaso("email");
-});
-sb.auth.onAuthStateChange((event, session) => {
-  if (event === "SIGNED_IN" && session && session.user) {
-    verificarAcceso(session.user);
-  }
-});
-chequearSesionInicial();
+  tick();
+  ajustarOffsets();
+  setInterval(tick, 1000);
+  window.addEventListener('resize', ajustarOffsets);
+})();
 </script>
 </body>
 </html>
