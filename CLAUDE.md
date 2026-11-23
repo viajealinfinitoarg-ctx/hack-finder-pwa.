@@ -74,43 +74,45 @@ Tablas creadas (todas con RLS activado desde su creación):
 
 | Tabla | Contenido | Estado |
 |---|---|---|
-| `airports` | ~63 aeropuertos (código, ciudad, país, lat/lng, flag, is_eu) | Cargada, pero la app **todavía no la lee** — sigue usando un objeto JS hardcodeado (`AIRPORTS`) dentro de `index.html`. Son los mismos datos duplicados en dos lugares. |
-| `lounges` | ~20 salas VIP verificadas, ligadas a `airport_code` | Misma situación: cargada en Supabase, pero la app lee del objeto JS `LOUNGES` hardcodeado. |
-| `glossary_terms` | Definida en el esquema | Nunca se migró el contenido — el glosario real vive en el objeto JS `GLOSARIO` dentro del HTML. |
-| `promos` | Definida, para futuras colaboraciones con bancos/aerolíneas | Vacía, sin usar todavía. |
-| `profiles` | `id` (= `auth.users.id`), `email`, `has_access`, `purchased_at`, `created_at` | En uso activo — acá es donde se guarda quién tiene acceso pago. |
+| `airports` | Aeropuertos (código, ciudad, país, lat/lng, flag, is_eu) | La app los lee en vivo en `cargarDatosDesdeSupabase()` y llena `AIRPORTS`. Si esta lectura falla, la búsqueda no arranca. |
+| `lounges` | Salas VIP verificadas, ligadas a `airport_code` | Leídas en vivo. Siguen valiendo la regla de no inventar una sala que no esté en la tabla. |
+| `glossary_terms` | Términos del glosario (`term_key`, tag, título, texto) | Leídos en vivo. Si falla, la app no arranca. |
+| `stopover_programs` | Programas de escala | Leídos en vivo. Si falla, esa sección no aparece y el resto sigue. |
+| `promos` | Colaboraciones con bancos/aerolíneas | Leídas en vivo. Sigue vacía: si no hay filas, la sección no aparece. |
+| `profiles` | `id` (= `auth.users.id`), `email`, `role` (`free` / `premium` / `admin`), `premium_expira_en`, `origen_acceso`, `purchased_at`, `created_at`. `has_access` sigue en la tabla pero **el gate no lo usa**. | En uso. El acceso entra si `role = admin`, o si `role = premium` y `premium_expira_en` es null o todavía no venció. |
+| `authorized_buyers` | Mail de compra, para el trigger `handle_new_user` | La usa el trigger al crear un usuario de Auth y la edge function vieja. El webhook de Vercel otorga el acceso escribiendo `profiles` directo. |
 
-**Políticas RLS activas:**
-```sql
-create policy "usuarios ven su propio perfil"
-on profiles for select
-using (auth.uid() = id);
+**Políticas RLS de lectura que usa la app:**
+- `profiles`: "usuarios ven su propio perfil" (`auth.uid() = id`) y "admins ven todos los perfiles" (`is_admin()`). Los admins además pueden actualizar roles.
+- `airports`, `lounges`, `glossary_terms`, `promos`, `stopover_programs`: política de `SELECT` pública (`qual = true`).
 
-grant select on public.profiles to authenticated;
-```
-⚠️ **Lección aprendida y OJO para el futuro:** una política RLS por sí sola **no alcanza** — Supabase también necesita el `GRANT` explícito a nivel de tabla para el rol correspondiente (`authenticated` o `anon`). Si en el futuro se migra `airports`/`lounges`/`glossary_terms` a lectura desde el cliente, van a necesitar su propio `grant select ... to anon` (son datos públicos, no sensibles) además de cualquier policy.
+⚠️ **Lección aprendida:** una política RLS por sí sola **no alcanza** — Supabase también necesita el `GRANT` explícito a nivel de tabla para el rol que usa el cliente. Esas tablas públicas ya se leen desde el navegador: si se les saca el `GRANT SELECT`, se rompen la búsqueda y el glosario.
 
-**Migración pendiente (la pieza grande que falta):** mover `AIRPORTS`, `LOUNGES` y `GLOSARIO` de estar hardcodeados en el HTML a consultarse en vivo desde Supabase. Esto es el requisito previo para construir el **panel de administración** (pantalla donde Rodrigo agregue/edite/borre aeropuertos, salas VIP y promos sin tocar código). Ninguna de las dos cosas está construida todavía.
+**Todavía no existe** el panel para agregar, editar o borrar aeropuertos, salas VIP y promos sin tocar código. Sí existe la pestaña Admin de la app, que lista perfiles y cambia `role`.
 
 ## Autenticación
 
 - **Método:** código de acceso de 6-8 dígitos por mail (NO magic link — se abandonó el magic link a propósito, ver "Decisiones técnicas" abajo).
-- **Flujo:** `signInWithOtp({email})` → el usuario recibe un mail con un código → lo tipea en la app → `verifyOtp({email, token, type:"email"})` → se chequea `profiles.has_access` → si es `true`, pasa; si no, ve un mensaje de "no encontramos tu compra".
+- **Flujo:** `signInWithOtp({email})` → el usuario recibe un mail con un código → lo tipea en la app → `verifyOtp({email, token, type:"email"})` → `verificarAcceso()` lee `profiles.role` y `profiles.premium_expira_en`. Entra si es `admin`, o si es `premium` y la fecha no venció (null cuenta como vigente). Si no, ve "no encontramos tu compra". Un OTP correcto dispara el evento `CompleteRegistration` del Meta Pixel; volver a abrir la app con la sesión ya abierta no lo vuelve a disparar.
 - **Plantilla del mail:** editada en Supabase → Authentication → Emails → "Magic link or OTP". Usa la variable `{{ .Token }}` (con T mayúscula — es sensible a mayúsculas/minúsculas, causó un bug real).
-- ⚠️ **Pendiente de seguridad antes de escalar:** el toggle "Allow new users to sign up" en Supabase Auth está **activado**. Hoy no es grave porque sin `has_access=true` nadie pasa del gate, pero antes de un lanzamiento más grande convendría revisar si conviene desactivarlo (evita que cualquiera cree una cuenta, aunque sea inútil sin acceso).
+- ⚠️ **Pendiente de seguridad antes de escalar:** el toggle "Allow new users to sign up" en Supabase Auth está **activado**. Hoy no es grave porque un alta nueva queda con `role = free` (el trigger `handle_new_user`) y el gate no la deja pasar. Antes de un lanzamiento más grande conviene revisar si hay que desactivarlo.
 - **UI del login:** vive en `#auth-gate`, con 5 estados manejados por `mostrarPaso()`: `checking`, `email`, `loading`, `sent` (ahora es la pantalla de ingresar el código, el nombre del id quedó del diseño viejo), `noaccess`.
 
 ## Automatización de la venta (Tiendup → acceso automático)
 
-- Tiendup dispara el evento **`orders.payment_paid`** (confirmación de pago, no `orders.creation` que dispara antes de confirmar) hacia:
-  `https://app.viajealinfinito.com/api/tiendup-webhook?key=[TIENDUP_WEBHOOK_SECRET]`
-- Como Tiendup no tiene campo nativo de "secret" para firmar el webhook, el secreto va **embebido en el query string de la URL**.
-- La función (`api/tiendup-webhook.js`, sin dependencias npm, usa `fetch` directo a la API de Supabase):
-  1. Extrae el mail del comprador del body (prueba varios formatos posibles, porque no hay documentación pública de Tiendup sobre el shape exacto del payload — **si algo falla, revisar los logs de Vercel Functions, ahí queda logueado el body completo**).
-  2. Busca si el usuario ya existe en Supabase Auth; si no, lo crea (`email_confirm: true`, sin contraseña).
-  3. Hace upsert en `profiles` con `has_access: true`.
-- **Variables de entorno en Vercel** (Project Settings → Environment Variables): `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` (la secret key de Supabase — nunca debe aparecer en el código ni en el frontend), `TIENDUP_WEBHOOK_SECRET`.
-- **Nunca probado con una venta real todavía** — Tiendup no ofrece botón de "test webhook". La primera compra real es la primera prueba de fuego; conviene revisar los Vercel Function Logs después de la primera venta para confirmar que corrió bien.
+- En Tiendup: Configuraciones → Webhooks → Crear Webhook. URL **sin** secreto en el query string:
+  `https://app.viajealinfinito.com/api/tiendup-webhook`
+- Eventos a marcar: `orders.payment_paid` (este otorga el acceso) y, si se quiere recibir el aviso, `orders.creation` (se responde 200 y **no** otorga acceso: ese evento sale antes de confirmar el pago).
+- Cada webhook tiene una firma secreta en el detalle. Tiendup la manda en el header `x-tiendup-signature`. Esa firma, tal cual, va en `TIENDUP_WEBHOOK_SECRET`. Si la variable no está, el endpoint responde 503 y no toca ningún usuario.
+- La función (`api/tiendup-webhook.js`, sin dependencias npm, `fetch` directo a Supabase):
+  1. Solo acepta POST (cualquier otro método: 405).
+  2. Compara la firma. La doc oficial no publica un algoritmo HMAC; se acepta la firma secreta en el header y, además, un HMAC-SHA256 del body crudo. Si no coincide: 401.
+  3. En un pago confirmado, busca al comprador por **email exacto** (`filter` + coincidencia exacta, nunca el primer usuario de la lista). Si no existe, lo crea con `email_confirm: true`, sin contraseña, y vuelve a comprobar que el id devuelto es de ese mismo mail.
+  4. Escribe solo la fila `profiles` de ese id: `role = premium` (si ya era `admin`, lo deja admin), `premium_expira_en = null`, `origen_acceso = compra`, `purchased_at`, y `has_access = true` para que la columna vieja no quede en falso. El gate mira `role` y `premium_expira_en`, no `has_access`.
+- Los logs no guardan el body ni el mail. Si falta el email en un pago, el log trae solo los nombres de los campos (`claves`), para poder ajustar el parser sin datos personales.
+- **Variables de entorno en Vercel** (Production y Preview): `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `TIENDUP_WEBHOOK_SECRET`. Las tres son obligatorias.
+- Para probar: en el webhook de Tiendup, "Enviar evento de prueba", y después una compra real. En los logs de la función tiene que aparecer `prueba` o `ignorado` en el ensayo, y `acceso_activado` en la compra. El evento de prueba no debe crear un premium si Tiendup lo marca como test o si el mail es de un dominio reservado (`example.com`).
+- Existe además una edge function de Supabase llamada `tiendup-webhook` (con `verify_jwt` activo). Este cambio **no la borra ni la despliega**. Se puede desactivar más adelante para que no quede un segundo camino de acceso.
 
 ## Funcionalidades ya construidas
 
@@ -142,4 +144,4 @@ En orden de prioridad sugerido, ninguna implementada todavía:
 1. Estado del vuelo en tiempo real (requeriría una API externa tipo AeroDataBox).
 2. Countdown + notificaciones push atadas a la fecha real del vuelo.
 3. Perfil de fidelidad guardado (tarjetas/programas de millas del usuario, para filtrar hacks relevantes a su situación).
-4. Panel de administración (depende de migrar los datos a Supabase primero, ver arriba).
+4. Panel para editar aeropuertos, salas y promos sin tocar código. La pestaña Admin que cambia el `role` de un perfil ya está. Los datos de aeropuertos, salas y glosario ya se leen desde Supabase.
